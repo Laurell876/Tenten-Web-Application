@@ -4,6 +4,7 @@ import loginScreenImage from "../../images/login-screen-image.jpg";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import {Link } from "react-router-dom";
 
 function LoginScreen() {
   return (
@@ -16,25 +17,36 @@ function LoginScreen() {
         />
       </Grid>
       <Grid item xs={12} lg={6} id="auth_form_section">
-        <Typography variant="h3" id="auth_screen_title">
-          Tenten
-        </Typography>
-        <Typography variant="subtitle1" id="auth_screen_subtitle">
-          Welcome Back!
-        </Typography>
-        <TextField id="standard-basic" label="Email Address" />
-        <TextField id="standard-basic" label="Password" />
+
+        <div id="auth_title_and_subtitle">
+          <Typography variant="h3" id="auth_screen_title">
+            Tenten
+          </Typography>
+          <Typography variant="subtitle1" id="auth_screen_subtitle">
+            Welcome Back!
+          </Typography>
+        </div>
+
+        <div id="auth_fields">
+          <TextField id="standard-basic" label="Email Address" />
+          <TextField id="standard-basic" label="Password" />
+        </div>
+
         <Button variant="contained" id="auth_screen_button">
           Sign in
         </Button>
+
         <div id="auth_screen_redirect_links">
           <Typography variant="subtitle1" id="auth_screen_redirect">
             New to Tenten?
           </Typography>
-          <Typography variant="subtitle1" id="auth_screen_redirect_link">
-            Create An Account.
-          </Typography>
+          <Link to="/signup">
+            <Typography variant="subtitle1" id="auth_screen_redirect_link">
+              Create An Account.
+            </Typography>
+          </Link>
         </div>
+        
       </Grid>
     </Grid>
   );

@@ -2,32 +2,32 @@
 #auth_image_section{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-#auth_form_section {
-    height:100px;
-}
 
 #max-width-container {
     margin:auto;
     max-width:1200px;
+    height:600px;
 }
-
+#auth_fields {
+    display: flex;
+    flex-direction: column;
+}
 #auth_screen_image {
     height: 500px;
-    width: 500px;
-    margin-top:50px;
+    width: 600px;
 }
 
 #auth_screen_title {
-    margin-top:50px;
     font-family: $primaryFont-Bold;
 }
 #auth_screen_subtitle {
-    margin:50px 0;
     font-family: $primaryFont-Light;
     font-size: 20px;
     color:gray;
+    margin-top:20px;
 
 }
 
@@ -35,17 +35,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
 }
 
 #standard-basic {
     font-family: $primaryFont;
-    width:300px;
+    width:250px;
     margin-bottom:20px;
 }
 
 #auth_screen_button {
-    margin-top: 50px;
-    width:300px;
+    width:250px;
     background-color: $primaryColor;
     color:white;
     font-family: $primaryFont;
@@ -60,16 +60,20 @@
 
 #auth_screen_redirect_links {
     color:gray;
-    margin-top: 50px;
     display: flex;
 }
-
+a{
+    text-decoration: none;
+}
 
 #auth_screen_redirect_link {
+    color:black;
+
     cursor: pointer;
     @include animate(all, 320ms);
 
     &:hover{
+        @include animate(all, 320ms);
         color:black;
         &:after {
             opacity: 1;
