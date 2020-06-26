@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'fontsource-roboto';
+import './fonts/Raleway-Regular.ttf'
+import './fonts/Raleway-Bold.ttf'
+import './fonts/Raleway-Light.ttf'
+
+
 
 ReactDOM.render(
   <React.StrictMode>
