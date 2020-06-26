@@ -67,6 +67,7 @@
 
 #auth_screen_redirect_link {
     cursor: pointer;
+    @include animate(all, 320ms);
 
     &:hover{
         color:black;
