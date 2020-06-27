@@ -1,11 +1,18 @@
 #home_screen {
 
-    font-family: $primaryFont-Semibold;
+    font-family: $primaryFont;
 
     #home_screen_title {
+        font-family: $primaryFont-Bold;
         font-size: 30px;
-        margin-bottom: 40px;
+        margin: 60px 0;
     }
+    #home_screen_first_title {
+        font-family: $primaryFont-Bold;
+        font-size: 30px;
+        margin-bottom: 60px;
+    }
+
 
     #cards {
         width: 100%;
@@ -16,7 +23,7 @@
     #listing_card {
 
 
-        height: 370px;
+        height: 390px;
         width: 250px;
         border-radius: 20px;
         box-shadow: $boxShadow;

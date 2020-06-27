@@ -8,6 +8,7 @@ import house from "../images/house.jpg";
 import Grid from "@material-ui/core/Grid";
 import KingBedOutlinedIcon from "@material-ui/icons/KingBedOutlined";
 import BathtubOutlinedIcon from '@material-ui/icons/BathtubOutlined';
+import GradeOutlinedIcon from '@material-ui/icons/GradeOutlined';
 
 export default function Listing() {
   return (
@@ -48,6 +49,10 @@ export default function Listing() {
           <div id="bathrooms">
           <BathtubOutlinedIcon />
           <span>2 br</span>
+          <div id="rating">
+          <GradeOutlinedIcon />
+          <span>4</span>
+          </div>
         </div>
         </div>
       </div>
