@@ -1,8 +1,13 @@
 
 
 
-$primaryColor: #337CA0;
+$primaryColor: rgb(51,124,160);
+$primaryColor-transparent: rgba(51,124,160,0.5);
 
 $primaryFont: Raleway;
 $primaryFont-Light:Raleway-Light;
 $primaryFont-Bold:Raleway-Bold;
+$primaryFont-Semibold:Raleway-Semibold;
+
+
+$boxShadow:5px 5px 10px rgba(0, 0, 0, 0.3);

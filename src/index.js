@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'fontsource-roboto';
 import './fonts/Raleway-Regular.ttf'
 import './fonts/Raleway-Bold.ttf'
 import './fonts/Raleway-Light.ttf'
+import './fonts/Raleway-SemiBold.ttf'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
+import "./sass/style.scss";
 
 
 ReactDOM.render(

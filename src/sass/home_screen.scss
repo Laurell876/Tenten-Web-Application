@@ -1,0 +1,84 @@
+#home_screen {
+
+    font-family: $primaryFont-Semibold;
+
+    #home_screen_title {
+        font-size: 30px;
+        margin-bottom: 40px;
+    }
+
+    #cards {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    #listing_card {
+
+
+        height: 370px;
+        width: 250px;
+        border-radius: 20px;
+        box-shadow: $boxShadow;
+
+
+        #icon_button {
+            &:focus {
+                outline: 0;
+            }
+        }
+
+        #favorite_listing {
+            margin-left: 190px;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background-color: $primaryColor-transparent;
+            @include flexCenter;
+
+            #favorite_icon {
+                color: white;
+            }
+        }
+
+        #listing_card_image {
+            border-radius: 20px 20px 0 0;
+            height: 185px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-top: 20px;
+        }
+
+        #navigation {
+
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: $primaryColor;
+            margin-top: -25px;
+            margin-left: 180px;
+            box-shadow: $boxShadow;
+
+            @include flexCenter;
+
+
+            #navigation_icon {
+                transform: rotate(45deg);
+                border: none;
+                fill: white
+            }
+        }
+
+        #listing_info{
+            font-size:15px;
+            margin-left:20px;
+            span{
+                color:gray;
+            }
+            #listing_title{
+                color:gray;
+            }
+        }
+    }
+
+}

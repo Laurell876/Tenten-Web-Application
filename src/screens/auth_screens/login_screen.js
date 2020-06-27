@@ -4,7 +4,7 @@ import loginScreenImage from "../../images/login-screen-image.jpg";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import {Link } from "react-router-dom";
+import history from "../../components/history";
 
 function LoginScreen() {
   return (
@@ -12,7 +12,7 @@ function LoginScreen() {
       <Grid item lg={6} id="auth_image_section">
         <img
           src={loginScreenImage}
-          alt="Auth Screen Image"
+          alt="Auth Screen"
           id="auth_screen_image"
         />
       </Grid>
@@ -32,7 +32,9 @@ function LoginScreen() {
           <TextField id="standard-basic" label="Password" />
         </div>
 
-        <Button variant="contained" id="auth_screen_button">
+        <Button variant="contained" id="auth_screen_button" onClick={()=>{
+          history.push("/home")
+        }}>
           Sign in
         </Button>
 
@@ -40,11 +42,11 @@ function LoginScreen() {
           <Typography variant="subtitle1" id="auth_screen_redirect">
             New to Tenten?
           </Typography>
-          <Link to="/signup">
-            <Typography variant="subtitle1" id="auth_screen_redirect_link">
+            <Typography variant="subtitle1" id="auth_screen_redirect_link" onClick={()=>{
+              history.push("/signup")
+            }}>
               Create An Account.
             </Typography>
-          </Link>
         </div>
         
       </Grid>
