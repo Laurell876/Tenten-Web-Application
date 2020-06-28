@@ -1,4 +1,4 @@
-#sidebar {
+#sidebar, #sidebar_screen {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -25,6 +25,11 @@
 
     #sidebar_min_field {
         margin-right: 10px;
+    }
+
+    #sidebar_orderby_fields{
+        display: flex;
+        flex-direction: column;
     }
 
 

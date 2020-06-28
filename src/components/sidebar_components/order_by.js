@@ -15,7 +15,7 @@ const generateOrderByFilters = () => {
   let components = [];
   filters.forEach((filter) => {
     components.push(
-      <div>
+      <div id="sidebar_orderby_fields">
         <h3 id="orderby_filter"><span id="orderby_filter_title">{filter}</span>: Low to High</h3>
         <h3 id="orderby_filter"><span id="orderby_filter_title">{filter}</span>: High to Low</h3>
       </div>

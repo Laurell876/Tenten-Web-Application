@@ -1,5 +1,4 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 let typesOfFields = ["Rent","Bedrooms", "Bathrooms"];
@@ -10,25 +9,21 @@ const generateMinMaxFields = () => {
     components.push(
       <div id={`sidebar_${field}`}>
         <h3 id="sidebar_subtitle">{field}</h3>
-        <span id="sidebar_min">
           <input
             type="text"
             id="sidebar_min_field"
             name="Min"
             placeholder ={field == "Rent" ? "$Min" : "Min"}
           />
-        </span>
         <input
           type="text"
           id="sidebar_max_field"
           name="Max"
           placeholder ={field == "Rent" ? "$Max" : "Max"}
           />
-        <span>
           <Button variant="contained" id="sidebar_button">
             Go
           </Button>
-        </span>
       </div>
     );
   });
@@ -37,7 +32,7 @@ const generateMinMaxFields = () => {
 
 export default function SidebarFields() {
   return (
-    <div>
+    <div >
       <div id="sidebar_parish">
         <h3 id="sidebar_subtitle">Parish</h3>
         <input
@@ -53,6 +48,7 @@ export default function SidebarFields() {
         </span>
       </div>
       {generateMinMaxFields()}
+
     </div>
   );
 }
