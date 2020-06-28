@@ -12,7 +12,7 @@ import GradeOutlinedIcon from '@material-ui/icons/GradeOutlined';
 
 export default function Listing() {
   return (
-    <Grid item xs={12} sm={6} lg={3}>
+    <Grid item xs={12} sm={6} lg={4}>
       <div id="listing_card">
         <div
           id="listing_card_image"

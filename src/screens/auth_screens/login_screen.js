@@ -32,7 +32,7 @@ function LoginScreen() {
           <TextField id="standard-basic" label="Password" />
         </div>
 
-        <Button variant="contained" id="auth_screen_button" onClick={()=>{
+        <Button variant="contained" id="auth_screen_button"  onClick={()=>{
           history.push("/home")
         }}>
           Sign in

@@ -3,6 +3,7 @@
 
 $primaryColor: rgb(51,124,160);
 $primaryColor-transparent: rgba(51,124,160,0.5);
+$primaryColor-light : rgba(51,124,160,0.1);
 
 $primaryFont: Raleway;
 $primaryFont-Light:Raleway-Light;
@@ -10,4 +11,5 @@ $primaryFont-Bold:Raleway-Bold;
 $primaryFont-Semibold:Raleway-Semibold;
 
 
-$boxShadow:5px 5px 10px rgba(0, 0, 0, 0.3);
+$boxShadow:3px 3px 5px rgba(0, 0, 0, 0.2);
+$sidebarBoxShadow: 0 0px 5px rgba(0, 0, 0, 0.2);

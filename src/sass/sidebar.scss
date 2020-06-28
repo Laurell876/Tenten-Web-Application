@@ -1,0 +1,109 @@
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    #sidebar_title {
+        letter-spacing: 0.05em;
+        margin: 60px 0 45px 0;
+        font-size: 25px;
+    }
+
+    #sidebar_subtitle {
+        font-size: 20px;
+        margin: 15px 0;
+    }
+
+    #sidebar_field {
+        width: 130px;
+    }
+
+    #sidebar_min_field,
+    #sidebar_max_field {
+        width: 60px;
+    }
+
+    #sidebar_min_field {
+        margin-right: 10px;
+    }
+
+
+    #sidebar_field,
+    #sidebar_min_field,
+    #sidebar_max_field {
+        height: 38.25px;
+        padding: 10px;
+        border: none;
+        box-shadow: $boxShadow;
+        border-radius: 10px;
+
+        font-size: 15px;
+    }
+
+
+    #sidebar_button {
+        &:focus {
+            outline: 0;
+        }
+
+        width:50px;
+        margin-left:15px;
+        font-size:15px;
+        font-family: $primaryFont;
+        background-color: $primaryColor;
+        color:white
+    }
+
+    #orderby_filter_title{
+        font-family: $primaryFont-Semibold;
+        letter-spacing: 0.05em;
+    }
+
+    #orderby_filter {
+        cursor: pointer;
+        font-size: 20px;
+        margin: 20px 0;
+        display: inline-block;
+
+        @include animate(all, 500ms);
+
+        &:hover {
+            @include animate(all, 320ms);
+            color: black;
+
+            &:after {
+                opacity: 1;
+                width: 100%;
+            }
+        }
+
+        &:after {
+            content: '';
+            position: abosolute;
+            display: block;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background: black;
+            opacity: 0;
+            width: 0%;
+            @include animate(all, 500ms);
+        }
+
+    }
+
+    .star_icons {
+        cursor:pointer;
+        &:hover {
+            color:$primaryColor;
+        }
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    #sidebar {
+        visibility: hidden;
+        height: 0px;
+    }
+}
