@@ -5,6 +5,7 @@ import {
   Form,
   FormControl,
 } from "react-bootstrap";
+import history from "./history";
 
 export default function BootstrapNavbar() {
   return (
@@ -15,9 +16,13 @@ export default function BootstrapNavbar() {
 
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link>Home</Nav.Link>
+          <Nav.Link onClick={()=>{
+            history.push("/home")
+          }}>Home</Nav.Link>
           <Nav.Link>Favorites</Nav.Link>
-          <Nav.Link>Chats</Nav.Link>
+          <Nav.Link onClick={()=>{
+            history.push("/chats")
+          }}>Chats</Nav.Link>
           <Nav.Link>Profile</Nav.Link>
         </Nav>
         <Form inline>

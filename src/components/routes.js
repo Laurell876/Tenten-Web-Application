@@ -5,6 +5,7 @@ import LoginScreen from "../screens/auth_screens/login_screen";
 import SignupScreen from "../screens/auth_screens/signup_screen";
 import HomeScreen from "../screens/home_screen";
 import FilterScreen from "../screens/filter_screen";
+import ChatsScreen from "../screens/chats_screen";
 
 
 export default function Routes() {
@@ -15,6 +16,7 @@ export default function Routes() {
         <Route path="/signup" exact component={SignupScreen} />
         <Route path="/home" exact component={HomeScreen} />
         <Route path="/filter" exact component={FilterScreen} />
+        <Route path="/chats" exact component={ChatsScreen} />
 
       </Switch>
     </Router>
