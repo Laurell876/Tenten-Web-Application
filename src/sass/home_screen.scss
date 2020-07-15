@@ -3,7 +3,7 @@
     font-family: $primaryFont;
 
     #home_screen_first_title,
-    #home_screen_titler {
+    #home_screen_title {
         font-family: $primaryFont-Bold;
         font-size: 30px;
     }
@@ -24,7 +24,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top:60px;
         margin-bottom:60px;
     }
 
@@ -37,9 +36,6 @@
         color:white;
         background-color: $primaryColor;
     }
-
-
-
 }
 
 @media only screen and (min-width: 992px) {

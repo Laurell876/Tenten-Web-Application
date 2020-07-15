@@ -14,6 +14,7 @@ export default function ChatsScreen() {
                 <Col lg={3} id="all_chats">
                     <div id="all_chats_heading">
                         Chats
+                        <span id="number_of_chats">7</span>
                     </div>
                     <div id="chats_search">
                         <SearchIcon id="search_icon" />
@@ -21,17 +22,11 @@ export default function ChatsScreen() {
                     </div>
                     <div id="chats_with_users">
                         <SingleChat />
-                        <SingleChat />
-                        <SingleChat />
-                        <SingleChat />
-                        <SingleChat />
-                        <SingleChat />
-                        <SingleChat />
 
                     </div>
                 </Col>
                 <Col lg={9} md={12} id="chat_section">
-                    Chat section
+                    <div id="chat_section_heading">Elizabeth Williams</div>
                 </Col>
             </Row>
         </Container>

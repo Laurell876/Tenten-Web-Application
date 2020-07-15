@@ -3,7 +3,18 @@
     #all_chats {
         padding: 0;
 
-        border: 0.5px solid $grayBorderColor;
+        #number_of_chats{
+            font-size: 15px;
+            height:30px;
+            width:30px;
+            border-radius:50%;
+            @include flexCenter;
+            background-color: $primaryColor;
+            margin-left:10px;
+            color:white;
+        }
+
+        border:$chatScreenBorder;
         #all_chats_heading {
             @include flexCenter;
             font-size: 30px;
@@ -31,7 +42,7 @@
         }
 
         #chats_with_users {
-            overflow-y: scroll;
+            overflow-y: auto;
             width:100%;
             height:calc(100vh - 156px );
             
@@ -46,7 +57,7 @@
             #single_chat{
                 display: flex;
                 padding:15px 0px 15px 15px;
-                border-bottom: 1px solid $grayBorderColor;
+                border-bottom: $chatScreenBorder;
             }
 
             #name_and_last_message {
@@ -66,7 +77,15 @@
     }
 
     #chat_section {
-        background-color: yellow;
+        padding:0;
+        #chat_section_heading{
+            @include flexCenter;
+            border-top:$chatScreenBorder;
+            border-right: $chatScreenBorder;
+            border-bottom: $chatScreenBorder;
+            border-left: none;
+            height:47px;
+        }
     }
 }
 
