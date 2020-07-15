@@ -3,12 +3,12 @@
 
     font-family: $primaryFont;
     #all_chats{
+        padding:0;
         
         
         border: 0.5px solid $grayBorderColor;
         #all_chats_heading {
             @include flexCenter;
-            height:50px;
             font-size: 30px;
         }
     }
@@ -18,8 +18,23 @@
     }
 
     #chats_search{
+        display:flex;
+        align-items: center;
+        color:gray;
+        padding: 0px 0px 0px 20px;
+        height:40px;
         width:100%;
-        background-color: pink;
+        background-color: rgba(0,0,0,0.1);
+
+        #search_chats {
+            background-color: transparent;
+            border:none;
+        }
+
+        #search_icon {
+            margin-right:10px;
+        }
+
     }
 }
 

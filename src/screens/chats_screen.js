@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../components/navbar";
 import { Container, Row, Col } from "react-bootstrap";
 
+import SearchIcon from '@material-ui/icons/Search';
+
 export default function ChatsScreen() {
     return (<div id="chats_screen">
         <Navbar />
@@ -13,7 +15,8 @@ export default function ChatsScreen() {
                         Chats
                     </div>
                     <div id="chats_search">
-                        <span>Search Chats</span>
+                        <SearchIcon id="search_icon"/>
+                        <input type="text" placeholder="Search Chats" id="search_chats"/>
                     </div>
                 </Col>
                 <Col lg={9} md={12} id="chat_section">
