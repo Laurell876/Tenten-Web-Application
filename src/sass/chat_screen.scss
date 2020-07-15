@@ -1,40 +1,72 @@
 #chats_screen {
-
-
     font-family: $primaryFont;
-    #all_chats{
-        padding:0;
-        
-        
+    #all_chats {
+        padding: 0;
+
         border: 0.5px solid $grayBorderColor;
         #all_chats_heading {
             @include flexCenter;
             font-size: 30px;
         }
+
+        #chats_search {
+            display: flex;
+            align-items: center;
+            color: gray;
+            padding: 0px 0px 0px 20px;
+            height: 40px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+
+            #search_chats {
+                background-color: transparent;
+                border: none;
+                width:100%;
+                height:100%;
+            }
+
+            #search_icon {
+                margin-right: 10px;
+            }
+        }
+
+        #chats_with_users {
+            overflow-y: scroll;
+            width:100%;
+            height:calc(100vh - 156px );
+            
+
+            #model_image {
+                height:80px;
+                width:80px;
+                border-radius: 10px;
+                margin-right:15px;
+            }
+
+            #single_chat{
+                display: flex;
+                padding:15px 0px 15px 15px;
+                border-bottom: 1px solid $grayBorderColor;
+            }
+
+            #name_and_last_message {
+                display: flex;
+                flex-direction: column;
+
+                #message_and_time {
+                    display: flex;
+                    justify-content: space-between;
+                    color:gray;
+                }
+            }
+
+
+
+        }
     }
 
-    #chat_section{
+    #chat_section {
         background-color: yellow;
-    }
-
-    #chats_search{
-        display:flex;
-        align-items: center;
-        color:gray;
-        padding: 0px 0px 0px 20px;
-        height:40px;
-        width:100%;
-        background-color: rgba(0,0,0,0.1);
-
-        #search_chats {
-            background-color: transparent;
-            border:none;
-        }
-
-        #search_icon {
-            margin-right:10px;
-        }
-
     }
 }
 

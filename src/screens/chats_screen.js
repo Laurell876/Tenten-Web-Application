@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/navbar";
 import { Container, Row, Col } from "react-bootstrap";
+import SingleChat from "../components/single_chat";
 
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -15,8 +16,18 @@ export default function ChatsScreen() {
                         Chats
                     </div>
                     <div id="chats_search">
-                        <SearchIcon id="search_icon"/>
-                        <input type="text" placeholder="Search Chats" id="search_chats"/>
+                        <SearchIcon id="search_icon" />
+                        <input type="text" placeholder="Search Chats" id="search_chats" />
+                    </div>
+                    <div id="chats_with_users">
+                        <SingleChat />
+                        <SingleChat />
+                        <SingleChat />
+                        <SingleChat />
+                        <SingleChat />
+                        <SingleChat />
+                        <SingleChat />
+
                     </div>
                 </Col>
                 <Col lg={9} md={12} id="chat_section">
