@@ -69,9 +69,6 @@ export default function ChatsScreen() {
                                 </div>
                             </div>
 
-
-
-
                         </div>
 
                         <div id="send_message_field">

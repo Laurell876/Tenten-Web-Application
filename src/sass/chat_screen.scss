@@ -55,6 +55,7 @@
             }
 
             #single_chat{
+                cursor:pointer;
                 display: flex;
                 padding:15px 0px 15px 15px;
                 border-bottom: $chatScreenBorder;
