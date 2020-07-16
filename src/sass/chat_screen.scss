@@ -86,6 +86,79 @@
             border-left: none;
             height:47px;
         }
+
+
+        #received_message_bubble_section,
+        #sent_message_bubble_section {
+            width: 100%;
+            display: flex;
+            
+        }
+
+        #received_message_bubble,
+        #sent_message_bubble {
+            
+            padding: 15px;
+        }
+
+        #received_message_bubble_section {
+            padding:10px 0px 0px 10px;
+
+            justify-content: start;
+
+            #received_message_bubble {
+                max-width:50%;
+                border-radius: 0px 10px 10px 10px;
+                background-color: $primaryColor;
+                color:white;
+            }
+        }
+
+        #sent_message_bubble_section {
+            padding:10px 10px 0px 0px;
+            justify-content: end;
+
+            #sent_message_bubble {
+                max-width:50%;
+                border-radius: 10px 0px 10px 10px;
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        #chat_bubbles_and_send_message_field{
+            height: calc(100% - 47px);
+            border-right:1px solid $grayBorderColor;
+            border-bottom: 1px solid $grayBorderColor;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            #chat_bubbles{
+                height:448px;
+                overflow-y: auto;
+            }
+            
+
+            #send_message_field{
+                border-top: 1px solid $grayBorderColor;
+                padding-top:20px;
+                padding-left: 50px;
+                padding-right: 50px;
+                @include flexCenter;
+                width:100%;
+                margin-bottom: 10px;
+
+
+
+                #send_icon {
+                    margin-left:10px;
+                    &:focus {
+                        outline: 0;
+                    }
+                }
+            }
+        }
     }
 }
 
