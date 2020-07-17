@@ -8,8 +8,6 @@ import { Container, Row, Col } from "react-bootstrap";
 export default function ChatBubblesScreen() {
     return (<div >
         <Navbar />
-        <Container>
             <ChatBubbles />
-        </Container>
     </div>)
 }
