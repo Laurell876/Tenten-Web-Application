@@ -1,20 +1,97 @@
+#chat_section_heading {
+    @include flexCenter;
+    border-top: $chatScreenBorder;
+    border-right: $chatScreenBorder;
+    border-left: $chatScreenBorder;
+    border-bottom: $chatScreenBorder;
+    height: 47px;
+}
+
+#received_message_bubble_section,
+#sent_message_bubble_section {
+    width: 100%;
+    display: flex;
+}
+
+#received_message_bubble,
+#sent_message_bubble {
+    padding: 15px;
+}
+
+#received_message_bubble_section {
+    padding: 10px 0px 0px 10px;
+
+    justify-content: start;
+
+    #received_message_bubble {
+        max-width: 50%;
+        border-radius: 0px 10px 10px 10px;
+        background-color: $primaryColor;
+        color: white;
+    }
+}
+
+#sent_message_bubble_section {
+    padding: 10px 10px 0px 0px;
+    justify-content: end;
+
+    #sent_message_bubble {
+        max-width: 50%;
+        border-radius: 10px 0px 10px 10px;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+#chat_bubbles_and_send_message_field {
+    height: calc(100% - 47px);
+    border-right: 1px solid $grayBorderColor;
+    border-bottom: 1px solid $grayBorderColor;
+    border-left: 1px solid $grayBorderColor;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    #chat_bubbles {
+        height: calc(100vh - 206px);
+        overflow-y: auto;
+    }
+
+    #send_message_field {
+        border-top: 1px solid $grayBorderColor;
+        padding-top: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        @include flexCenter;
+        width: 100%;
+        margin-bottom: 10px;
+
+        #send_icon {
+            margin-left: 10px;
+            &:focus {
+                outline: 0;
+            }
+        }
+    }
+}
+
 #chats_screen {
     font-family: $primaryFont;
     #all_chats {
         padding: 0;
 
-        #number_of_chats{
+        #number_of_chats {
             font-size: 15px;
-            height:30px;
-            width:30px;
-            border-radius:50%;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
             @include flexCenter;
             background-color: $primaryColor;
-            margin-left:10px;
-            color:white;
+            margin-left: 10px;
+            color: white;
         }
 
-        border:$chatScreenBorder;
+        border: $chatScreenBorder;
         #all_chats_heading {
             @include flexCenter;
             font-size: 30px;
@@ -32,8 +109,8 @@
             #search_chats {
                 background-color: transparent;
                 border: none;
-                width:100%;
-                height:100%;
+                width: 100%;
+                height: 100%;
             }
 
             #search_icon {
@@ -43,21 +120,20 @@
 
         #chats_with_users {
             overflow-y: auto;
-            width:100%;
-            height:calc(100vh - 156px );
-            
+            width: 100%;
+            height: calc(100vh - 156px);
 
             #model_image {
-                height:80px;
-                width:80px;
+                height: 80px;
+                width: 80px;
                 border-radius: 10px;
-                margin-right:15px;
+                margin-right: 15px;
             }
 
-            #single_chat{
-                cursor:pointer;
+            #single_chat {
+                cursor: pointer;
                 display: flex;
-                padding:15px 0px 15px 15px;
+                padding: 15px 0px 15px 15px;
                 border-bottom: $chatScreenBorder;
             }
 
@@ -68,95 +144,41 @@
                 #message_and_time {
                     display: flex;
                     justify-content: space-between;
-                    color:gray;
+                    color: gray;
                 }
             }
-
-
-
         }
     }
 
     #chat_section {
-        padding:0;
-        #chat_section_heading{
-            @include flexCenter;
-            border-top:$chatScreenBorder;
-            border-right: $chatScreenBorder;
-            border-bottom: $chatScreenBorder;
+        padding: 0;
+
+        #chat_bubbles_and_send_message_field {
             border-left: none;
-            height:47px;
         }
 
+        #chat_section_heading {
+            border-left: none;
+        }
 
-        #received_message_bubble_section,
-        #sent_message_bubble_section {
+        #chat_bubbles {
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        #send_message_field {
+            border-top: 1px solid $grayBorderColor;
+            padding-top: 20px;
+            padding-left: 50px;
+            padding-right: 50px;
+            @include flexCenter;
             width: 100%;
-            display: flex;
-            
-        }
+            margin-bottom: 10px;
 
-        #received_message_bubble,
-        #sent_message_bubble {
-            
-            padding: 15px;
-        }
-
-        #received_message_bubble_section {
-            padding:10px 0px 0px 10px;
-
-            justify-content: start;
-
-            #received_message_bubble {
-                max-width:50%;
-                border-radius: 0px 10px 10px 10px;
-                background-color: $primaryColor;
-                color:white;
-            }
-        }
-
-        #sent_message_bubble_section {
-            padding:10px 10px 0px 0px;
-            justify-content: end;
-
-            #sent_message_bubble {
-                max-width:50%;
-                border-radius: 10px 0px 10px 10px;
-                background-color: rgba(0, 0, 0, 0.1);
-            }
-        }
-
-        #chat_bubbles_and_send_message_field{
-            height: calc(100% - 47px);
-            border-right:1px solid $grayBorderColor;
-            border-bottom: 1px solid $grayBorderColor;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            #chat_bubbles{
-                height:448px;
-                overflow-y: auto;
-            }
-            
-
-            #send_message_field{
-                border-top: 1px solid $grayBorderColor;
-                padding-top:20px;
-                padding-left: 50px;
-                padding-right: 50px;
-                @include flexCenter;
-                width:100%;
-                margin-bottom: 10px;
-
-
-
-                #send_icon {
-                    margin-left:10px;
-                    &:focus {
-                        outline: 0;
-                    }
+            #send_icon {
+                margin-left: 10px;
+                &:focus {
+                    outline: 0;
                 }
             }
         }
