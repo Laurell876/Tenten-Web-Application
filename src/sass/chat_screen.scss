@@ -12,8 +12,44 @@
             #chat_bubble_section_web{
 
                 #bubbles{
+                    border-right: $chatScreenBorder;
                     height: calc(100vh - 171px);
-                    background-color: yellow;
+                    overflow-y: auto;
+
+                    #message_sent_bubble_section,
+                    #message_received_bubble_section{
+                        margin-top:10px;
+                        display: flex;
+                    }
+
+                    #received_bubble,
+                    #sent_bubble{
+                        padding:15px;
+                        width:50%;
+                    }
+
+                    #message_received_bubble_section{
+                        margin-left:10px;
+                        justify-content: start;
+                        #received_bubble{
+                            color:white;
+                            background-color: $primaryColor;
+                            border-radius: 0 10px 10px 10px;
+                        }
+                    }
+
+                    #message_sent_bubble_section{
+                        
+                        margin-right:10px;
+                        justify-content:end;
+                        #sent_bubble{
+                            color:black;
+                            background-color: $primaryColor-light;
+                            border-radius: 10px 0px 10px 10px;
+                        }
+                    }
+
+                    
                 }
 
                 #send_message_section{
