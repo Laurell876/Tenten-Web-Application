@@ -1,6 +1,60 @@
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+ }
+
 #chats_screen{
     #chat_screen_web{
+
+        #bubble_section{
+            padding:0;
+            #chat_bubble_section_web{
+
+                #bubbles{
+                    height: calc(100vh - 171px);
+                    background-color: yellow;
+                }
+
+                #send_message_section{
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    height:60px;
+                    border-top: $chatScreenBorder;
+                    border-right: $chatScreenBorder;
+
+                    #icon_button{
+                        height:50px;
+                        width:50px;
+                        &:focus {
+                            outline: 0;
+                        }
+                    }
+
+                    #send_message_input{
+                        height:40px;
+                        padding-left:10px;
+                        width: 100%;
+                        margin: 8px 10px;
+                        border-radius: 10px;
+                        border: $chatScreenBorder
+                    }
+                }
+
+                #bubble_section_heading{
+                    font-family: $primaryFont-Bold;
+                    @include flexCenter;
+                    border-top: $chatScreenBorder;
+                    border-right: $chatScreenBorder;
+                    border-bottom: $chatScreenBorder;
+                    height:40px;
+                }
+            }
+        }
+
         #all_chats{
+            padding:0;
 
             #search_chats{
                 border-left: $chatScreenBorder;
