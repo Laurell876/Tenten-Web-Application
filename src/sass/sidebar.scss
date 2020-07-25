@@ -3,11 +3,16 @@
     flex-direction: column;
     align-items: start;
 
-    #sidebar_title {
+    #sidebar_title,
+    #order_by {
         letter-spacing: 0.05em;
         margin: 0px 0 45px 0;
         font-size: 25px;
     }
+    #order_by{
+        margin-top:45px;
+    }
+
 
     #sidebar_subtitle {
         font-size: 20px;
@@ -105,6 +110,8 @@
         }
     }
 }
+
+
 
 @media only screen and (max-width: 992px) {
     #sidebar {

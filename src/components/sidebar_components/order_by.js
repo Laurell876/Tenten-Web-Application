@@ -3,7 +3,7 @@ import React from "react";
 export default function OrderBy() {
   return (
     <div>
-      <h2 id="sidebar_title">Order By</h2>
+      <h2 id="order_by">Order By</h2>
       <h3 id="orderby_filter"> <span id="orderby_filter_title">Latest</span></h3>
       {generateOrderByFilters()}
     </div>
