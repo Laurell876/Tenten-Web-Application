@@ -9,7 +9,7 @@ import ChatsScreen from "../screens/chats_screen";
 import SingleListingScreen from "../screens/single_listing_screen";
 import FavoriteListingsScreen from "../screens/favorite_listings_screen";
 import MyListingsScreen from "../screens/my_listings_screen";
-
+import SearchResultsScreen from "../screens/search_results_screen";
 
 export default function Routes() {
   return (
@@ -23,6 +23,7 @@ export default function Routes() {
         <Route path="/single-listing-screen" exact component={SingleListingScreen} />
         <Route path="/favorite-listings" exact component={FavoriteListingsScreen} />
         <Route path="/my-listings" exact component={MyListingsScreen} />
+        <Route path="/search-results" exact component={SearchResultsScreen} />
       </Switch>
     </Router>
   );

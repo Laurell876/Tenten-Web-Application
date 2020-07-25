@@ -27,17 +27,13 @@ export default function Listing({ favorited, owned_by_current_user }) {
           ? 
           <div id="delete_and_remove_icons">
             
-            <div id="remove_icon" class="icon_outline">
-              <IconButton  id="icon_button">
+              <IconButton  id="remove_icon">
                 <RemoveCircleOutlineIcon id="white_icon" />
               </IconButton>
-            </div>
 
-            <div id="edit_icon" class="icon_outline">
-              <IconButton id="icon_button">
+              <IconButton id="edit_icon">
                 <EditIcon id="white_icon" />
               </IconButton>
-            </div>
           </div>
           
           : 

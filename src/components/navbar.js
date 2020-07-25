@@ -7,6 +7,14 @@ import {
 } from "react-bootstrap";
 import history from "./history";
 
+
+const _handleKeyDown = (e) => {
+  e.preventDefault();
+  if (e.key === 'Enter') {
+    history.push("/search-results")
+  }
+}
+
 export default function BootstrapNavbar() {
   return (
     <Navbar expand="lg" id="bootstrap-navbar">
@@ -15,6 +23,7 @@ export default function BootstrapNavbar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
       <Navbar.Collapse id="basic-navbar-nav">
+
         <Nav className="ml-auto">
           <Nav.Link onClick={()=>{
             history.push("/home")
@@ -48,6 +57,7 @@ export default function BootstrapNavbar() {
           placeholder="Search Tenten"
           className="ml-sm-2"
           id="navbar-search-field"
+          onKeyDown={_handleKeyDown}
         />
       </Form>
       </Navbar.Collapse>

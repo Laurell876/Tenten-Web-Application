@@ -8,7 +8,9 @@
         box-shadow: $boxShadow;
 
 
-        #icon_button {
+        #remove_icon,
+        #edit_icon,
+        .icon_outline {
             &:focus {
                 outline: 0;
             }
