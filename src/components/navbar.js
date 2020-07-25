@@ -48,7 +48,11 @@ export default function BootstrapNavbar() {
             Chats
           </Nav.Link>
           
-          <Nav.Link>Profile</Nav.Link>
+          <Nav.Link onClick={()=>{
+            history.push("/user-profile")
+          }}>
+            Profile
+          </Nav.Link>
 
         </Nav>
         <Form inline>

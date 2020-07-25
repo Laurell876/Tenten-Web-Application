@@ -10,6 +10,8 @@ import SingleListingScreen from "../screens/single_listing_screen";
 import FavoriteListingsScreen from "../screens/favorite_listings_screen";
 import MyListingsScreen from "../screens/my_listings_screen";
 import SearchResultsScreen from "../screens/search_results_screen";
+import UserProfileScreen from "../screens/user_profile_screen";
+
 
 export default function Routes() {
   return (
@@ -24,6 +26,7 @@ export default function Routes() {
         <Route path="/favorite-listings" exact component={FavoriteListingsScreen} />
         <Route path="/my-listings" exact component={MyListingsScreen} />
         <Route path="/search-results" exact component={SearchResultsScreen} />
+        <Route path="/user-profile" exact component={UserProfileScreen} />
       </Switch>
     </Router>
   );

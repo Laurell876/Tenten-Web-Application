@@ -7,6 +7,12 @@
         border-radius: 20px;
         box-shadow: $boxShadow;
 
+        #icon_button{
+            &:focus {
+                outline: 0;
+            }
+        }
+
 
         #remove_icon,
         #edit_icon,

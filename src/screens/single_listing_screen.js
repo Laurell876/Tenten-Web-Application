@@ -59,15 +59,11 @@ export default function SingleListingScreen() {
                         <Col lg={6} md={12} id="rating">
                             <div id="rating_heading">Rate Listing</div>
                             <div id="stars">
-                                {generateStars(5)}
-                                <br />
-                                {generateStars(4)}
-                                <br />
-                                {generateStars(3)}
-                                <br />
-                                {generateStars(2)}
-                                <br />
-                                {generateStars(1)}
+                                <div id="star_icons">{generateStars(5)}</div>
+                                <div id="star_icons">{generateStars(4)}</div>
+                                <div id="star_icons">{generateStars(3)}</div>
+                                <div id="star_icons">{generateStars(2)}</div>
+                                <div id="star_icons">{generateStars(1)}</div>
                             </div>
                         </Col>
                         <div id="divider"></div>

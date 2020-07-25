@@ -1,0 +1,95 @@
+#user_profile_screen {
+    #main_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        #user_image_container {
+            position: relative;
+            #user_image {
+                height: 100px;
+                width: 100px;
+                border-radius: 50%;
+            }
+            #edit_user_image_button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-radius: 50%;
+                background-color: $primaryColor-transparent;
+            }
+
+            #icon_outline {
+                height: 30px;
+                width: 30px;
+                &:focus {
+                    outline: 0;
+                }
+            }
+            #edit_icon {
+                padding: 3px;
+                color: white;
+            }
+        }
+
+        #user_name{
+            margin:20px 0;
+            font-size: 20px;
+        }
+
+        #data_fields{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .input{
+                border:none;
+                border: $chatScreenBorder;
+                padding-left:10px;
+                width:250px;
+                background-color: transparent;
+                border-radius: 20px;
+                margin: 10px 0;
+                height:50px;
+            }
+
+            #date,
+            #gender{
+                margin:20px 0;
+            }
+
+            #birthday{
+                width:100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            #gender_buttons{
+                display: flex;
+            }
+
+            #gender{
+                width:100%;
+                display: flex;
+                justify-content: space-between;
+            }
+            
+        #buttons{
+            width:100%;
+            display: flex;
+            justify-content: space-between;
+            #cancel_button{
+                &:focus {
+                    outline: 0;
+                }
+            }
+    
+        }
+        }
+
+
+
+    }
+}

@@ -5,7 +5,7 @@ import asianModelImage from "../images/asian_model.jpg";
 export default function SingleComment(){
     return(<div id="single_comment">
     <div id="comment_image">
-        <img id="comment_user_image" src={asianModelImage} />
+        <img id="comment_user_image" src={asianModelImage} alt="user_image" />
     </div>
     <div id="comment_content">
         <div id="comment_user_name">Ashley Benson</div>
