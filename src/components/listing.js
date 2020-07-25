@@ -31,7 +31,9 @@ export default function Listing({ favorited, owned_by_current_user }) {
                 <RemoveCircleOutlineIcon id="white_icon" />
               </IconButton>
 
-              <IconButton id="edit_icon">
+              <IconButton id="edit_icon" onClick={()=>{
+                history.push("/edit-listing")
+              }}>
                 <EditIcon id="white_icon" />
               </IconButton>
           </div>

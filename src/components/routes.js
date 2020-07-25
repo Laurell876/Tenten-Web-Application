@@ -12,6 +12,7 @@ import MyListingsScreen from "../screens/my_listings_screen";
 import SearchResultsScreen from "../screens/search_results_screen";
 import UserProfileScreen from "../screens/user_profile_screen";
 import AddListingScreen from "../screens/add_listing_screen";
+import EditListingScreen from "../screens/edit_listing_screen";
 
 
 export default function Routes() {
@@ -29,6 +30,7 @@ export default function Routes() {
         <Route path="/search-results" exact component={SearchResultsScreen} />
         <Route path="/user-profile" exact component={UserProfileScreen} />
         <Route path="/add-listing" exact component={AddListingScreen} />
+        <Route path="/edit-listing" exact component={EditListingScreen} />
       </Switch>
     </Router>
   );
