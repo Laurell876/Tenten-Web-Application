@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import KingBedOutlinedIcon from "@material-ui/icons/KingBedOutlined";
 import BathtubOutlinedIcon from '@material-ui/icons/BathtubOutlined';
 import GradeOutlinedIcon from '@material-ui/icons/GradeOutlined';
+import history from "./history";
 
 export default function Listing() {
   return (
@@ -25,7 +26,9 @@ export default function Listing() {
           </div>
         </div>
 
-        <div id="navigation">
+        <div id="navigation" onClick={() => {
+          history.push("/single-listing-screen")
+        }}>
           <IconButton id="icon_button">
             <NavigationIcon id="navigation_icon" />
           </IconButton>
@@ -47,13 +50,13 @@ export default function Listing() {
             <span>2 bd</span>
           </div>
           <div id="bathrooms">
-          <BathtubOutlinedIcon />
-          <span>2 br</span>
-          <div id="rating">
-          <GradeOutlinedIcon />
-          <span>4</span>
+            <BathtubOutlinedIcon />
+            <span>2 br</span>
+            <div id="rating">
+              <GradeOutlinedIcon />
+              <span>4</span>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </Grid>
