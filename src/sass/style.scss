@@ -23,7 +23,7 @@ IMPORT FILES
 @import "./my_listings.scss";
 @import "./search_result_screen.scss";
 @import "./user_profile_screen.scss";
-
+@import "./add_listing_screen.scss";
 
 
 
@@ -37,7 +37,8 @@ IMPORT FILES
 #home_screen_first_title,
 #home_screen_title,
 #favorites_screen_heading,
-#my_listings_heading {
+#my_listings_heading,
+#add_listing_heading {
     font-family: $primaryFont-Semibold;
     font-size: 30px;
     
@@ -46,6 +47,7 @@ IMPORT FILES
 #home_screen_title,
 #favorites_screen_heading,
 #my_listings_heading,
-#search_result_screen_heading {
+#search_result_screen_heading,
+#add_listing_heading {
     margin-bottom: 60px;
 }

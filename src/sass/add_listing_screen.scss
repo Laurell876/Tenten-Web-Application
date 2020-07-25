@@ -1,0 +1,54 @@
+#add_listing_screen {
+    #add_listing_screen_image {
+        height: 400px;
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    #input_fields {
+
+        #buttons{
+            margin-top:20px;
+            width:100%;
+            display: flex;
+            justify-content: space-around;
+
+            #save_button,
+            #cancel_button{
+                width:100px;
+                &:focus {
+                    outline: 0;
+                }
+            }
+        }
+
+
+        #add_listing_input {
+            background-color: transparent;
+            border: $chatScreenBorder;
+            border-radius: 20px;
+            height: 35px;
+            padding-left: 20px;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        #upload_image {
+            display: flex;
+            justify-content: space-between;
+
+            #upload_image_container {
+                &:focus {
+                    outline: 0;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    #image_column {
+        visibility: hidden;
+        height: 0px;
+    }
+}

@@ -5,6 +5,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import IconButton from "@material-ui/core/IconButton";
 import Listing from "../components/listing";
 import Grid from "@material-ui/core/Grid";
+import history from "../components/history";
 
 
 
@@ -14,7 +15,9 @@ export default function () {
         <Container>
             <div id="my_listings_header">
                 <div id="my_listings_heading">My Listings</div>
-                <IconButton id="add_icon_button" >
+                <IconButton id="add_icon_button" onClick={()=>{
+                    history.push("/add-listing")
+                }} >
                     <AddCircleOutlineIcon />
                 </IconButton>
 
