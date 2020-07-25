@@ -12,20 +12,34 @@
             &:focus {
                 outline: 0;
             }
-        }
-
-        #favorite_listing {
-            margin-left: 190px;
             height: 40px;
             width: 40px;
             border-radius: 50%;
             background-color: $primaryColor-transparent;
             @include flexCenter;
 
-            #favorite_icon {
+            #white_icon {
                 color: white;
             }
-            
+        }
+
+
+
+        #delete_and_remove_icons{
+            width:100%;
+            display: flex;
+            justify-content: space-between;
+            #edit_icon{
+                margin-right: 20px;
+            }
+            #remove_icon{
+                margin-left: 20px;
+            }
+        }
+
+
+        #favorite_listing {
+            margin-left: 190px;
         }
 
         #listing_card_image {

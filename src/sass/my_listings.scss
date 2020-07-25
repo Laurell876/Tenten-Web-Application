@@ -1,0 +1,15 @@
+#my_listings_screen{
+    #my_listings_header{
+        display: flex;
+        justify-content: space-between;
+
+        #add_icon_button{
+            &:focus {
+                outline: 0;
+            }
+            height:40px; 
+            width:40px;
+            color:black;
+        }
+    }
+}

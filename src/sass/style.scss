@@ -20,6 +20,9 @@ IMPORT FILES
 @import "./chat_screen.scss";
 @import "./single_listing_screen.scss";
 @import "./favorite_listings_Screen.scss";
+@import "./my_listings.scss";
+
+
 
 *{
     
@@ -30,13 +33,15 @@ IMPORT FILES
 
 #home_screen_first_title,
 #home_screen_title,
-#favorites_screen_heading {
-    font-family: $primaryFont-Bold;
+#favorites_screen_heading,
+#my_listings_heading {
+    font-family: $primaryFont-Semibold;
     font-size: 30px;
     
 }
 
 #home_screen_title,
-#favorites_screen_heading {
+#favorites_screen_heading,
+#my_listings_heading {
     margin-bottom: 60px;
 }

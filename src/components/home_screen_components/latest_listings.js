@@ -17,11 +17,26 @@ export default function LatestListings() {
           filter & sort
         </Button>
       </div>
-      <Grid container spacing={3}>
-        <Listing />
-        <Listing />
-        <Listing />
-        <Listing />
+      <Grid container spacing={2}>
+      <Grid item xs={12} md={6} lg={4}>
+          <Listing />
+        </Grid>
+        
+        <Grid item xs={12} md={6} lg={4}>
+          <Listing />
+        </Grid>
+
+        <Grid item xs={12} sm={6} lg={4}>
+          <Listing />
+        </Grid>
+
+        <Grid item xs={12} sm={6} lg={4}>
+          <Listing />
+        </Grid>
+
+        <Grid item xs={12} sm={6} lg={4}>
+          <Listing />
+        </Grid>
       </Grid>
     </div>
   );

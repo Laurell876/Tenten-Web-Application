@@ -11,8 +11,10 @@ import BathtubOutlinedIcon from '@material-ui/icons/BathtubOutlined';
 import GradeOutlinedIcon from '@material-ui/icons/GradeOutlined';
 import history from "./history";
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import EditIcon from '@material-ui/icons/Edit';
 
-export default function Listing({favorited}) {
+export default function Listing({ favorited, owned_by_current_user }) {
   return (
     <Grid item xs={12} sm={6} md={4}>
       <div id="listing_card">
@@ -20,11 +22,32 @@ export default function Listing({favorited}) {
           id="listing_card_image"
           style={{ backgroundImage: `url(${house})` }}
         >
-          <div id="favorite_listing">
+          {/* Displays favorite icon or edit/delete icons depending on if the user owns the listing */ }
+          { owned_by_current_user 
+          ? 
+          <div id="delete_and_remove_icons">
+            
+            <div id="remove_icon" class="icon_outline">
+              <IconButton  id="icon_button">
+                <RemoveCircleOutlineIcon id="white_icon" />
+              </IconButton>
+            </div>
+
+            <div id="edit_icon" class="icon_outline">
+              <IconButton id="icon_button">
+                <EditIcon id="white_icon" />
+              </IconButton>
+            </div>
+          </div>
+          
+          : 
+          <div id="favorite_listing" class="icon_outline">
             <IconButton id="icon_button">
-             {favorited ?<FavoriteIcon id="favorite_icon" /> : <FavoriteBorderIcon id="favorite_icon" /> } 
+              {favorited ? <FavoriteIcon id="white_icon" /> : <FavoriteBorderIcon id="white_icon" />}
             </IconButton>
           </div>
+          }
+
         </div>
 
         <div id="navigation" onClick={() => {

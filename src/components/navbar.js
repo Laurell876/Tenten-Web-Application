@@ -18,15 +18,29 @@ export default function BootstrapNavbar() {
         <Nav className="ml-auto">
           <Nav.Link onClick={()=>{
             history.push("/home")
-          }}>Home</Nav.Link>
+          }}>
+            Home
+          </Nav.Link>
+
+
           <Nav.Link onClick={()=>{
             history.push("/favorite-listings")
-          }}>Favorites</Nav.Link>
-          <Nav.Link>My Listings</Nav.Link>
+          }}>
+            Favorites
+          </Nav.Link>
+
+          <Nav.Link onClick={()=>{
+            history.push("/my-listings")
+          }}>My Listings</Nav.Link>
+
           <Nav.Link onClick={()=>{
             history.push("/chats")
-          }}>Chats</Nav.Link>
+          }}>
+            Chats
+          </Nav.Link>
+          
           <Nav.Link>Profile</Nav.Link>
+
         </Nav>
         <Form inline>
         <FormControl

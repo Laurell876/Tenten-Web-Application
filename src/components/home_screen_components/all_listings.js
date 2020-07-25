@@ -7,17 +7,28 @@ export default function AllListings() {
   return (
     <div>
       <h1 id="home_screen_title">All Listings</h1>
-      <Grid container spacing={3}>
-        <Listing />
-        <Listing />
-        <Listing />
-        <Listing />
-        <Listing />
-        <Listing />
-        <Listing />
-        <Listing />
-        <Listing />
-        <Listing />
+      <Grid container spacing={2}>
+      
+        <Grid item xs={12} md={6} lg={4}>
+          <Listing />
+        </Grid>
+        
+        <Grid item xs={12} md={6} lg={4}>
+          <Listing />
+        </Grid>
+
+        <Grid item xs={12} sm={6} lg={4}>
+          <Listing />
+        </Grid>
+
+        <Grid item xs={12} sm={6} lg={4}>
+          <Listing />
+        </Grid>
+
+        <Grid item xs={12} sm={6} lg={4}>
+          <Listing />
+        </Grid>
+
       </Grid>
     </div>
   );
