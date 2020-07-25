@@ -19,11 +19,24 @@ IMPORT FILES
 @import './listing_card.scss';
 @import "./chat_screen.scss";
 @import "./single_listing_screen.scss";
-
+@import "./favorite_listings_Screen.scss";
 
 *{
     
     font-family: Raleway;
     
 
+}
+
+#home_screen_first_title,
+#home_screen_title,
+#favorites_screen_heading {
+    font-family: $primaryFont-Bold;
+    font-size: 30px;
+    
+}
+
+#home_screen_title,
+#favorites_screen_heading {
+    margin-bottom: 60px;
 }

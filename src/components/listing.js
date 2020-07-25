@@ -10,10 +10,11 @@ import KingBedOutlinedIcon from "@material-ui/icons/KingBedOutlined";
 import BathtubOutlinedIcon from '@material-ui/icons/BathtubOutlined';
 import GradeOutlinedIcon from '@material-ui/icons/GradeOutlined';
 import history from "./history";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
-export default function Listing() {
+export default function Listing({favorited}) {
   return (
-    <Grid item xs={12} sm={6} lg={4}>
+    <Grid item xs={12} sm={6} md={4}>
       <div id="listing_card">
         <div
           id="listing_card_image"
@@ -21,7 +22,7 @@ export default function Listing() {
         >
           <div id="favorite_listing">
             <IconButton id="icon_button">
-              <FavoriteBorderIcon id="favorite_icon" />
+             {favorited ?<FavoriteIcon id="favorite_icon" /> : <FavoriteBorderIcon id="favorite_icon" /> } 
             </IconButton>
           </div>
         </div>
@@ -52,7 +53,7 @@ export default function Listing() {
           <div id="bathrooms">
             <BathtubOutlinedIcon />
             <span>2 br</span>
-            <div id="rating">
+            <div id="listing_card_rating">
               <GradeOutlinedIcon />
               <span>4</span>
             </div>

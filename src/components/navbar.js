@@ -19,7 +19,10 @@ export default function BootstrapNavbar() {
           <Nav.Link onClick={()=>{
             history.push("/home")
           }}>Home</Nav.Link>
-          <Nav.Link>Favorites</Nav.Link>
+          <Nav.Link onClick={()=>{
+            history.push("/favorite-listings")
+          }}>Favorites</Nav.Link>
+          <Nav.Link>My Listings</Nav.Link>
           <Nav.Link onClick={()=>{
             history.push("/chats")
           }}>Chats</Nav.Link>
