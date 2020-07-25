@@ -1,20 +1,44 @@
 import React from "react";
 import Navbar from "../components/navbar";
 import { Container, Row, Col } from "react-bootstrap";
-import WebChatScreen from "../components/chat_screen_components/web_chat_screen";
-import MobileChatScreen from "../components/chat_screen_components/mobile_chat_screen";
+
+import SearchIcon from '@material-ui/icons/Search';
+import SingleChatWeb from "../components/chat_screen_components/single_chat_web";
+import ChatBubbleSectionWeb from "../components/chat_screen_components/chat_bubble_section_web";
 
 export default function ChatsScreen() {
     return (<div id="chats_screen">
         <Navbar />
 
         <Container>
-            <Row>   
+            <Row>
                 <Col lg={12} id="chat_screen_web">
-                    <WebChatScreen />
-                </Col>
-                <Col md={12} id="chat_screen_mobile">
-                    <MobileChatScreen />
+                    <div>
+                        <Row>
+                            <Col lg={3} md={2} id="all_chats" >
+                                <div id="all_chats_heading">
+                                    Chats
+                                    <span id="number_of_chats">6</span>
+                                </div>
+                                <div id="search_chats">
+                                    <SearchIcon />
+                                    <input id="search_chats_input" type="text" placeholder="Search Chats" />
+                                </div>
+                                <div id="chat_selection_section">
+                                    <SingleChatWeb active={true} />
+                                    <SingleChatWeb active={false} />
+                                    <SingleChatWeb active={false} />
+                                    <SingleChatWeb active={false} />
+                                    <SingleChatWeb active={false} />
+                                </div>
+                            </Col>
+
+                            <Col lg={9} md={10} id="bubble_section" >
+                                <ChatBubbleSectionWeb />
+                            </Col>
+
+                        </Row>
+                    </div>
                 </Col>
             </Row>
         </Container>

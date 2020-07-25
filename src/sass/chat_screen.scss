@@ -174,25 +174,3 @@
     }
 }
 
-@media only screen and (max-width: 992px) { // Hides web on mobile screens
-    #chats_screen{
-        #chat_screen_web{
-            visibility: hidden;
-            position: absolute;
-            width:0px;
-            height:0px;
-        }
-    }
-  }
-
-
-  @media only screen and (min-width: 992px) { // Hides mobile on web screens
-    #chats_screen{
-        #chat_screen_mobile{
-            visibility: hidden;
-            position: absolute;
-            width:0px;
-            height:0px;
-        }
-    }
-  }
