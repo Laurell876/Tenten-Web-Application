@@ -18,7 +18,9 @@ const _handleKeyDown = (e) => {
 export default function BootstrapNavbar() {
   return (
     <Navbar expand="lg" id="bootstrap-navbar">
-      <Navbar.Brand id="navbar-brand">Tenten</Navbar.Brand>
+      <Navbar.Brand id="navbar-brand" onClick={()=>{
+        history.push("/home")
+      }}>Tenten</Navbar.Brand>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
 

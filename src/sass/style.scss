@@ -24,7 +24,7 @@ IMPORT FILES
 @import "./search_result_screen.scss";
 @import "./user_profile_screen.scss";
 @import "./add_listing_screen.scss";
-
+@import "./alert_dialog.scss";
 
 
 *{
@@ -47,6 +47,13 @@ IMPORT FILES
 #home_screen_title,
 #favorites_screen_heading,
 #my_listings_heading,
-#search_result_screen_heading, {
+#search_result_screen_heading {
     margin-bottom: 60px;
+}
+
+
+#loading_screen{
+    width:100vw;
+    height:100vh;
+    @include flexCenter;
 }

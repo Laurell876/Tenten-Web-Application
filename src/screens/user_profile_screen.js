@@ -79,11 +79,11 @@ export default function UserProfileScreen() {
                 </div>
 
                 <div id="buttons">
-                <Button id="cancel_button" variant="contained">
-                    Cancel
-                </Button>
                 <Button variant="contained" color="primary">
                    Save Changes
+                </Button>
+                <Button id="cancel_button">
+                    Cancel
                 </Button>
             </div>
             </div>

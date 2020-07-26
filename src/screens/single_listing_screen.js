@@ -8,9 +8,20 @@ import modelImage from "../images/model.jpg";
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import SingleComment from "../components/single_comment";
-
+import AlertDialog from "../components/alert_dialog";
 
 export default function SingleListingScreen() {
+
+    function contactOwnerAlert({ functionToRunOnClick }) {
+        return (
+            <IconButton color="inherit" id="icon_button" onClick={functionToRunOnClick}>
+                <ChatBubbleOutlineIcon id="chat_button" />
+            </IconButton>
+
+        )
+    }
+
+
     return (<div>
         <Navbar />
         <Container>
@@ -50,9 +61,8 @@ export default function SingleListingScreen() {
                                 <img id="owner_image" src={asianModelImage} />
                                 <div id="name_and_contact">
                                     <p id="owner_name">Ashley Brown</p>
-                                    <IconButton color="inherit" id="icon_button">
-                                        <ChatBubbleOutlineIcon id="chat_button" />
-                                    </IconButton>
+                                    <AlertDialog Component={contactOwnerAlert} title="Contact Owner" question={"Are you sure you want to contact the owner of this listing?" } />
+
                                 </div>
                             </div>
                         </Col>

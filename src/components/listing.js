@@ -13,8 +13,31 @@ import history from "./history";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import EditIcon from '@material-ui/icons/Edit';
+import AlertDialog from "./alert_dialog";
+
 
 export default function Listing({ favorited, owned_by_current_user }) {
+
+
+  function favoriteIconAlert({ functionToRunOnClick }) {
+    return (
+      <IconButton id="icon_button" onClick={functionToRunOnClick}>
+        {favorited ? <FavoriteIcon id="white_icon" /> : <FavoriteBorderIcon id="white_icon" />}
+      </IconButton>
+    )
+  }
+
+  function removeIconAlert({ functionToRunOnClick }) {
+    return (
+      <IconButton id="remove_icon" onClick={functionToRunOnClick}>
+        <RemoveCircleOutlineIcon id="white_icon" />
+      </IconButton>
+
+    )
+  }
+
+
+
   return (
     <Grid item xs={12} sm={6} md={4}>
       <div id="listing_card">
@@ -22,28 +45,24 @@ export default function Listing({ favorited, owned_by_current_user }) {
           id="listing_card_image"
           style={{ backgroundImage: `url(${house})` }}
         >
-          {/* Displays favorite icon or edit/delete icons depending on if the user owns the listing */ }
-          { owned_by_current_user 
-          ? 
-          <div id="delete_and_remove_icons">
-            
-              <IconButton  id="remove_icon">
-                <RemoveCircleOutlineIcon id="white_icon" />
-              </IconButton>
+          {/* Displays favorite icon or edit/delete icons depending on if the user owns the listing */}
+          {owned_by_current_user
+            ?
+            <div id="delete_and_remove_icons">
+              <AlertDialog Component={removeIconAlert} title="Remove Listing" question={"Are you sure you want to remove this listing" } />
 
-              <IconButton id="edit_icon" onClick={()=>{
+              <IconButton id="edit_icon" onClick={() => {
                 history.push("/edit-listing")
               }}>
                 <EditIcon id="white_icon" />
               </IconButton>
-          </div>
-          
-          : 
-          <div id="favorite_listing" class="icon_outline">
-            <IconButton id="icon_button">
-              {favorited ? <FavoriteIcon id="white_icon" /> : <FavoriteBorderIcon id="white_icon" />}
-            </IconButton>
-          </div>
+            </div>
+
+            :
+            <div id="favorite_listing" class="icon_outline">
+              <AlertDialog Component={favoriteIconAlert} title={favorited ? "Remove Listing From Favorites" : "Add Listing To Favorites"} question={favorited ? "Are you sure you want to remove this listing from favorites" : "Are you sure you want to add this listing to favorites"} />
+
+            </div>
           }
 
         </div>
@@ -84,3 +103,5 @@ export default function Listing({ favorited, owned_by_current_user }) {
     </Grid>
   );
 }
+
+
