@@ -16,14 +16,17 @@ import UserProfileScreen from "../screens/user_profile_screen";
 import AddListingScreen from "../screens/add_listing_screen";
 import EditListingScreen from "../screens/edit_listing_screen";
 import LoadingScreen from "../screens/loading_screen";
+import NotFound from "../screens/not_found";
 
 export default function Routes() {
-  let loggedIn = true;
+  let loggedIn = false;
 
   {
-    return loggedIn ? <Router history={history}>
+    return loggedIn ? 
+    <Router history={history}>
       <Switch>
         <Route path="/" exact component={HomeScreen} />
+        <Route path="/home" exact component={HomeScreen} />
         <Route path="/filter" exact component={FilterScreen} />
         <Route path="/chats" exact component={ChatsScreen} />
         <Route path="/single-listing-screen" exact component={SingleListingScreen} />
@@ -34,11 +37,17 @@ export default function Routes() {
         <Route path="/add-listing" exact component={AddListingScreen} />
         <Route path="/edit-listing" exact component={EditListingScreen} />
         <Route path="/loading" exact component={LoadingScreen} />
+        <Route component={NotFound} /> 
+        {/* This page is displayed when the user goes to an undefined route */}
       </Switch>
-    </Router> : <Router history={history}>
+    </Router> 
+    : 
+    <Router history={history}>
         <Switch>
           <Route path="/" exact component={LoginScreen} />
           <Route path="/signup" exact component={SignupScreen} />
+          <Route component={NotFound} /> 
+        {/* This page is displayed when the user goes to an undefined route */}
         </Switch>
       </Router>
   }
