@@ -3,6 +3,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./components/routes"
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+
+import {useQuery} from "@apollo/react-hooks";
+
+import {usersQuery} from "./graphql/users";
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -13,6 +18,14 @@ const theme = createMuiTheme({
 
 
 function App() {
+  const {data, loading} = useQuery(usersQuery);
+
+  if(loading) {
+    return <div>Loading...</div>
+  }
+  console.log("data ", data)
+
+
   return (
     <ThemeProvider theme={theme}>
       <Router>

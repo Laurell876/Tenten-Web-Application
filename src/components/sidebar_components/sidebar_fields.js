@@ -13,13 +13,13 @@ const generateMinMaxFields = () => {
             type="text"
             id="sidebar_min_field"
             name="Min"
-            placeholder ={field == "Rent" ? "$Min" : "Min"}
+            placeholder ={field === "Rent" ? "$Min" : "Min"}
           />
         <input
           type="text"
           id="sidebar_max_field"
           name="Max"
-          placeholder ={field == "Rent" ? "$Max" : "Max"}
+          placeholder ={field === "Rent" ? "$Max" : "Max"}
           />
           <Button variant="contained" id="sidebar_button">
             Go

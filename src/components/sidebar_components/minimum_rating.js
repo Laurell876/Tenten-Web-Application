@@ -19,7 +19,6 @@ export default function MinimumRating() {
 const generateStars = (numOfStars) => {
   let icons = [];
   for (let i = 0; i < numOfStars; i++) {
-    console.log(i);
     icons.push(<GradeOutlinedIcon />);
   }
   return icons;

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/navbar";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container} from "react-bootstrap";
 import modelImage from "../images/model.jpg";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from '@material-ui/icons/Edit';
@@ -20,7 +20,7 @@ export default function UserProfileScreen() {
         <Container id="main_container">
             <div id="user_image_and_name">
                 <div id="user_image_container">
-                    <img id="user_image" src={modelImage} />
+                    <img id="user_image" src={modelImage} alt="image of user" />
                     <div id="edit_user_image_button">
                         <IconButton id="icon_outline">
                             <EditIcon id="edit_icon" />

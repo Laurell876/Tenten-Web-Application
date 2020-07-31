@@ -52,7 +52,7 @@ export default function AddListingScreen() {
                     </Row>
                 </Col>
                 <Col lg={6} id="image_column">
-                    <img id="add_listing_screen_image" src={housesImage} />
+                    <img id="add_listing_screen_image" src={housesImage} alt="houses"/>
                 </Col>
             </Row>
         </Container>
