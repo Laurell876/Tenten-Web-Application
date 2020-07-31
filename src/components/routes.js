@@ -1,5 +1,7 @@
 import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
+
+
 import history from "./history";
 import LoginScreen from "../screens/auth_screens/login_screen";
 import SignupScreen from "../screens/auth_screens/signup_screen";
@@ -16,12 +18,12 @@ import EditListingScreen from "../screens/edit_listing_screen";
 import LoadingScreen from "../screens/loading_screen";
 
 export default function Routes() {
-  return (
-    <Router history={history}>
+  let loggedIn = true;
+
+  {
+    return loggedIn ? <Router history={history}>
       <Switch>
-        <Route path="/" exact component={LoginScreen} />
-        <Route path="/signup" exact component={SignupScreen} />
-        <Route path="/home" exact component={HomeScreen} />
+        <Route path="/" exact component={HomeScreen} />
         <Route path="/filter" exact component={FilterScreen} />
         <Route path="/chats" exact component={ChatsScreen} />
         <Route path="/single-listing-screen" exact component={SingleListingScreen} />
@@ -33,6 +35,11 @@ export default function Routes() {
         <Route path="/edit-listing" exact component={EditListingScreen} />
         <Route path="/loading" exact component={LoadingScreen} />
       </Switch>
-    </Router>
-  );
+    </Router> : <Router history={history}>
+        <Switch>
+          <Route path="/" exact component={LoginScreen} />
+          <Route path="/signup" exact component={SignupScreen} />
+        </Switch>
+      </Router>
+  }
 }

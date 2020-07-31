@@ -1,8 +1,8 @@
 import {gql} from "apollo-boost";
 
-export const usersQuery =     gql`
+export const ALL_USERS = gql`
 {
-  users(id:"5f2422841bf4a73624c5ef37"){
+  users{
     firstName
     lastName
     email

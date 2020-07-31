@@ -8,14 +8,16 @@ import {
 import history from "./history";
 
 
-const _handleKeyDown = (e) => {
-  e.preventDefault();
-  if (e.key === 'Enter') {
-    history.push("/search-results")
-  }
-}
 
 export default function BootstrapNavbar() {
+
+  const _handleKeyDown = (e) => {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      history.push("/search-results")
+    }
+  }
+  
   return (
     <Navbar expand="lg" id="bootstrap-navbar">
       <Navbar.Brand id="navbar-brand" onClick={()=>{

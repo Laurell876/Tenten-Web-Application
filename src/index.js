@@ -12,21 +12,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import "./sass/style.scss";
 
-import {ApolloProvider} from '@apollo/react-hooks';
 import ApolloClient from "apollo-boost";
+import {ApolloProvider} from "@apollo/react-hooks"
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql'
+  uri: 'http://localhost:4000/graphql',
+  credentials: 'include'
 })
 
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+
+
+<React.StrictMode>
+    <App />
+  </React.StrictMode>
   </ApolloProvider>
-  ,
+,
   document.getElementById('root')
 );
 
