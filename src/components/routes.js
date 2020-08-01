@@ -31,6 +31,7 @@ export default function Routes() {
         path="/home"
         component={HomeScreen}
       />
+      <Route path="*" component={()=>"404 NOT FOUND"} />
 
       {/* 
       <Route path="/home" exact component={HomeScreen} />
