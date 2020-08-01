@@ -30,15 +30,17 @@ function App() {
   useEffect(()=>{
     fetch('http://localhost:4000/refresh_token', {
       method:"POST",
-      credentials: "include"
+      credentials: "include",
     })
     .then(async x => {
       const {accessToken} = await x.json();
       setAccessToken(accessToken) // token is refreshed and replaced
       setLoading(false);
     }
-    );
-    getMe();
+    ).then(()=>{
+      getMe();
+    });
+  
   }, [])
 
   if(loading) {
@@ -50,12 +52,13 @@ function App() {
     console.log(meObject.error)
   }
 
-  if(!meObject.loading && !meObject.error && meObject.data.data && meObject.data.data.me) {
+  if(!meObject.loading && !meObject.error && meObject.data && meObject.data.data) {
     console.log(meObject.data.data.me);
   }
 
   return (
     <ThemeProvider theme={theme}>
+      {meObject.data && meObject.data.me ? meObject.data.me.email : null}
       <Router>
         <Routes />
       </Router>

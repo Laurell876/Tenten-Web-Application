@@ -33,7 +33,12 @@ const LoginInput = new GraphQLObjectType({
 export const SIGN_UP = gql`
   mutation registerV2($data: UserInput!) {
     registerV2(data: $data) {
-      userId
+      user{
+        _id
+        firstName
+        lastName
+        email
+      }
       accessToken
     }
   }
@@ -42,7 +47,12 @@ export const SIGN_UP = gql`
 export const LOGIN = gql`
 mutation loginV2 ($data: LoginInput!) {
     loginV2(data: $data) {
-            userId
+            user {
+              _id
+              firstName
+              lastName
+              email
+            }
             accessToken
     }
 }

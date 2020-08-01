@@ -27,7 +27,7 @@ function LoginScreen() {
         data: {
           email: emailAddress,
           password: password
-        },
+        }
       },
     }); 
     console.log(response)
