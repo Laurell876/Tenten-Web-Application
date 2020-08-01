@@ -31,13 +31,22 @@ const LoginInput = new GraphQLObjectType({
 
 
 export const SIGN_UP = gql`
-  mutation registerV2($type: UserInput!) {
-    registerV2(data: $type) {
+  mutation registerV2($data: UserInput!) {
+    registerV2(data: $data) {
       userId
-      token
+      accessToken
     }
   }
 `;
+
+export const LOGIN = gql`
+mutation loginV2 ($data: LoginInput!) {
+    loginV2(data: $data) {
+            userId
+            accessToken
+    }
+}
+`
 
 
 const ListingInput = new GraphQLObjectType({
@@ -51,21 +60,14 @@ const ListingInput = new GraphQLObjectType({
     city: { type: new GraphQLNonNull(GraphQLString) },
     parish: { type: new GraphQLNonNull(GraphQLString) },
     size: { type: new GraphQLNonNull(GraphQLInt) },
-    description: { type: new GraphQLNonNull(GraphQLString) },
+    description: { type:GraphQLString },
     rent: { type: new GraphQLNonNull(GraphQLInt) },
-    rating: { type: new GraphQLNonNull(GraphQLInt) },
-    featured: { type: new GraphQLNonNull(GraphQLBoolean) }
+    rating: { type: GraphQLInt },
+    featured: { type: GraphQLBoolean }
   })
 })
 
-export const LOGIN = gql`
-mutation loginV2 ($type: LoginInput!) {
-    loginV2(data: $type) {
-            userId
-            token
-    }
-}
-`
+
 export const CREATE_LISTING = gql`
 mutation createListing ($data: ListingInput!) {
   createListing(data: $data){

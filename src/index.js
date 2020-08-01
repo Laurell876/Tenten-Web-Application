@@ -13,11 +13,22 @@ import './index.css';
 import "./sass/style.scss";
 
 import ApolloClient from "apollo-boost";
-import {ApolloProvider} from "@apollo/react-hooks"
+import { ApolloProvider } from "@apollo/react-hooks";
+import { getAccessToken } from "./accessToken";
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
-  credentials: 'include'
+  credentials: 'include',
+  request: (operation) => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      operation.setContext({
+        headers: {
+          authorization: `bearer ${accessToken}`
+        }
+      })
+    }
+  }
 })
 
 
@@ -25,11 +36,11 @@ ReactDOM.render(
   <ApolloProvider client={client}>
 
 
-<React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </ApolloProvider>
-,
+  ,
   document.getElementById('root')
 );
 

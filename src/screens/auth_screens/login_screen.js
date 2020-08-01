@@ -9,28 +9,35 @@ import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../../graphql/mutations";
 import auth from "../../auth.js";
 
+import { setAccessToken } from "../../accessToken";
 
 
 function LoginScreen() {
-  // const [login, { data, loading, error }] = useMutation(LOGIN, {
-  //   errorPolicy: "all",
-  // });
+  const [login, { data, loading, error }] = useMutation(LOGIN, {
+    errorPolicy: "all",
+  });
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
   const loginUser = async () => {
+
+    const response = await login({
+      variables: {
+        data: {
+          email: emailAddress,
+          password: password
+        },
+      },
+    }); 
+    console.log(response)
+    if(response && response.data) {
+     setAccessToken(response.data.loginV2.accessToken)
+    }
+
     auth.login(()=>{
       history.push("/home")
     })
-    // const signedInUser = await login({
-    //   variables: {
-    //     type: {
-    //       email: emailAddress,
-    //       password: password
-    //     },
-    //   },
-    // }); 
   }
 
 

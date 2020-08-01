@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import history from "../../components/history";
 import { useMutation } from "@apollo/react-hooks";
 import {SIGN_UP} from "../../graphql/mutations";
+import auth from "../../auth.js";
 
 function SignupScreen() {
 
@@ -26,7 +27,7 @@ function SignupScreen() {
   const signupUser = async() => {
       const userCreated = await signUp({
         variables: {
-          type: {
+          data: {
             firstName: firstName,
             lastName: lastName,
             email: emailAddress,
@@ -35,7 +36,9 @@ function SignupScreen() {
           },
         },
       });
-      history.push("/home")
+      auth.login(()=>{
+        history.push("/home")
+      })
   }
 
   
