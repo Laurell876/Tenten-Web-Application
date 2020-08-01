@@ -13,6 +13,7 @@ import auth from "../auth";
 export default function HomeScreen({history}) {
   const [createListing, createListingMutationObject] = useMutation(CREATE_LISTING, {
     errorPolicy: "all",
+    fetchPolicy: "no-cache" // doesnt store data in cache
   });
   const { loading, error, data } = useQuery(ALL_USERS, { fetchPolicy: 'network-only' }); // network only ensures data is loaded everytime the page loads ie it doesnt load data from cache  
   
@@ -34,9 +35,6 @@ export default function HomeScreen({history}) {
     console.log(createdListing);
   }
   
-  useEffect(()=>{
-    createListingFunction()
-  }, [])
   
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
@@ -50,13 +48,18 @@ export default function HomeScreen({history}) {
 
   return (
     <div id="home_screen">
-      <button onClick={
+      {/* <button onClick={
         ()=>{
           auth.logout(()=>{
             history.push("/")
           })
         }
-      }>Logout</button>
+      }>Logout</button> */}
+      <button onClick={
+        ()=>{
+          createListingFunction()
+        }
+      }>create listing</button>
       <Navbar />
       <Container>
         <Row>

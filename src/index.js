@@ -7,29 +7,125 @@ import './fonts/Raleway-Regular.ttf'
 import './fonts/Raleway-Bold.ttf'
 import './fonts/Raleway-Light.ttf'
 import './fonts/Raleway-SemiBold.ttf'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import "./sass/style.scss";
-
-import ApolloClient from "apollo-boost";
+//import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { getAccessToken } from "./accessToken";
+import { getAccessToken, setAccessToken, accessToken } from "./accessToken";
 
-const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
-  credentials: 'include',
-  request: (operation) => {
-    const accessToken = getAccessToken();
-    if (accessToken) {
-      operation.setContext({
-        headers: {
-          authorization: `bearer ${accessToken}`
+
+
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
+import { onError } from 'apollo-link-error';
+import { ApolloLink, Observable } from 'apollo-link';
+
+
+import { TokenRefreshLink } from 'apollo-link-token-refresh';
+import jwtDecode from "jwt-decode"
+
+const cache = new InMemoryCache({});
+
+
+const requestLink = new ApolloLink((operation, forward) =>
+  new Observable(observer => {
+    let handle;
+    Promise.resolve(operation)
+      .then((operation) => { // get access token and send it in the header
+        const accessToken = getAccessToken();
+        if (accessToken) {
+          operation.setContext({
+            headers: {
+              authorization: `bearer ${accessToken}`
+            }
+          })
         }
       })
-    }
-  }
-})
+      .then(() => {
+        handle = forward(operation).subscribe({
+          next: observer.next.bind(observer),
+          error: observer.error.bind(observer),
+          complete: observer.complete.bind(observer),
+        });
+      })
+      .catch(observer.error.bind(observer));
+
+    return () => {
+      if (handle) handle.unsubscribe();
+    };
+  })
+);
+
+const client = new ApolloClient({
+  link: ApolloLink.from([
+    new TokenRefreshLink({
+      accessTokenField: 'accessToken',
+      isTokenValidOrUndefined: () => {
+        const token = getAccessToken();
+        console.log("token to be validated", token)
+
+        if(!token){
+          return true;
+        }
+
+        try{
+          const {exp} = jwtDecode(token);
+          if(Date.now() >= exp*1000) { // if the token has expired
+            console.log("token expired")
+            return false;
+          } else{
+            return true; // the token hasn't expired
+          }
+        }catch {
+          return false;
+        }
+      },
+      fetchAccessToken: async () => {
+        return fetch('http://localhost:4000/refresh_token', {
+          method:"POST",
+          credentials: "include"
+        });
+      },
+      handleFetch: accessToken => {
+        //console.log("access token to be set", accessToken)
+        //setAccessToken(accessToken);
+      },
+      handleResponse: (operation, accessTokenField) => async response => {
+        // here you can parse response, handle errors, prepare returned token to
+        // further operations
+  
+        // returned object should be like this:
+        // {
+        //    access_token: 'token string here'
+        // }
+        const resJSON = await response.json();
+        //console.log(resJSON.accessToken)
+        setAccessToken(resJSON.accessToken);
+        //console.log(getAccessToken())
+        return {
+          accessToken: resJSON.accessToken
+        }
+      },
+      handleError: err => {
+         console.warn('Your refresh token is invalid. Try to relogin');
+         console.log(err);
+      }
+    }),
+    onError(({ graphQLErrors, networkError }) => {
+      console.log(graphQLErrors);
+      console.log(networkError);
+    }),
+    requestLink,
+    new HttpLink({
+      uri: 'http://localhost:4000/graphql',
+      credentials: 'include'
+    })
+  ]),
+  cache
+});
+
 
 
 ReactDOM.render(
