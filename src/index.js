@@ -64,7 +64,7 @@ const client = new ApolloClient({
       accessTokenField: 'accessToken',
       isTokenValidOrUndefined: () => {
         const token = getAccessToken();
-        console.log("token to be validated", token)
+        //console.log("token to be validated", token)
 
         if(!token){
           return true;
@@ -82,7 +82,7 @@ const client = new ApolloClient({
           return false;
         }
       },
-      fetchAccessToken: async () => {
+      fetchAccessToken: async () => { //refresh token route is being called
         return fetch('http://localhost:4000/refresh_token', {
           method:"POST",
           credentials: "include"
@@ -92,7 +92,8 @@ const client = new ApolloClient({
         //console.log("access token to be set", accessToken)
         //setAccessToken(accessToken);
       },
-      handleResponse: (operation, accessTokenField) => async response => {
+      handleResponse: (operation, accessTokenField) => async response => { // new access token is set within app
+        console.log("token is being refreshed")
         // here you can parse response, handle errors, prepare returned token to
         // further operations
   

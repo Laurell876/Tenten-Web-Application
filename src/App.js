@@ -4,6 +4,10 @@ import Routes from "./components/routes"
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { setAccessToken } from "./accessToken";
 
+import { useQuery, useLazyQuery, useMutation } from "@apollo/react-hooks";
+import {ME} from "./graphql/queries";
+
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -14,6 +18,10 @@ const theme = createMuiTheme({
 
 
 function App() {
+  const [getMe, meObject] = useLazyQuery(ME, {
+    fetchPolicy:"network-only"
+  })
+
   const [loading, setLoading] = useState(true);
 
   // this runs once when the component mounts ie when the page is loaded/reloaded
@@ -30,10 +38,20 @@ function App() {
       setLoading(false);
     }
     );
+    getMe();
   }, [])
 
   if(loading) {
     return <div>loading...</div>
+  }
+  
+
+  if(meObject.error){
+    console.log(meObject.error)
+  }
+
+  if(!meObject.loading && !meObject.error && meObject.data.data && meObject.data.data.me) {
+    console.log(meObject.data.data.me);
   }
 
   return (
