@@ -1,31 +1,32 @@
 import { gql } from "apollo-boost";
 
 import {
-    GraphQLString,
-    GraphQLObjectType,
-    GraphQLNonNull,
-    GraphQLInt
+  GraphQLString,
+  GraphQLObjectType,
+  GraphQLNonNull,
+  GraphQLInt,
+  GraphQLBoolean
 } from "graphql";
 
 const UserInput = new GraphQLObjectType({
-    name: "User",
-    description: "User type definition",
-    fields: () => ({
-        firstName: { type: new GraphQLNonNull(GraphQLString) },
-        lastName: { type: new GraphQLNonNull(GraphQLString) },
-        email: { type: new GraphQLNonNull(GraphQLString) },
-        password: { type: new GraphQLNonNull(GraphQLString) },
-        tokenVersion: { type: new GraphQLNonNull(GraphQLInt) }
-    }),
+  name: "User",
+  description: "User type definition",
+  fields: () => ({
+    firstName: { type: new GraphQLNonNull(GraphQLString) },
+    lastName: { type: new GraphQLNonNull(GraphQLString) },
+    email: { type: new GraphQLNonNull(GraphQLString) },
+    password: { type: new GraphQLNonNull(GraphQLString) },
+    tokenVersion: { type: new GraphQLNonNull(GraphQLInt) }
+  }),
 });
 
 const LoginInput = new GraphQLObjectType({
-    name: "LoginInput",
-    description: "Login input definition",
-    fields: () => ({
-        email: { type: new GraphQLNonNull(GraphQLString) },
-        password: { type: new GraphQLNonNull(GraphQLString) },
-    }),
+  name: "LoginInput",
+  description: "Login input definition",
+  fields: () => ({
+    email: { type: new GraphQLNonNull(GraphQLString) },
+    password: { type: new GraphQLNonNull(GraphQLString) },
+  }),
 });
 
 
@@ -38,6 +39,25 @@ export const SIGN_UP = gql`
   }
 `;
 
+
+const ListingInput = new GraphQLObjectType({
+  name: "ListingInput",
+  description: "Input type used when creating listings",
+  fields: () => ({
+    title: { type: new GraphQLNonNull(GraphQLString) },
+    bedrooms: { type: new GraphQLNonNull(GraphQLInt) },
+    bathrooms: { type: new GraphQLNonNull(GraphQLInt) },
+    address: { type: new GraphQLNonNull(GraphQLString) },
+    city: { type: new GraphQLNonNull(GraphQLString) },
+    parish: { type: new GraphQLNonNull(GraphQLString) },
+    size: { type: new GraphQLNonNull(GraphQLInt) },
+    description: { type: new GraphQLNonNull(GraphQLString) },
+    rent: { type: new GraphQLNonNull(GraphQLInt) },
+    rating: { type: new GraphQLNonNull(GraphQLInt) },
+    featured: { type: new GraphQLNonNull(GraphQLBoolean) }
+  })
+})
+
 export const LOGIN = gql`
 mutation loginV2 ($type: LoginInput!) {
     loginV2(data: $type) {
@@ -46,3 +66,9 @@ mutation loginV2 ($type: LoginInput!) {
     }
 }
 `
+export const CREATE_LISTING = gql`
+mutation createListing ($data: ListingInput!) {
+  createListing(data: $data){
+    _id
+  }
+}`

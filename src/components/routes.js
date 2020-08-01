@@ -18,37 +18,33 @@ import EditListingScreen from "../screens/edit_listing_screen";
 import LoadingScreen from "../screens/loading_screen";
 import NotFound from "../screens/not_found";
 
-export default function Routes() {
-  let loggedIn = false;
+import { ProtectedRoute } from "../protected.route";
 
-  {
-    return loggedIn ? 
-    <Router history={history}>
-      <Switch>
-        <Route path="/" exact component={HomeScreen} />
-        <Route path="/home" exact component={HomeScreen} />
-        <Route path="/filter" exact component={FilterScreen} />
-        <Route path="/chats" exact component={ChatsScreen} />
-        <Route path="/single-listing-screen" exact component={SingleListingScreen} />
-        <Route path="/favorite-listings" exact component={FavoriteListingsScreen} />
-        <Route path="/my-listings" exact component={MyListingsScreen} />
-        <Route path="/search-results" exact component={SearchResultsScreen} />
-        <Route path="/user-profile" exact component={UserProfileScreen} />
-        <Route path="/add-listing" exact component={AddListingScreen} />
-        <Route path="/edit-listing" exact component={EditListingScreen} />
-        <Route path="/loading" exact component={LoadingScreen} />
-        <Route component={NotFound} /> 
-        {/* This page is displayed when the user goes to an undefined route */}
-      </Switch>
-    </Router> 
-    : 
-    <Router history={history}>
-        <Switch>
-          <Route path="/" exact component={LoginScreen} />
-          <Route path="/signup" exact component={SignupScreen} />
-          <Route component={NotFound} /> 
-        {/* This page is displayed when the user goes to an undefined route */}
-        </Switch>
-      </Router>
-  }
+
+export default function Routes() {
+  return (<Router history={history}>
+    <Switch>
+      <Route path="/" exact component={LoginScreen} />
+      <Route path="/signup" exact component={SignupScreen} />
+      <ProtectedRoute
+        exact
+        path="/home"
+        component={HomeScreen}
+      />
+
+      {/* 
+      <Route path="/home" exact component={HomeScreen} />
+      <Route path="/filter" exact component={FilterScreen} />
+      <Route path="/chats" exact component={ChatsScreen} />
+      <Route path="/single-listing-screen" exact component={SingleListingScreen} />
+      <Route path="/favorite-listings" exact component={FavoriteListingsScreen} />
+      <Route path="/my-listings" exact component={MyListingsScreen} />
+      <Route path="/search-results" exact component={SearchResultsScreen} />
+      <Route path="/user-profile" exact component={UserProfileScreen} />
+      <Route path="/add-listing" exact component={AddListingScreen} />
+      <Route path="/edit-listing" exact component={EditListingScreen} />
+      <Route path="/loading" exact component={LoadingScreen} /> */}
+      {/* <Route component={NotFound} /> */}
+    </Switch>
+  </Router>)
 }

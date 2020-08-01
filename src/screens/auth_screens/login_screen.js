@@ -7,27 +7,30 @@ import Button from "@material-ui/core/Button";
 import history from "../../components/history";
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../../graphql/mutations";
+import auth from "../../auth.js";
 
 
 
 function LoginScreen() {
-  const [login, { data, loading, error }] = useMutation(LOGIN, {
-    errorPolicy: "all",
-  });
+  // const [login, { data, loading, error }] = useMutation(LOGIN, {
+  //   errorPolicy: "all",
+  // });
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
   const loginUser = async () => {
-    const signedInUser = await login({
-      variables: {
-        type: {
-          email: emailAddress,
-          password: password
-        },
-      },
-    }); 
-    history.push("/home")
+    auth.login(()=>{
+      history.push("/home")
+    })
+    // const signedInUser = await login({
+    //   variables: {
+    //     type: {
+    //       email: emailAddress,
+    //       password: password
+    //     },
+    //   },
+    // }); 
   }
 
 
