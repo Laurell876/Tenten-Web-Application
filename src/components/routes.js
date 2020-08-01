@@ -31,12 +31,21 @@ export default function Routes() {
         path="/home"
         component={HomeScreen}
       />
-      <Route path="*" component={()=>"404 NOT FOUND"} />
+      <ProtectedRoute
+        exact
+        path="/chats"
+        component={ChatsScreen}
+      />
+      <ProtectedRoute
+        exact
+        path="/user-profile"
+        component={UserProfileScreen}
+      />
+      <Route path="*" component={() => "404 NOT FOUND"} />
 
       {/* 
       <Route path="/home" exact component={HomeScreen} />
       <Route path="/filter" exact component={FilterScreen} />
-      <Route path="/chats" exact component={ChatsScreen} />
       <Route path="/single-listing-screen" exact component={SingleListingScreen} />
       <Route path="/favorite-listings" exact component={FavoriteListingsScreen} />
       <Route path="/my-listings" exact component={MyListingsScreen} />

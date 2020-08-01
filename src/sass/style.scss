@@ -57,3 +57,9 @@ IMPORT FILES
     height:100vh;
     @include flexCenter;
 }
+
+#simple_menu {
+    &:focus {
+        outline: 0;
+    }
+}

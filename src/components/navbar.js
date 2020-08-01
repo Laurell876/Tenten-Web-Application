@@ -7,16 +7,27 @@ import {
 } from "react-bootstrap";
 
 import history from "./history";
+import SimpleMenu from "./navbar_pop_up_menu";
 
 
 
 export default function BootstrapNavbar() {
+
+
 
   const _handleKeyDown = (e) => {
     e.preventDefault();
     if (e.key === 'Enter') {
       history.push("/search-results")
     }
+  }
+
+  function MenuComponent({onClickFunction, ariaHasPopup, ariaControls}) {
+    return (
+      <Nav.Link onClick={onClickFunction} aria-controls={ariaControls} aria-haspopup={ariaHasPopup}>
+        Profile
+      </Nav.Link>
+    )
   }
   
   return (
@@ -53,11 +64,12 @@ export default function BootstrapNavbar() {
             Chats
           </Nav.Link>
           
-          <Nav.Link onClick={()=>{
+          {/* <Nav.Link onClick={()=>{
             history.push("/user-profile")
           }}>
             Profile
-          </Nav.Link>
+          </Nav.Link> */}
+          <SimpleMenu Component={MenuComponent}/>
 
         </Nav>
         <Form inline>

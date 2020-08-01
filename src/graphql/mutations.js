@@ -84,3 +84,9 @@ mutation createListing ($data: ListingInput!) {
     _id
   }
 }`
+
+export const LOGOUT = gql `
+mutation{
+  logout
+}
+`
