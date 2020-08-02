@@ -11,12 +11,21 @@ function SidebarFields({
   setMaxRentFilterInRedux,
   minBedrooms,
   setMinBedroomsFilterInRedux,
+  maxBedrooms,
+  setMaxBedroomsFilterInRedux,
+  minBathrooms,
+  setMinBathroomsFilterInRedux,
+  maxBathrooms,
+  setMaxBathroomsFilterInRedux,
   setParishFilterInRedux
 }) {
   const [parishFilter, setParishFilterInState] = useState(parish);
   const [minRentFilter, setMinRentFilterInState] = useState(minRent);
   const [maxRentFilter, setMaxRentFilterInState] = useState(maxRent);
   const [minBedroomsFilter, setMinBedroomsFilterInState] = useState(minBedrooms);
+  const [maxBedroomsFilter, setMaxBedroomsFilterInState] = useState(minBedrooms);
+  const [minBathroomsFilter, setMinBathroomsFilterInState] = useState(minBathrooms);
+  const [maxBathroomsFilter, setMaxBathroomsFilterInState] = useState(minBathrooms);
 
   return (
     <div >
@@ -56,7 +65,7 @@ function SidebarFields({
           type="text"
           id="sidebar_max_field"
           name="Max"
-          placeholder={maxRent !== null ? maxRent : "$Max"}
+          placeholder={maxRent ? maxRent : "$Max"}
           onChange={(e) => {
             setMaxRentFilterInState(e.target.value)
           }}
@@ -86,11 +95,15 @@ function SidebarFields({
           type="text"
           id="sidebar_max_field"
           name="Max"
-          placeholder="Max"
+          placeholder={maxBedrooms ? maxBedrooms : "$Max"}
+          onChange={(e) => {
+            setMaxBedroomsFilterInState(e.target.value)
+          }}
         />
         <Button variant="contained" id="sidebar_button" onClick={
           () => {
             setMinBedroomsFilterInRedux(minBedroomsFilter)
+            setMaxBedroomsFilterInRedux(maxBedroomsFilter)
           }
         }>
           Go
@@ -104,15 +117,26 @@ function SidebarFields({
           type="text"
           id="sidebar_min_field"
           name="Min"
-          placeholder="$Min"
+          placeholder={minBathrooms !== 0 ? minBathrooms : "$Min"}
+          onChange={(e) => {
+            setMinBathroomsFilterInState(e.target.value)
+          }}
         />
         <input
           type="text"
           id="sidebar_max_field"
           name="Max"
-          placeholder="Max"
+          placeholder={maxBathrooms ? maxBathrooms : "$Max"}
+          onChange={(e) => {
+            setMaxBathroomsFilterInState(e.target.value)
+          }}
         />
-        <Button variant="contained" id="sidebar_button">
+        <Button variant="contained" id="sidebar_button" onClick={
+          () => {
+            setMinBathroomsFilterInRedux(minBathroomsFilter)
+            setMaxBathroomsFilterInRedux(maxBathroomsFilter)
+          }
+        }>
           Go
           </Button>
       </div>
@@ -127,7 +151,10 @@ const mapStateToProps = (state) => {
     parish: state.filterReducer.parish,
     minRent: state.filterReducer.minRent,
     maxRent: state.filterReducer.maxRent,
-    minBedrooms: state.filterReducer.minBedrooms
+    minBedrooms: state.filterReducer.minBedrooms,
+    maxBedrooms: state.filterReducer.maxBedrooms,
+    minBathrooms: state.filterReducer.minBathrooms,
+    maxBathrooms: state.filterReducer.maxBathrooms
   };
 };
 
@@ -143,7 +170,16 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: "SET_MAX_RENT_FILTER", payload: { maxRent } })
     },
     setMinBedroomsFilterInRedux: (minBedrooms) => {
-      dispatch({type: "SET_MIN_BEDROOMS_FILTER", payload: {minBedrooms}})
+      dispatch({ type: "SET_MIN_BEDROOMS_FILTER", payload: { minBedrooms } })
+    },
+    setMaxBedroomsFilterInRedux: (maxBedrooms) => {
+      dispatch({ type: "SET_MAX_BEDROOMS_FILTER", payload: { maxBedrooms } })
+    },
+    setMinBathroomsFilterInRedux: (minBathrooms) => {
+      dispatch({ type: "SET_MIN_BATHROOMS_FILTER", payload: { minBathrooms } })
+    },
+    setMaxBathroomsFilterInRedux: (maxBathrooms) => {
+      dispatch({ type: "SET_MAX_BATHROOMS_FILTER", payload: { maxBathrooms } })
     }
   };
 };

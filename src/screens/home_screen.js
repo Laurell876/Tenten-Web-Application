@@ -12,7 +12,7 @@ import { ALL_LISTINGS_HOMESCREEN, ME } from "../graphql/queries";
 import { connect } from "react-redux";
 
 
-function HomeScreen({ history, parish, minRent, maxRent, minBedrooms }) {
+function HomeScreen({ history, parish, minRent, maxRent, minBedrooms, maxBedrooms,minBathrooms,maxBathrooms }) {
   const allListingsResponse = useQuery(ALL_LISTINGS_HOMESCREEN, {
     fetchPolicy: "network-only"
   });
@@ -34,7 +34,10 @@ function HomeScreen({ history, parish, minRent, maxRent, minBedrooms }) {
   //Filter listings
   listingsNotOwnedByCurrentUser = listingsNotOwnedByCurrentUser.filter(listing => listing.parish == parish && listing.rent>=minRent)
   .filter(listing=> maxRent ? listing.rent<=maxRent : listing)
-  .filter(listing=> listing.bedrooms >= minBedrooms )
+  .filter(listing=> listing.bedrooms >= minBedrooms)
+  .filter(listing=> maxBedrooms ? listing.bedrooms <= maxBedrooms : listing)
+  .filter(listing => listing.bathrooms >= minBathrooms)
+  .filter(listing => maxBathrooms ? listing.bathrooms <= maxBathrooms : listing)
 
   // Generate Latest Listings
   let latestListings = [];
@@ -75,7 +78,10 @@ const mapStateToProps = (state) => {
     parish: state.filterReducer.parish,
     minRent: state.filterReducer.minRent,
     maxRent: state.filterReducer.maxRent,
-    minBedrooms: state.filterReducer.minBedrooms
+    minBedrooms: state.filterReducer.minBedrooms,
+    maxBedrooms: state.filterReducer.maxBedrooms,
+    minBathrooms: state.filterReducer.minBathrooms,
+    maxBathrooms: state.filterReducer.maxBathrooms
   };
 };
 
