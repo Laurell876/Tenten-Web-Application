@@ -12,7 +12,7 @@ import { ALL_LISTINGS_HOMESCREEN, ME } from "../graphql/queries";
 import { connect } from "react-redux";
 
 
-function HomeScreen({ history, parish }) {
+function HomeScreen({ history, parish, minRent, maxRent }) {
   const allListingsResponse = useQuery(ALL_LISTINGS_HOMESCREEN, {
     fetchPolicy: "network-only"
   });
@@ -32,8 +32,8 @@ function HomeScreen({ history, parish }) {
   let listingsNotOwnedByCurrentUser = listings.filter(listing => listing.owner._id !== currentUser._id);
 
   //Filter listings
-  console.log(listingsNotOwnedByCurrentUser)
-  listingsNotOwnedByCurrentUser = listingsNotOwnedByCurrentUser.filter(listing => listing.parish == parish);
+  listingsNotOwnedByCurrentUser = listingsNotOwnedByCurrentUser.filter(listing => listing.parish == parish && listing.rent>=minRent)
+  .filter(listing=> maxRent ? listing.rent<=maxRent : listing)
 
   // Generate Latest Listings
   let latestListings = [];
@@ -46,7 +46,6 @@ function HomeScreen({ history, parish }) {
 
   // Generate Top Listings
   const topListings = listingsNotOwnedByCurrentUser.filter(listing => listing.rating === 5);
-  console.log(listingsNotOwnedByCurrentUser)
 
 
   return (
@@ -72,19 +71,14 @@ function HomeScreen({ history, parish }) {
 
 const mapStateToProps = (state) => {
   return {
-    parish: state.filterReducer.parish
+    parish: state.filterReducer.parish,
+    minRent: state.filterReducer.minRent,
+    maxRent: state.filterReducer.maxRent
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setParishFilterInRedux: (parish) => {
-      dispatch({ type: "SET_PARISH_FILTER", payload: { parish } });
-    },
-  };
-};
+
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(HomeScreen);
