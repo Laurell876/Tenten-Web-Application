@@ -9,11 +9,14 @@ function SidebarFields({
   setMinRentFilterInRedux,
   maxRent,
   setMaxRentFilterInRedux,
+  minBedrooms,
+  setMinBedroomsFilterInRedux,
   setParishFilterInRedux
 }) {
   const [parishFilter, setParishFilterInState] = useState(parish);
   const [minRentFilter, setMinRentFilterInState] = useState(minRent);
   const [maxRentFilter, setMaxRentFilterInState] = useState(maxRent);
+  const [minBedroomsFilter, setMinBedroomsFilterInState] = useState(minBedrooms);
 
   return (
     <div >
@@ -74,7 +77,10 @@ function SidebarFields({
           type="text"
           id="sidebar_min_field"
           name="Min"
-          placeholder="$Min"
+          placeholder={minBedrooms !== 0 ? minBedrooms : "$Min"}
+          onChange={(e) => {
+            setMinBedroomsFilterInState(e.target.value)
+          }}
         />
         <input
           type="text"
@@ -82,7 +88,11 @@ function SidebarFields({
           name="Max"
           placeholder="Max"
         />
-        <Button variant="contained" id="sidebar_button">
+        <Button variant="contained" id="sidebar_button" onClick={
+          () => {
+            setMinBedroomsFilterInRedux(minBedroomsFilter)
+          }
+        }>
           Go
           </Button>
       </div>
@@ -116,7 +126,8 @@ const mapStateToProps = (state) => {
   return {
     parish: state.filterReducer.parish,
     minRent: state.filterReducer.minRent,
-    maxRent: state.filterReducer.maxRent
+    maxRent: state.filterReducer.maxRent,
+    minBedrooms: state.filterReducer.minBedrooms
   };
 };
 
@@ -130,6 +141,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setMaxRentFilterInRedux: (maxRent) => {
       dispatch({ type: "SET_MAX_RENT_FILTER", payload: { maxRent } })
+    },
+    setMinBedroomsFilterInRedux: (minBedrooms) => {
+      dispatch({type: "SET_MIN_BEDROOMS_FILTER", payload: {minBedrooms}})
     }
   };
 };

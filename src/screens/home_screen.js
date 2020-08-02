@@ -12,7 +12,7 @@ import { ALL_LISTINGS_HOMESCREEN, ME } from "../graphql/queries";
 import { connect } from "react-redux";
 
 
-function HomeScreen({ history, parish, minRent, maxRent }) {
+function HomeScreen({ history, parish, minRent, maxRent, minBedrooms }) {
   const allListingsResponse = useQuery(ALL_LISTINGS_HOMESCREEN, {
     fetchPolicy: "network-only"
   });
@@ -34,6 +34,7 @@ function HomeScreen({ history, parish, minRent, maxRent }) {
   //Filter listings
   listingsNotOwnedByCurrentUser = listingsNotOwnedByCurrentUser.filter(listing => listing.parish == parish && listing.rent>=minRent)
   .filter(listing=> maxRent ? listing.rent<=maxRent : listing)
+  .filter(listing=> listing.bedrooms >= minBedrooms )
 
   // Generate Latest Listings
   let latestListings = [];
@@ -73,7 +74,8 @@ const mapStateToProps = (state) => {
   return {
     parish: state.filterReducer.parish,
     minRent: state.filterReducer.minRent,
-    maxRent: state.filterReducer.maxRent
+    maxRent: state.filterReducer.maxRent,
+    minBedrooms: state.filterReducer.minBedrooms
   };
 };
 

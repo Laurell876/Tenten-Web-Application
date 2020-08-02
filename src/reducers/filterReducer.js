@@ -1,7 +1,8 @@
 const initState = {
     parish: "st. catherine",
     minRent: 0,
-    maxRent: null
+    maxRent: null,
+    minBedrooms: 0
 };
 
 const filterReducer = (state = initState, action) => {
@@ -20,6 +21,11 @@ const filterReducer = (state = initState, action) => {
             return {
                 ...state,
                 maxRent: action.payload.maxRent
+            }
+        case "SET_MIN_BEDROOMS_FILTER":
+            return {
+                ...state,
+                minBedrooms: action.payload.minBedrooms
             }
         default: return state;
     }
