@@ -1,15 +1,14 @@
 import React from "react";
-import Loader from 'react-loader-spinner'
+import {Spinner} from "react-bootstrap";
+
+
+
 export default function LoadingScreen() {
     return (
         <div id="loading_screen">
-            <Loader
-                type="ThreeDots"
-                color="#337CA0"
-                height={50}
-                width={50}
-
-            />
+            <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+            </Spinner>
         </div>
     );
 

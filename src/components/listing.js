@@ -16,7 +16,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AlertDialog from "./alert_dialog";
 
 
-export default function Listing({ favorited, owned_by_current_user }) {
+export default function Listing({ favorited, owned_by_current_user, title, size, bedrooms, bathrooms, address, rating, rent }) {
 
 
   function favoriteIconAlert({ functionToRunOnClick }) {
@@ -49,7 +49,7 @@ export default function Listing({ favorited, owned_by_current_user }) {
           {owned_by_current_user
             ?
             <div id="delete_and_remove_icons">
-              <AlertDialog Component={removeIconAlert} title="Remove Listing" question={"Are you sure you want to remove this listing" } />
+              <AlertDialog Component={removeIconAlert} title="Remove Listing" question={"Are you sure you want to remove this listing"} />
 
               <IconButton id="edit_icon" onClick={() => {
                 history.push("/edit-listing")
@@ -76,26 +76,26 @@ export default function Listing({ favorited, owned_by_current_user }) {
         </div>
 
         <div id="listing_info">
-          <div id="listing_price">$120,000</div>
-          <div id="listing_title">Mini Mansion</div>
+          <div id="listing_price">${rent}</div>
+          <div id="listing_title">{title}</div>
           <div id="listing_address">
             <LocationOnOutlinedIcon />
-            <span>12 Heaven Street</span>
+            <span>{address}</span>
           </div>
           <div id="listing_size">
             <SquareFootIcon />
-            <span>3500 sqft</span>
+            <span>{size}</span>
           </div>
           <div id="bedrooms">
             <KingBedOutlinedIcon />
-            <span>2 bd</span>
+      <span>{bedrooms}</span>
           </div>
           <div id="bathrooms">
             <BathtubOutlinedIcon />
-            <span>2 br</span>
+      <span>{bathrooms}</span>
             <div id="listing_card_rating">
               <GradeOutlinedIcon />
-              <span>4</span>
+      <span>{rating}</span>
             </div>
           </div>
         </div>

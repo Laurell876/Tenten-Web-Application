@@ -6,7 +6,7 @@ import Listing from "../listing";
 import history from "../history";
 
 
-export default function LatestListings() {
+export default function LatestListings({listings}) {
   return (
     <div>
       <div id="home_screen_heading">
@@ -18,17 +18,27 @@ export default function LatestListings() {
         </Button>
       </div>
       <Grid container spacing={2}>
-      <Grid item xs={12} md={6} lg={4}>
-          <Listing />
-        </Grid>
-        
-        <Grid item xs={12} md={6} lg={4}>
-          <Listing />
-        </Grid>
 
-        <Grid item xs={12} sm={6} lg={4}>
-          <Listing />
-        </Grid>
+        {
+        
+        listings.map(listing => {
+          return (
+            <Grid item xs={12} md={6} lg={4}>
+              <Listing 
+              image={listing.image}  
+              title={listing.title}
+              address={listing.address}
+              size={listing.size}
+              bedrooms={listing.bedrooms}
+              bathrooms={listing.bathrooms}
+              rating={listing.rating}
+              rent={listing.rent}
+              />
+            </Grid>
+          )
+        })
+        
+        }
       </Grid>
     </div>
   );

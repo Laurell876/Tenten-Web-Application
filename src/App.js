@@ -6,21 +6,25 @@ import { setAccessToken } from "./accessToken";
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/react-hooks";
 import {ME} from "./graphql/queries";
+import LoadingScreen from "./screens/loading_screen";
 
 
 const theme = createMuiTheme({
   palette: {
     primary: {
       main:"#337CA0",
+    },
+    secondary: {
+      main:"#ffffff"
     }
   },
 });
 
 
 function App() {
-  const [getMe, meObject] = useLazyQuery(ME, {
-    fetchPolicy:"network-only"
-  })
+  // const [getMe, meObject] = useLazyQuery(ME, {
+  //   fetchPolicy:"network-only"
+  // })
 
   const [loading, setLoading] = useState(true);
 
@@ -37,28 +41,29 @@ function App() {
       setAccessToken(accessToken) // token is refreshed and replaced
       setLoading(false);
     }
-    ).then(()=>{
-      getMe();
-    });
+    )
+    // .then(()=>{
+    //   getMe();
+    // });
   
   }, [])
 
   if(loading) {
-    return <div>loading...</div>
+    return <LoadingScreen />
   }
   
 
-  if(meObject.error){
-    console.log(meObject.error)
-  }
+  // if(meObject.error){
+  //   console.log(meObject.error)
+  // }
 
-  if(!meObject.loading && !meObject.error && meObject.data && meObject.data.data) {
-    console.log(meObject.data.data.me);
-  }
+  // if(!meObject.loading && !meObject.error && meObject.data && meObject.data.data) {
+  //   console.log(meObject.data.data.me);
+  // }
 
   return (
     <ThemeProvider theme={theme}>
-      {meObject.data && meObject.data.me ? meObject.data.me.email : null}
+      {/* {meObject.data && meObject.data.me ? meObject.data.me.email : null} */}
       <Router>
         <Routes />
       </Router>

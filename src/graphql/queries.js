@@ -40,3 +40,25 @@ export const ME = gql`
   }
 }
 `
+
+export const ALL_LISTINGS_HOMESCREEN = gql`
+{
+  listings{
+    _id
+    title
+    rent
+    address
+    bedrooms
+    bathrooms
+    rating
+    image
+    size
+    parish
+    owner{
+      _id
+      email
+    }
+  }
+}
+
+`

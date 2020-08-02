@@ -26,6 +26,11 @@ import { ApolloLink, Observable } from 'apollo-link';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from "jwt-decode"
 
+
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import RootReducer from "./reducers/rootReducer.js";
+
 const cache = new InMemoryCache({});
 
 
@@ -66,25 +71,25 @@ const client = new ApolloClient({
         const token = getAccessToken();
         //console.log("token to be validated", token)
 
-        if(!token){
+        if (!token) {
           return true;
         }
 
-        try{
-          const {exp} = jwtDecode(token);
-          if(Date.now() >= exp*1000) { // if the token has expired
+        try {
+          const { exp } = jwtDecode(token);
+          if (Date.now() >= exp * 1000) { // if the token has expired
             console.log("token expired")
             return false;
-          } else{
+          } else {
             return true; // the token hasn't expired
           }
-        }catch {
+        } catch {
           return false;
         }
       },
       fetchAccessToken: async () => { //refresh token route is being called
         return fetch('http://localhost:4000/refresh_token', {
-          method:"POST",
+          method: "POST",
           credentials: "include"
         });
       },
@@ -96,7 +101,7 @@ const client = new ApolloClient({
         console.log("token is being refreshed")
         // here you can parse response, handle errors, prepare returned token to
         // further operations
-  
+
         // returned object should be like this:
         // {
         //    access_token: 'token string here'
@@ -110,8 +115,8 @@ const client = new ApolloClient({
         }
       },
       handleError: err => {
-         console.warn('Your refresh token is invalid. Try to relogin');
-         console.log(err);
+        console.warn('Your refresh token is invalid. Try to relogin');
+        console.log(err);
       }
     }),
     onError(({ graphQLErrors, networkError }) => {
@@ -128,13 +133,16 @@ const client = new ApolloClient({
 });
 
 
+const store = createStore(RootReducer);
 
 ReactDOM.render(
   <ApolloProvider client={client}>
 
 
     <React.StrictMode>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </React.StrictMode>
   </ApolloProvider>
   ,

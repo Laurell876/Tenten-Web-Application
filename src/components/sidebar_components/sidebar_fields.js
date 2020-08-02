@@ -1,6 +1,6 @@
-import React from "react";
+import React,{useState} from "react";
 import Button from "@material-ui/core/Button";
-
+import { connect } from "react-redux";
 let typesOfFields = ["Rent","Bedrooms", "Bathrooms"];
 
 const generateMinMaxFields = () => {
@@ -30,7 +30,10 @@ const generateMinMaxFields = () => {
   return components;
 };
 
-export default function SidebarFields() {
+function SidebarFields({parish, setParishFilterInRedux}) {
+  const [parishFilter, setParishFilterInState] = useState(parish);
+
+  //console.log(parishFilter)
   return (
     <div >
       <div id="sidebar_parish">
@@ -40,9 +43,16 @@ export default function SidebarFields() {
           id="sidebar_field"
           name="fname"
           placeholder="Enter parish"
+          defaultValue={parish}
+          onChange={(e)=>{
+            setParishFilterInState(e.target.value)
+            //console.log(parishFilter)
+          }}
         />
         <span>
-          <Button variant="contained" id="sidebar_button">
+          <Button variant="contained" id="sidebar_button" onClick={
+            ()=>setParishFilterInRedux(parishFilter)
+          }>
             Go
           </Button>
         </span>
@@ -52,3 +62,23 @@ export default function SidebarFields() {
     </div>
   );
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    parish: state.filterReducer.parish
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setParishFilterInRedux: (parish) => {
+      dispatch({ type: "SET_PARISH_FILTER", payload: {parish} });
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SidebarFields);

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import loginScreenImage from "../../images/login-screen-image.jpg";
 import Typography from "@material-ui/core/Typography";
@@ -10,34 +10,49 @@ import { LOGIN } from "../../graphql/mutations";
 import auth from "../../auth.js";
 
 import { setAccessToken } from "../../accessToken";
+import AlertDropdown from "../../components/alert_dropdown";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 function LoginScreen() {
-  const [login, { data, loading, error }] = useMutation(LOGIN, {
-    errorPolicy: "all",
-  });
+  const [login, { data, loading, error }] = useMutation(LOGIN);
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
-  const loginUser = async () => {
+  const [openAlert, setOpenAlert] = useState(false);
+  const [signUpErrorMessage, setSignUpErrorMessage] = useState('');
 
-    const response = await login({
-      variables: {
-        data: {
-          email: emailAddress,
-          password: password
-        }
-      },
-    }); 
-    console.log(response)
-    if(response && response.data) {
-     setAccessToken(response.data.loginV2.accessToken)
+  const showAlert = () => {
+    return <AlertDropdown errorMessage={signUpErrorMessage} severity="error" openAlert={openAlert} closeAlert={() => {
+      setOpenAlert(false);
+    }} />
+  }
+
+  const loginUser = async () => {
+    try {
+      const response = await login({
+        variables: {
+          data: {
+            email: emailAddress,
+            password: password
+          }
+        },
+      });
+      if (response && response.data) {
+        setAccessToken(response.data.loginV2.accessToken)
+      }
+
+      auth.login(() => {
+        history.push("/home")
+      })
+    } catch (e) {
+      let indexWhereMessageStarts = e.message.indexOf(":") + 1;
+      let userFriendErrorMessage = e.message.substring(indexWhereMessageStarts, e.message.length)
+      setSignUpErrorMessage(userFriendErrorMessage);
+      setOpenAlert(true)
     }
 
-    auth.login(()=>{
-      history.push("/home")
-    })
   }
 
 
@@ -71,8 +86,11 @@ function LoginScreen() {
         </div>
 
         <Button variant="contained" id="auth_screen_button" onClick={loginUser}>
-          Sign in
+          {loading ? <CircularProgress color="secondary" size={30} /> : "Sign In"}
         </Button>
+
+        {showAlert()}
+
 
         <div id="auth_screen_redirect_links">
           <Typography variant="subtitle1" id="auth_screen_redirect">

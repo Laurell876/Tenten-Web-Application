@@ -7,7 +7,6 @@ export default function FilterScreen() {
   return (
     <div>
       <Navbar />
-      
       <Container id="sidebar_screen">
         <Sidebar />
       </Container>

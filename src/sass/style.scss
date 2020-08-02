@@ -58,8 +58,9 @@ IMPORT FILES
     @include flexCenter;
 }
 
-#simple_menu {
+#simple_menu, #dropdown_alert_close_button {
     &:focus {
         outline: 0;
     }
 }
+

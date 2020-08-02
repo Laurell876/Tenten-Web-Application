@@ -41,20 +41,16 @@ export default function Routes() {
         path="/user-profile"
         component={UserProfileScreen}
       />
-      <Route path="*" component={() => "404 NOT FOUND"} />
 
-      {/* 
-      <Route path="/home" exact component={HomeScreen} />
-      <Route path="/filter" exact component={FilterScreen} />
-      <Route path="/single-listing-screen" exact component={SingleListingScreen} />
-      <Route path="/favorite-listings" exact component={FavoriteListingsScreen} />
-      <Route path="/my-listings" exact component={MyListingsScreen} />
-      <Route path="/search-results" exact component={SearchResultsScreen} />
-      <Route path="/user-profile" exact component={UserProfileScreen} />
-      <Route path="/add-listing" exact component={AddListingScreen} />
-      <Route path="/edit-listing" exact component={EditListingScreen} />
-      <Route path="/loading" exact component={LoadingScreen} /> */}
-      {/* <Route component={NotFound} /> */}
+      <ProtectedRoute path="/filter" exact component={FilterScreen} />
+      <ProtectedRoute path="/single-listing-screen" exact component={SingleListingScreen} />
+      <ProtectedRoute path="/favorite-listings" exact component={FavoriteListingsScreen} />
+      <ProtectedRoute path="/my-listings" exact component={MyListingsScreen} />
+      <ProtectedRoute path="/search-results" exact component={SearchResultsScreen} />
+      <ProtectedRoute path="/add-listing" exact component={AddListingScreen} />
+      <ProtectedRoute path="/edit-listing" exact component={EditListingScreen} />
+      <ProtectedRoute path="/loading" exact component={LoadingScreen} />
+      <Route path="*" component={() => "404 NOT FOUND"} />
     </Switch>
   </Router>)
 }
