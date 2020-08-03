@@ -6,6 +6,9 @@ const initState = {
     maxBedrooms: null,
     minBathrooms: 0,
     maxBathrooms: null,
+    rentSort: -1, //0 is ascending, 1 is descending, -1 is the default ie no sorting
+    bedroomSort: -1,
+    bathroomSort: -1
 };
 
 const filterReducer = (state = initState, action) => {
@@ -44,6 +47,21 @@ const filterReducer = (state = initState, action) => {
             return {
                 ...state,
                 maxBathrooms: action.payload.maxBathrooms
+            }
+        case "SET_RENT_SORT_FILTER":
+            return {
+                ...state,
+                rentSort: action.payload.rentSort
+            }
+        case "SET_BEDROOM_SORT_FILTER":
+            return {
+                ...state,
+                bedroomSort: action.payload.bedroomSort
+            }
+        case "SET_BATHROOM_SORT_FILTER":
+            return {
+                ...state,
+                bathroomSort: action.payload.bathroomSort
             }
         default: return state;
     }

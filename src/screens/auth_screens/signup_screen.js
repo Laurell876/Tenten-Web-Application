@@ -12,6 +12,7 @@ import { SIGN_UP } from "../../graphql/mutations";
 import auth from "../../auth.js";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AlertDropdown from "../../components/alert_dropdown";
+import { setAccessToken } from "../../accessToken";
 
 
 function SignupScreen() {
@@ -25,17 +26,19 @@ function SignupScreen() {
 
   const signupUser = async () => {
     try {
-      await signUp({
+      const response = await signUp({
         variables: {
           data: {
             firstName: firstName,
             lastName: lastName,
             email: emailAddress,
-            password: password,
-            tokenVersion: 0
+            password: password
           },
         },
       });
+      if (response && response.data) {
+        setAccessToken(response.data.registerV2.accessToken)
+      }
 
       auth.login(()=>{
         history.push("/home")

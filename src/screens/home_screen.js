@@ -10,9 +10,22 @@ import auth from "../auth";
 import LoadingScreen from "./loading_screen";
 import { ALL_LISTINGS_HOMESCREEN, ME } from "../graphql/queries";
 import { connect } from "react-redux";
+import { compareRent, compareBedrooms, compareBathrooms } from "../helperFunctions/comparison_functions"
 
-
-function HomeScreen({ history, parish, minRent, maxRent, minBedrooms, maxBedrooms,minBathrooms,maxBathrooms }) {
+function HomeScreen({
+  history,
+  parish,
+  minRent,
+  maxRent,
+  minBedrooms,
+  maxBedrooms,
+  minBathrooms,
+  maxBathrooms,
+  rentSort,
+  bedroomSort,
+  bathroomSort
+}) {
+  //console.log(bedroomSort)
   const allListingsResponse = useQuery(ALL_LISTINGS_HOMESCREEN, {
     fetchPolicy: "network-only"
   });
@@ -32,12 +45,12 @@ function HomeScreen({ history, parish, minRent, maxRent, minBedrooms, maxBedroom
   let listingsNotOwnedByCurrentUser = listings.filter(listing => listing.owner._id !== currentUser._id);
 
   //Filter listings
-  listingsNotOwnedByCurrentUser = listingsNotOwnedByCurrentUser.filter(listing => listing.parish == parish && listing.rent>=minRent)
-  .filter(listing=> maxRent ? listing.rent<=maxRent : listing)
-  .filter(listing=> listing.bedrooms >= minBedrooms)
-  .filter(listing=> maxBedrooms ? listing.bedrooms <= maxBedrooms : listing)
-  .filter(listing => listing.bathrooms >= minBathrooms)
-  .filter(listing => maxBathrooms ? listing.bathrooms <= maxBathrooms : listing)
+  listingsNotOwnedByCurrentUser = listingsNotOwnedByCurrentUser.filter(listing => listing.parish == parish && listing.rent >= minRent)
+    .filter(listing => maxRent ? listing.rent <= maxRent : listing)
+    .filter(listing => listing.bedrooms >= minBedrooms)
+    .filter(listing => maxBedrooms ? listing.bedrooms <= maxBedrooms : listing)
+    .filter(listing => listing.bathrooms >= minBathrooms)
+    .filter(listing => maxBathrooms ? listing.bathrooms <= maxBathrooms : listing)
 
   // Generate Latest Listings
   let latestListings = [];
@@ -49,8 +62,26 @@ function HomeScreen({ history, parish, minRent, maxRent, minBedrooms, maxBedroom
   }
 
   // Generate Top Listings
-  const topListings = listingsNotOwnedByCurrentUser.filter(listing => listing.rating === 5);
+  const topListings = listingsNotOwnedByCurrentUser.filter(listing => listing.rating === 5).slice(0, 3);
 
+  // Sort listings in the 'All listings' section. sort by rent, bedrooms and bathrooms
+
+  // Sort by rent
+  if (rentSort !== -1) {
+    const sortByRentAsc = listingsNotOwnedByCurrentUser.sort(compareRent);
+    listingsNotOwnedByCurrentUser = rentSort == 0 ? sortByRentAsc : sortByRentAsc.reverse();
+  }
+  if (bathroomSort !== -1) {
+    // Sort by bathrooms
+    const sortByBathroomsAsc = listingsNotOwnedByCurrentUser.sort(compareBathrooms);
+    listingsNotOwnedByCurrentUser = bathroomSort == 0 ? sortByBathroomsAsc : sortByBathroomsAsc.reverse();
+  }
+  if (bedroomSort !== -1) {
+    // Sort by bedrooms
+    const sortByBedroomsAsc = listingsNotOwnedByCurrentUser.sort(compareBedrooms);
+    listingsNotOwnedByCurrentUser = bedroomSort == 0 ? sortByBedroomsAsc : sortByBedroomsAsc.reverse();
+
+  }
 
   return (
     <div id="home_screen">
@@ -81,7 +112,10 @@ const mapStateToProps = (state) => {
     minBedrooms: state.filterReducer.minBedrooms,
     maxBedrooms: state.filterReducer.maxBedrooms,
     minBathrooms: state.filterReducer.minBathrooms,
-    maxBathrooms: state.filterReducer.maxBathrooms
+    maxBathrooms: state.filterReducer.maxBathrooms,
+    rentSort: state.filterReducer.rentSort,
+    bedroomSort: state.filterReducer.bedroomSort,
+    bathroomSort: state.filterReducer.bathroomSort
   };
 };
 

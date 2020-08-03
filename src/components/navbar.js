@@ -41,24 +41,25 @@ export default function BootstrapNavbar() {
       <Navbar.Collapse id="basic-navbar-nav">
 
         <Nav className="ml-auto">
-          <Nav.Link onClick={()=>{
+          
+          <Nav.Link id="nav_link" onClick={()=>{
             history.push("/home")
           }}>
             Home
           </Nav.Link>
 
 
-          <Nav.Link onClick={()=>{
+          <Nav.Link id="nav_link" onClick={()=>{
             history.push("/favorite-listings")
           }}>
             Favorites
           </Nav.Link>
 
-          <Nav.Link onClick={()=>{
+          <Nav.Link id="nav_link" onClick={()=>{
             history.push("/my-listings")
           }}>My Listings</Nav.Link>
 
-          <Nav.Link onClick={()=>{
+          <Nav.Link id="nav_link" onClick={()=>{
             history.push("/chats")
           }}>
             Chats

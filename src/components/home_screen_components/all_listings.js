@@ -12,8 +12,8 @@ export default function AllListings({ listings }) {
         {
           listings.map(listing => {
             return (
-              <Grid item xs={12} md={6} lg={4}>
-                <Listing 
+              <Grid item xs={12} md={6} lg={4} key={listing.id}>
+                <Listing key={listing.id}
                 image={listing.image}  
                 title={listing.title}
                 address={listing.address}

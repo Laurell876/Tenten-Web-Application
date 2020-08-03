@@ -19,25 +19,23 @@ export default function LatestListings({listings}) {
       </div>
       <Grid container spacing={2}>
 
-        {
-        
-        listings.map(listing => {
-          return (
-            <Grid item xs={12} md={6} lg={4}>
-              <Listing 
-              image={listing.image}  
-              title={listing.title}
-              address={listing.address}
-              size={listing.size}
-              bedrooms={listing.bedrooms}
-              bathrooms={listing.bathrooms}
-              rating={listing.rating}
-              rent={listing.rent}
-              />
-            </Grid>
-          )
-        })
-        
+      {
+          listings.map(listing => {
+            return (
+              <Grid item xs={12} md={6} lg={4} key={listing.id}>
+                <Listing key={listing.id}
+                image={listing.image}  
+                title={listing.title}
+                address={listing.address}
+                size={listing.size}
+                bedrooms={listing.bedrooms}
+                bathrooms={listing.bathrooms}
+                rating={listing.rating}
+                rent={listing.rent}
+                />
+              </Grid>
+            )
+          })
         }
       </Grid>
     </div>
