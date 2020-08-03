@@ -1,4 +1,4 @@
-import {gql} from "apollo-boost";
+import { gql } from "apollo-boost";
 
 export const ALL_USERS = gql`
 {
@@ -21,6 +21,19 @@ export const ME = gql`
     email
     createdListings {
       _id
+      title
+      rent
+      address
+      bedrooms
+      bathrooms
+      rating
+      image
+      size
+      parish
+      owner{
+        _id
+        email
+      }
     }
     favoriteListings {
       _id

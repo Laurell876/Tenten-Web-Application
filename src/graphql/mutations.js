@@ -110,3 +110,11 @@ mutation removeFavorite($id: ID!) {
   }
 }
 `
+
+export const REMOVE_LISTING = gql`
+mutation removeListing($id: ID!) {
+  removeListing(id: $id){
+    _id
+  }
+}
+`

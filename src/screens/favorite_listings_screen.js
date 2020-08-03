@@ -18,7 +18,7 @@ export default function FavoriteListingsScreen() {
     }
 
     let currentUser = meResponse.data.me;
-    let favoritedListings = currentUser.favoriteListings;
+    let listings = currentUser.favoriteListings;
 
     
     
@@ -36,7 +36,7 @@ export default function FavoriteListingsScreen() {
                     spacing={2}
                 >
                     {
-                        favoritedListings.map(listing => {
+                        listings.map(listing => {
                             return (
                                 <Grid item xs={12} sm={6} md={4} lg={3} key={listing._id}>
                                     <Listing key={listing._id}

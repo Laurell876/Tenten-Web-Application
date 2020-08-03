@@ -16,6 +16,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AlertDialog from "./alert_dialog";
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "../graphql/mutations";
 import { useQuery, useMutation } from "@apollo/react-hooks";
+import {REMOVE_LISTING } from "../graphql/mutations";
 
 
 
@@ -23,6 +24,15 @@ export default function Listing({ key, id, favorited, owned_by_current_user, tit
 
   const [addFavorite, addFavoriteObject] = useMutation(ADD_FAVORITE);
   const [removeFavorite, removeFavoriteObject] = useMutation(REMOVE_FAVORITE);
+  const [removeListing, removeListingObject] = useMutation(REMOVE_LISTING);
+
+  const deleteListing = async (listingId) => {
+    const response = await removeListing({
+      variables: {
+        id: listingId
+      }
+    })
+  }
 
   const favoriteListing = async (listingId) => {
     const response = await addFavorite({
@@ -32,7 +42,7 @@ export default function Listing({ key, id, favorited, owned_by_current_user, tit
     })
   }
 
-  const unFavoriteListing = async(listingId) => {
+  const unFavoriteListing = async (listingId) => {
     const response = await removeFavorite({
       variables: {
         id: listingId
@@ -74,7 +84,7 @@ export default function Listing({ key, id, favorited, owned_by_current_user, tit
           {owned_by_current_user
             ?
             <div id="delete_and_remove_icons">
-              <AlertDialog Component={removeIconAlert} title="Remove Listing" question={"Are you sure you want to remove this listing"} />
+              <AlertDialog listingId={id} functionToRunOnConfirm={deleteListing} Component={removeIconAlert} title="Remove Listing" question={"Are you sure you want to remove this listing"} />
 
               <IconButton id="edit_icon" onClick={() => {
                 history.push("/edit-listing")
