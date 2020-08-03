@@ -19,16 +19,24 @@ export const ME = gql`
     firstName
     lastName
     email
-    favoriteListings{
-      _id
-      title
-      rent
-    }
     createdListings {
       _id
     }
     favoriteListings {
       _id
+      title
+      rent
+      address
+      bedrooms
+      bathrooms
+      rating
+      image
+      size
+      parish
+      owner{
+        _id
+        email
+      }
     }
     reviews {
       _id
