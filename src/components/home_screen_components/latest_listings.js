@@ -6,7 +6,8 @@ import Listing from "../listing";
 import history from "../history";
 
 
-export default function LatestListings({listings}) {
+export default function LatestListings({listings, currentUser}) {
+  console.log(currentUser)
   return (
     <div>
       <div id="home_screen_heading">
@@ -22,8 +23,8 @@ export default function LatestListings({listings}) {
       {
           listings.map(listing => {
             return (
-              <Grid item xs={12} md={6} lg={4} key={listing.id}>
-                <Listing key={listing.id}
+              <Grid item xs={12} md={6} lg={4} key={listing._id}>
+                <Listing key={listing._id}
                 image={listing.image}  
                 title={listing.title}
                 address={listing.address}
@@ -32,6 +33,9 @@ export default function LatestListings({listings}) {
                 bathrooms={listing.bathrooms}
                 rating={listing.rating}
                 rent={listing.rent}
+                favorited={
+                  () => currentUser.favoriteListings.filter(favoritedListing => favoritedListing._id == listing._id).length > 0
+                }
                 />
               </Grid>
             )

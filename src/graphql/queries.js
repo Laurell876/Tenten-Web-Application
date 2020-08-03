@@ -19,6 +19,11 @@ export const ME = gql`
     firstName
     lastName
     email
+    favoriteListings{
+      _id
+      title
+      rent
+    }
     createdListings {
       _id
     }

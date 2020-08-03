@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 
 import Listing from "../listing";
 
-export default function TopListings({ listings }) {
+export default function TopListings({ listings, currentUser }) {
   return (
     <div>
       <h1 id="home_screen_title">Top Listings</h1>
@@ -11,8 +11,8 @@ export default function TopListings({ listings }) {
       {
           listings.map(listing => {
             return (
-              <Grid item xs={12} md={6} lg={4} key={listing.id}>
-                <Listing key={listing.id}
+              <Grid item xs={12} md={6} lg={4} key={listing._id}>
+                <Listing key={listing._id}
                 image={listing.image}  
                 title={listing.title}
                 address={listing.address}
@@ -21,6 +21,9 @@ export default function TopListings({ listings }) {
                 bathrooms={listing.bathrooms}
                 rating={listing.rating}
                 rent={listing.rent}
+                favorited={
+                  () => currentUser.favoriteListings.filter(favoritedListing => favoritedListing._id == listing._id).length > 0
+                }
                 />
               </Grid>
             )

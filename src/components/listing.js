@@ -16,8 +16,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import AlertDialog from "./alert_dialog";
 
 
-export default function Listing({ favorited, owned_by_current_user, title, size, bedrooms, bathrooms, address, rating, rent }) {
-
+export default function Listing({ key,favorited, owned_by_current_user, title, size, bedrooms, bathrooms, address, rating, rent }) {
+  console.log(favorited());
+  favorited = favorited()
 
   function favoriteIconAlert({ functionToRunOnClick }) {
     return (

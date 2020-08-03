@@ -41,6 +41,7 @@ function HomeScreen({
 
   let listings = allListingsResponse.data.listings;
   let currentUser = meResponse.data.me;
+  console.log(currentUser.favoriteListings)
 
   //Generate All Listings
   let listingsNotOwnedByCurrentUser = listings.filter(listing => listing.owner._id !== currentUser._id);
@@ -88,9 +89,6 @@ function HomeScreen({
   // Sort by rating
   listingsNotOwnedByCurrentUser = listingsNotOwnedByCurrentUser.filter(listing => rating ? listing.rating === rating : listing)
 
-
-
-
   return (
     <div id="home_screen">
       <Navbar />
@@ -100,9 +98,9 @@ function HomeScreen({
             <Sidebar />
           </Col>
           <Col xs={12} lg={9}>
-            <LatestListings listings={latestListings} />
-            <TopListings listings={topListings} />
-            <AllListings listings={listingsNotOwnedByCurrentUser} />
+            <LatestListings currentUser={currentUser} listings={latestListings} />
+            <TopListings currentUser={currentUser} listings={topListings} />
+            <AllListings currentUser={currentUser} listings={listingsNotOwnedByCurrentUser} />
           </Col>
         </Row>
       </Container>
