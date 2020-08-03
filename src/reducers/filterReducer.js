@@ -1,5 +1,6 @@
 const initState = {
     parish: "st. catherine",
+    rating: null,
     minRent: 0,
     maxRent: null,
     minBedrooms: 0,
@@ -62,6 +63,11 @@ const filterReducer = (state = initState, action) => {
             return {
                 ...state,
                 bathroomSort: action.payload.bathroomSort
+            }
+        case "SET_RATING_FILTER":
+            return {
+                ...state,
+                rating: action.payload.rating
             }
         default: return state;
     }

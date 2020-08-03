@@ -23,7 +23,8 @@ function HomeScreen({
   maxBathrooms,
   rentSort,
   bedroomSort,
-  bathroomSort
+  bathroomSort,
+  rating
 }) {
   //console.log(bedroomSort)
   const allListingsResponse = useQuery(ALL_LISTINGS_HOMESCREEN, {
@@ -71,17 +72,24 @@ function HomeScreen({
     const sortByRentAsc = listingsNotOwnedByCurrentUser.sort(compareRent);
     listingsNotOwnedByCurrentUser = rentSort == 0 ? sortByRentAsc : sortByRentAsc.reverse();
   }
+
+  // Sort by bathrooms
   if (bathroomSort !== -1) {
-    // Sort by bathrooms
     const sortByBathroomsAsc = listingsNotOwnedByCurrentUser.sort(compareBathrooms);
     listingsNotOwnedByCurrentUser = bathroomSort == 0 ? sortByBathroomsAsc : sortByBathroomsAsc.reverse();
   }
+
+  // Sort by bedrooms
   if (bedroomSort !== -1) {
-    // Sort by bedrooms
     const sortByBedroomsAsc = listingsNotOwnedByCurrentUser.sort(compareBedrooms);
     listingsNotOwnedByCurrentUser = bedroomSort == 0 ? sortByBedroomsAsc : sortByBedroomsAsc.reverse();
-
   }
+
+  // Sort by rating
+  listingsNotOwnedByCurrentUser = listingsNotOwnedByCurrentUser.filter(listing => rating ? listing.rating === rating : listing)
+
+
+
 
   return (
     <div id="home_screen">
@@ -115,7 +123,8 @@ const mapStateToProps = (state) => {
     maxBathrooms: state.filterReducer.maxBathrooms,
     rentSort: state.filterReducer.rentSort,
     bedroomSort: state.filterReducer.bedroomSort,
-    bathroomSort: state.filterReducer.bathroomSort
+    bathroomSort: state.filterReducer.bathroomSort,
+    rating: state.filterReducer.rating
   };
 };
 
