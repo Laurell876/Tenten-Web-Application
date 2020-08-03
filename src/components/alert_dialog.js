@@ -11,7 +11,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({Component, question, title}) {
+export default function AlertDialogSlide({Component,
+  question, 
+  title, 
+  functionToRunOnConfirm,
+  listingId
+}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -21,6 +26,12 @@ export default function AlertDialogSlide({Component, question, title}) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const confirm = () => {
+    functionToRunOnConfirm(listingId)
+    handleClose()
+    window.location.reload(false);
+  }
 
   return (
     <div>
@@ -41,7 +52,7 @@ export default function AlertDialogSlide({Component, question, title}) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary" id="alert_button">
+          <Button color="primary" id="alert_button" onClick={confirm}>
             Confirm
           </Button>
           <Button onClick={handleClose} color="primary" id="alert_button">

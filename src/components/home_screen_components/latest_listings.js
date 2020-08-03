@@ -25,6 +25,7 @@ export default function LatestListings({listings, currentUser}) {
             return (
               <Grid item xs={12} md={6} lg={4} key={listing._id}>
                 <Listing key={listing._id}
+                id={listing._id}
                 image={listing.image}  
                 title={listing.title}
                 address={listing.address}

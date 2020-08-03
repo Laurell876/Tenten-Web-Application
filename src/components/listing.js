@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -14,11 +14,35 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import AlertDialog from "./alert_dialog";
+import { ADD_FAVORITE, REMOVE_FAVORITE } from "../graphql/mutations";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 
 
-export default function Listing({ key,favorited, owned_by_current_user, title, size, bedrooms, bathrooms, address, rating, rent }) {
-  console.log(favorited());
+
+export default function Listing({ key, id, favorited, owned_by_current_user, title, size, bedrooms, bathrooms, address, rating, rent }) {
+
+  const [addFavorite, addFavoriteObject] = useMutation(ADD_FAVORITE);
+  const [removeFavorite, removeFavoriteObject] = useMutation(REMOVE_FAVORITE);
+
+  const favoriteListing = async (listingId) => {
+    const response = await addFavorite({
+      variables: {
+        id: listingId
+      }
+    })
+  }
+
+  const unFavoriteListing = async(listingId) => {
+    const response = await removeFavorite({
+      variables: {
+        id: listingId
+      }
+    })
+  }
+  //console.log(functionToRunOnConfirm);
+
   favorited = favorited()
+
 
   function favoriteIconAlert({ functionToRunOnClick }) {
     return (
@@ -61,7 +85,14 @@ export default function Listing({ key,favorited, owned_by_current_user, title, s
 
             :
             <div id="favorite_listing" class="icon_outline">
-              <AlertDialog Component={favoriteIconAlert} title={favorited ? "Remove Listing From Favorites" : "Add Listing To Favorites"} question={favorited ? "Are you sure you want to remove this listing from favorites" : "Are you sure you want to add this listing to favorites"} />
+              <AlertDialog
+                listingId={id}
+                functionToRunOnConfirm={
+                  favorited ? unFavoriteListing : favoriteListing
+                }
+                Component={favoriteIconAlert}
+                title={favorited ? "Remove Listing From Favorites" : "Add Listing To Favorites"}
+                question={favorited ? "Are you sure you want to remove this listing from favorites" : "Are you sure you want to add this listing to favorites"} />
 
             </div>
           }
@@ -89,14 +120,14 @@ export default function Listing({ key,favorited, owned_by_current_user, title, s
           </div>
           <div id="bedrooms">
             <KingBedOutlinedIcon />
-      <span>{bedrooms}</span>
+            <span>{bedrooms}</span>
           </div>
           <div id="bathrooms">
             <BathtubOutlinedIcon />
-      <span>{bathrooms}</span>
+            <span>{bathrooms}</span>
             <div id="listing_card_rating">
               <GradeOutlinedIcon />
-      <span>{rating}</span>
+              <span>{rating}</span>
             </div>
           </div>
         </div>

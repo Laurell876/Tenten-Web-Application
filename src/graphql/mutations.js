@@ -1,5 +1,4 @@
 import { gql } from "apollo-boost";
-
 import {
   GraphQLString,
   GraphQLObjectType,
@@ -7,6 +6,7 @@ import {
   GraphQLInt,
   GraphQLBoolean
 } from "graphql";
+
 
 const UserInput = new GraphQLObjectType({
   name: "User",
@@ -70,7 +70,7 @@ const ListingInput = new GraphQLObjectType({
     city: { type: new GraphQLNonNull(GraphQLString) },
     parish: { type: new GraphQLNonNull(GraphQLString) },
     size: { type: new GraphQLNonNull(GraphQLInt) },
-    description: { type:GraphQLString },
+    description: { type: GraphQLString },
     rent: { type: new GraphQLNonNull(GraphQLInt) },
     rating: { type: GraphQLInt },
     featured: { type: GraphQLBoolean }
@@ -85,8 +85,28 @@ mutation createListing ($data: ListingInput!) {
   }
 }`
 
-export const LOGOUT = gql `
+export const LOGOUT = gql`
 mutation{
   logout
+}
+`
+
+export const ADD_FAVORITE = gql`
+mutation addFavorite($id: ID!){
+  addFavorite(id: $id){
+    _id
+    title
+    rent
+  }
+}
+`
+
+export const REMOVE_FAVORITE = gql`
+mutation removeFavorite($id: ID!) {
+  removeFavorite(id:$id){
+    _id
+    title
+    rent
+  }
 }
 `
