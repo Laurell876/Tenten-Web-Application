@@ -64,3 +64,8 @@ IMPORT FILES
     }
 }
 
+#error_dropdown_alert{
+    margin-top:20px;
+    width:100%;
+    @include flexCenter;
+}

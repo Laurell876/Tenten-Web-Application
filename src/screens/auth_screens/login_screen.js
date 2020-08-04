@@ -48,8 +48,8 @@ function LoginScreen() {
       })
     } catch (e) {
       let indexWhereMessageStarts = e.message.indexOf(":") + 1;
-      let userFriendErrorMessage = e.message.substring(indexWhereMessageStarts, e.message.length)
-      setSignUpErrorMessage(userFriendErrorMessage);
+      let userFriendlyErrorMessage = e.message.substring(indexWhereMessageStarts, e.message.length)
+      setSignUpErrorMessage(userFriendlyErrorMessage);
       setOpenAlert(true)
     }
 
