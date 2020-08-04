@@ -12,6 +12,7 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
                 if (getAccessToken()) {
                     return <Component {...props} />;
                 } else {
+                    console.log(getAccessToken())
                     return <Redirect to={
                         {
                             path: "/",

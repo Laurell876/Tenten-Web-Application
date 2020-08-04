@@ -12,7 +12,7 @@ import { SIGN_UP } from "../../graphql/mutations";
 import auth from "../../auth.js";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AlertDropdown from "../../components/alert_dropdown";
-import { setAccessToken } from "../../accessToken";
+import { setAccessToken, getAccessToken } from "../../accessToken";
 
 
 function SignupScreen() {
@@ -36,9 +36,10 @@ function SignupScreen() {
           },
         },
       });
-      if (response && response.data) {
+      if (response && response.data && response.data.registerV2.accessToken) {
         setAccessToken(response.data.registerV2.accessToken)
       }
+      console.log("access token after sign up" + getAccessToken())
 
       auth.login(()=>{
         history.push("/home")

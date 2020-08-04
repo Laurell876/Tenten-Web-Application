@@ -107,7 +107,7 @@ const client = new ApolloClient({
         //    access_token: 'token string here'
         // }
         const resJSON = await response.json();
-        //console.log(resJSON.accessToken)
+        console.log(resJSON.accessToken)
         setAccessToken(resJSON.accessToken);
         //console.log(getAccessToken())
         return {

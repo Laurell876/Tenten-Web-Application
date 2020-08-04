@@ -37,8 +37,11 @@ function App() {
       credentials: "include",
     })
     .then(async x => {
-      const {accessToken} = await x.json();
-      setAccessToken(accessToken) // token is refreshed and replaced
+      const res = await x.json();
+      console.log(res);
+      
+      console.log("access token to replace expired token " + res.accessToken);
+      if(res.accessToken) setAccessToken(res.accessToken) // token is refreshed and replaced
       setLoading(false);
     }
     )

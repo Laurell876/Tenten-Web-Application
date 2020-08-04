@@ -4,12 +4,19 @@ import Listing from "../components/listing";
 import Grid from "@material-ui/core/Grid";
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { ALL_LISTINGS_HOMESCREEN, ME } from "../graphql/queries";
+import { ALL_LISTINGS_AND_ME_QUERY } from "../graphql/queries";
 import LoadingScreen from "./loading_screen";
 
 
 export default function SearchResultsScreen({ location }) {
-    console.log(location)
+    const allListingsAndMeQueryResponse = useQuery(ALL_LISTINGS_AND_ME_QUERY, {
+        fetchPolicy: "network-only"
+    });
+
+    if (allListingsAndMeQueryResponse.loading) {
+        return <LoadingScreen />
+    }
+
     let query;
     const queryToBeStored = location.state ? location.state.query : null;
 
@@ -23,22 +30,8 @@ export default function SearchResultsScreen({ location }) {
     // If the query doesnt exist in props get it from local storage
     if (!queryToBeStored) query = localStorage.getItem("query");
 
-    console.log(query);
-
-    const allListingsResponse = useQuery(ALL_LISTINGS_HOMESCREEN, {
-        fetchPolicy: "network-only"
-    });
-
-    const meResponse = useQuery(ME, {
-        fetchPolicy: "network-only"
-    });
-
-    if (meResponse.loading || allListingsResponse.loading) {
-        return <LoadingScreen />
-    }
-
-    let currentUser = meResponse.data.me;
-    let listings = allListingsResponse.data.listings
+    let currentUser = allListingsAndMeQueryResponse.data.me;
+    let listings = allListingsAndMeQueryResponse.data.listings
         .filter(listing => listing.title.includes(query));
 
     return (
@@ -54,7 +47,7 @@ export default function SearchResultsScreen({ location }) {
                     {
                         listings.map(listing => {
                             return (
-                                <Grid item xs={12} md={6} lg={4} key={listing._id}>
+                                <Grid item xs={12} md={6} lg={3} key={listing._id}>
                                     <Listing key={listing._id}
                                         id={listing._id}
                                         image={listing.image}
