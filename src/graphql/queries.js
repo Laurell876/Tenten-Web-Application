@@ -22,6 +22,8 @@ export const ME = gql`
     createdListings {
       _id
       title
+      description
+      city
       rent
       address
       bedrooms
@@ -100,6 +102,7 @@ export const ALL_LISTINGS_AND_ME_QUERY = gql`
   createdListings {
     _id
     title
+    description
     rent
     address
     bedrooms
@@ -108,6 +111,7 @@ export const ALL_LISTINGS_AND_ME_QUERY = gql`
     image
     size
     parish
+    city
     owner{
       _id
       email

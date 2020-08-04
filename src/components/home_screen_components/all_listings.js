@@ -14,15 +14,7 @@ export default function AllListings({ listings, currentUser }) {
             return (
               <Grid item xs={12} md={6} lg={4} key={listing._id}>
                 <Listing key={listing._id}
-                id={listing._id}
-                image={listing.image}  
-                title={listing.title}
-                address={listing.address}
-                size={listing.size}
-                bedrooms={listing.bedrooms}
-                bathrooms={listing.bathrooms}
-                rating={listing.rating}
-                rent={listing.rent}
+                listing={listing}
                 favorited={
                   () => currentUser.favoriteListings.filter(favoritedListing => favoritedListing._id == listing._id).length > 0
                 }

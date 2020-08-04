@@ -1,14 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from "../components/navbar";
 import { Container, Row, Col } from "react-bootstrap";
 import housesImage from "../images/urban_houses.jpg";
 import PublishIcon from '@material-ui/icons/Publish';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import { UPDATE_LISTING } from "../graphql/mutations"
+import { useMutation } from "@apollo/react-hooks";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import history from "../components/history";
+import AlertDropdown from "../components/alert_dropdown";
 
 
+export default function EditListingScreen({location}) {
+    let listing;
 
-export default function AddListingScreen() {
+    // Store Id in local storage after its passed for the first time, if the page reloads the data is retrieved from local storage
+    if(location && location.listing){ // if lising id exists in location
+        localStorage.setItem("listingToBeEdited", JSON.stringify(location.listing));
+        listing = location.listing;
+    } else {
+        listing = JSON.parse(localStorage.getItem("listingToBeEdited"));
+    }
+
+    const [updateListing, updateListingObject] = useMutation(UPDATE_LISTING);
+
+    const [title, setTitle] = useState(listing.title);
+    const [description, setDescription] = useState(listing.description);
+    const [bedrooms, setBedrooms] = useState(listing.bedrooms);
+    const [bathrooms, setBathrooms] = useState(listing.bathrooms);
+    const [address, setAddress] = useState(listing.address);
+    const [city, setCity] = useState(listing.city);
+    const [parish, setParish] = useState(listing.parish);
+    const [size, setSize] = useState(listing.size);
+    const [rent, setRent] = useState(listing.rent);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [openAlert, setOpenAlert] = useState(false);
+
+
+    const updateListingCallback = async () => {
+        try {
+            const response = await updateListing({
+                variables: {
+                    data: {
+                        id: listing._id,
+                        title,
+                        description,
+                        bedrooms: parseInt(bedrooms),
+                        bathrooms: parseInt(bathrooms),
+                        address,
+                        city,
+                        parish: parish.toLowerCase(),
+                        size: parseInt(size),
+                        rent: parseInt(rent)
+                    }
+                }
+            })
+            history.push("/my-listings");
+        } catch (e) {
+            let indexWhereMessageStarts = e.message.indexOf(":") + 1;
+            let userFriendlyErrorMessage = e.message.substring(indexWhereMessageStarts, e.message.length)
+            setErrorMessage(userFriendlyErrorMessage);
+            setOpenAlert(true)
+        }
+
+
+    }
+
+    const showAlert = () => {
+        return <AlertDropdown errorMessage={errorMessage} severity="error" openAlert={openAlert} closeAlert={() => {
+            setOpenAlert(false);
+        }} />
+    }
+
+
     return (<div id="add_listing_screen">
         <Navbar />
         <Container>
@@ -19,17 +84,35 @@ export default function AddListingScreen() {
                 <Col xs={12} lg={6}>
                     <Row id="input_fields">
                         <Col md={6}>
-                            <input id="add_listing_input" type="text" placeholder="Title" />
-                            <input id="add_listing_input" class="description" type="text" placeholder="Description" />
-                            <input id="add_listing_input" type="text" placeholder="Bedrooms" />
-                            <input id="add_listing_input" type="text" placeholder="Bathrooms" />
-                            <input id="add_listing_input" type="text" placeholder="Address" />
+                            <input id="add_listing_input" type="text" placeholder="Title" defaultValue={title} onChange={(e) => {
+                                setTitle(e.target.value)
+                            }} />
+                            <input id="add_listing_input" class="description" type="text" defaultValue={description} placeholder="Description" onChange={(e) => {
+                                setDescription(e.target.value)
+                            }} />
+                            <input id="add_listing_input" type="text" defaultValue={bedrooms} placeholder="Bedrooms" onChange={(e) => {
+                                setBedrooms(e.target.value)
+                            }} />
+                            <input id="add_listing_input" type="text" defaultValue={bathrooms} placeholder="Bathrooms" onChange={(e) => {
+                                setBathrooms(e.target.value)
+                            }} />
+                            <input id="add_listing_input" type="text" defaultValue={address} placeholder="Address" onChange={(e) => {
+                                setAddress(e.target.value)
+                            }} />
                         </Col>
                         <Col md={6}>
-                            <input id="add_listing_input" type="text" placeholder="City" />
-                            <input id="add_listing_input" class="description" type="text" placeholder="Parish" />
-                            <input id="add_listing_input" type="text" placeholder="Size" />
-                            <input id="add_listing_input" type="text" placeholder="Rent" />
+                            <input id="add_listing_input" type="text" defaultValue={city} placeholder="City" onChange={(e) => {
+                                setCity(e.target.value)
+                            }} />
+                            <input id="add_listing_input" class="text" defaultValue={parish} type="text" placeholder="Parish" onChange={(e) => {
+                                setParish(e.target.value)
+                            }} />
+                            <input id="add_listing_input" type="text" defaultValue={size} placeholder="Size" onChange={(e) => {
+                                setSize(e.target.value)
+                            }} />
+                            <input id="add_listing_input" type="text" defaultValue={rent} placeholder="Rent" onChange={(e) => {
+                                setRent(e.target.value)
+                            }} />
                             <div id="upload_image">
                                 Upload Image
                                 <IconButton id="upload_image_container" color="inherit">
@@ -40,14 +123,21 @@ export default function AddListingScreen() {
 
                         <div id="buttons">
 
-                            <Button id="save_button" variant="contained" color="primary">
-                                Save
+                            <Button id="save_button" variant="contained" color="primary" onClick={
+                                () => {
+                                    updateListingCallback()
+                                }
+                            }>
+                                {updateListingObject.loading ? <CircularProgress color="secondary" size={30} /> : "Save"}
                             </Button>
 
                             <Button id="cancel_button" color="default">
                                 Cancel
                             </Button>
 
+                        </div>
+                        <div id="error_dropdown_alert">
+                            {showAlert()}
                         </div>
                     </Row>
                 </Col>

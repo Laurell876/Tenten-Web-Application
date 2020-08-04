@@ -4,7 +4,8 @@ import {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLInt,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLID
 } from "graphql";
 
 
@@ -77,10 +78,37 @@ const ListingInput = new GraphQLObjectType({
   })
 })
 
+const ListingUpdateInput = new GraphQLObjectType({
+  name: "ListingInput",
+  description: "Input type used when creating listings",
+  fields: () => ({
+    id: {type: new GraphQLNonNull(GraphQLID)},
+    title: { type: new GraphQLNonNull(GraphQLString) },
+    bedrooms: { type: new GraphQLNonNull(GraphQLInt) },
+    bathrooms: { type: new GraphQLNonNull(GraphQLInt) },
+    address: { type: new GraphQLNonNull(GraphQLString) },
+    city: { type: new GraphQLNonNull(GraphQLString) },
+    parish: { type: new GraphQLNonNull(GraphQLString) },
+    size: { type: new GraphQLNonNull(GraphQLInt) },
+    description: { type: GraphQLString },
+    rent: { type: new GraphQLNonNull(GraphQLInt) },
+    rating: { type: GraphQLInt },
+    featured: { type: GraphQLBoolean }
+  })
+})
+
+
 
 export const CREATE_LISTING = gql`
 mutation createListing ($data: ListingInput!) {
   createListing(data: $data){
+    _id
+  }
+}`
+
+export const UPDATE_LISTING = gql`
+mutation updateListing ($data: ListingUpdateInput!) {
+  updateListing(data: $data){
     _id
   }
 }`

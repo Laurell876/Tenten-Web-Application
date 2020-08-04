@@ -19,9 +19,10 @@ export default function FavoriteListingsScreen() {
 
     let currentUser = meResponse.data.me;
     let listings = currentUser.favoriteListings;
+    console.log(listings)
 
-    
-    
+
+
 
     return (<div id="favorite_listings_screen">
         <Navbar />
@@ -38,17 +39,9 @@ export default function FavoriteListingsScreen() {
                     {
                         listings.map(listing => {
                             return (
-                                <Grid item xs={12} sm={6} md={4} lg={3} key={listing._id}>
+                                <Grid item xs={12} md={6} lg={4} key={listing._id}>
                                     <Listing key={listing._id}
-                                        id={listing._id}
-                                        image={listing.image}
-                                        title={listing.title}
-                                        address={listing.address}
-                                        size={listing.size}
-                                        bedrooms={listing.bedrooms}
-                                        bathrooms={listing.bathrooms}
-                                        rating={listing.rating}
-                                        rent={listing.rent}
+                                        listing={listing}
                                         favorited={
                                             () => true
                                         }

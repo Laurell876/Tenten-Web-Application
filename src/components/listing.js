@@ -20,7 +20,16 @@ import {REMOVE_LISTING } from "../graphql/mutations";
 
 
 
-export default function Listing({ key, id, favorited, owned_by_current_user, title, size, bedrooms, bathrooms, address, rating, rent }) {
+export default function Listing({ key, favorited, owned_by_current_user, listing }) {
+
+  const id = listing._id;
+  const rent = listing.rent;
+  const title = listing.title;
+  const address = listing.address;
+  const size = listing.size;
+  const bedrooms = listing.bedrooms;
+  const bathrooms = listing.bathrooms;
+  const rating = listing.rating;
 
   const [addFavorite, addFavoriteObject] = useMutation(ADD_FAVORITE);
   const [removeFavorite, removeFavoriteObject] = useMutation(REMOVE_FAVORITE);
@@ -87,7 +96,7 @@ export default function Listing({ key, id, favorited, owned_by_current_user, tit
               <AlertDialog listingId={id} functionToRunOnConfirm={deleteListing} Component={removeIconAlert} title="Remove Listing" question={"Are you sure you want to remove this listing"} />
 
               <IconButton id="edit_icon" onClick={() => {
-                history.push("/edit-listing")
+                history.push({pathname: "/edit-listing", listing: listing})
               }}>
                 <EditIcon id="white_icon" />
               </IconButton>
