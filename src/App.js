@@ -63,7 +63,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* {meObject.data && meObject.data.me ? meObject.data.me.email : null} */}
       <Router>
         <Routes />
       </Router>

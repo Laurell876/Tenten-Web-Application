@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   Navbar,
   Nav,
@@ -6,19 +6,23 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-import history from "./history";
+
 import SimpleMenu from "./navbar_pop_up_menu";
 
-
+import { useHistory } from "react-router-dom";
 
 export default function BootstrapNavbar() {
-
+  let history = useHistory();
+  const [query, setQuery] = useState('');
 
 
   const _handleKeyDown = (e) => {
-    e.preventDefault();
     if (e.key === 'Enter') {
-      history.push("/search-results")
+      history.push({
+        pathname: '/search-results',
+        search: `?query=${query}`,
+        state: { query: query }
+    });
     }
   }
 
@@ -65,11 +69,7 @@ export default function BootstrapNavbar() {
             Chats
           </Nav.Link>
           
-          {/* <Nav.Link onClick={()=>{
-            history.push("/user-profile")
-          }}>
-            Profile
-          </Nav.Link> */}
+
           <SimpleMenu Component={MenuComponent}/>
 
         </Nav>
@@ -79,6 +79,9 @@ export default function BootstrapNavbar() {
           placeholder="Search Tenten"
           className="ml-sm-2"
           id="navbar-search-field"
+          onChange={(e)=>{
+            setQuery(e.target.value)
+          }}
           onKeyDown={_handleKeyDown}
         />
       </Form>
