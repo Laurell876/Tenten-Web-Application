@@ -9,8 +9,20 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import SingleComment from "../components/single_comment";
 import AlertDialog from "../components/alert_dialog";
+import { URI } from "../constants";
+import placeholder from "../images/placeholder.png"
 
-export default function SingleListingScreen() {
+
+export default function SingleListingScreen({ location }) {
+    let listing;
+
+    if (location.state && location.state.listing) {
+        listing = location.state.listing
+        localStorage.setItem("single-listing-being-displayed", JSON.stringify(listing))
+    } else {
+        listing = JSON.parse(localStorage.getItem("single-listing-being-displayed"))
+    }
+    console.log(listing)
 
     function contactOwnerAlert({ functionToRunOnClick }) {
         return (
@@ -26,28 +38,30 @@ export default function SingleListingScreen() {
         <Navbar />
         <Container>
             <div id="single_listing_screen">
-                <div id="listing_display_image" style={{ backgroundImage: `url(${modernMansionImage})`, backgroundSize: "cover", backgroundPosition: "center" }}></div>
+                <div id="listing_display_image" style={{ backgroundImage:  `url(${listing.image ?URI + listing.image : placeholder })`, backgroundSize: "cover", backgroundPosition: "center" }}></div>
 
                 <div id="details_and_description">
-                    <div id="listing_title">Modern Mansion</div>
+                    <div id="listing_title">{listing.title}</div>
                     <Row>
                         <Col lg={6} md={12} id="listing_details">
                             <Row>
                                 <Col lg={3} md={6}>
-                                    <p id="listing_rent">$50,000</p>
-                                    <p id="bedrooms">2 Bedrooms</p>
-                                    <p>2 Bathrooms</p>
-                                    <p>3500 sqft</p>
+                                    <p id="listing_rent">${listing.rent}</p>
+                                    <p id="bedrooms">{listing.bedrooms} Bedrooms</p>
+                                    <p>{listing.bathrooms} Bathrooms</p>
+                                    <p>{listing.size} sqft</p>
                                 </Col>
                                 <Col lg={3} md={6}>
-                                    <p>31 Johnson Boulevard</p>
-                                    <p>Spanish Town</p>
-                                    <p>St. Catherine</p>
+                                    <p>{listing.address}</p>
+                                    <p>{listing.city}</p>
+                                    <p>{listing.parish}</p>
                                 </Col>
                             </Row>
                         </Col>
 
-                        <Col lg={6} md={12} id="listing_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Col>
+                        <Col lg={6} md={12} id="listing_description">
+                            {listing.description}
+                        </Col>
 
                         <div id="divider"></div>
                     </Row>
@@ -61,7 +75,7 @@ export default function SingleListingScreen() {
                                 <img id="owner_image" src={asianModelImage} />
                                 <div id="name_and_contact">
                                     <p id="owner_name">Ashley Brown</p>
-                                    <AlertDialog Component={contactOwnerAlert} title="Contact Owner" question={"Are you sure you want to contact the owner of this listing?" } />
+                                    <AlertDialog Component={contactOwnerAlert} title="Contact Owner" question={"Are you sure you want to contact the owner of this listing?"} />
 
                                 </div>
                             </div>

@@ -6,7 +6,7 @@ import Listing from "../listing";
 export default function TopListings({ listings, currentUser }) {
   return (
     <div>
-      <h1 id="home_screen_title">Top Listings</h1>
+      <h1 id="home_screen_title">{listings.length>0 ? "Top Listings" : null}</h1>
       <Grid container spacing={2}>
       {
           listings.map(listing => {

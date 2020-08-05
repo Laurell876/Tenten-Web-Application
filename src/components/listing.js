@@ -18,6 +18,7 @@ import { ADD_FAVORITE, REMOVE_FAVORITE } from "../graphql/mutations";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import {REMOVE_LISTING } from "../graphql/mutations";
 import {URI} from "../constants";
+import placeholder from "../images/placeholder.png"
 
 
 export default function Listing({ key, favorited, owned_by_current_user, listing }) {
@@ -87,7 +88,7 @@ export default function Listing({ key, favorited, owned_by_current_user, listing
       <div id="listing_card">
         <div
           id="listing_card_image"
-          style={{ backgroundImage: `url(${URI}${listing.image})` }}
+          style={{ backgroundImage:  `url(${listing.image ?URI + listing.image : placeholder })`, backgroundSize: "cover", backgroundPosition: "center" }}
         >
           {/* Displays favorite icon or edit/delete icons depending on if the user owns the listing */}
           {owned_by_current_user
@@ -119,7 +120,7 @@ export default function Listing({ key, favorited, owned_by_current_user, listing
         </div>
 
         <div id="navigation" onClick={() => {
-          history.push("/single-listing-screen")
+          history.push({pathname: "/single-listing-screen", state: {listing: listing}})
         }}>
           <IconButton id="icon_button">
             <NavigationIcon id="navigation_icon" />

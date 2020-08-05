@@ -44,6 +44,7 @@ export const ME = gql`
       address
       bedrooms
       bathrooms
+      description
       rating
       image
       size
@@ -78,6 +79,7 @@ export const ALL_LISTINGS_HOMESCREEN = gql`
     address
     bedrooms
     bathrooms
+    description
     rating
     image
     size
