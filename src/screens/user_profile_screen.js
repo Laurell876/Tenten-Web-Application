@@ -27,18 +27,16 @@ export default function UserProfileScreen() {
         fetchPolicy: "network-only"
     });
     const [selectedValue, setSelectedValue] = React.useState('m');
-    const [imageToDisplay, setImageToDisplay] = useState(localStorage.getItem("currentUserImage") ? URI + localStorage.getItem("currentUserImage") : placeholder)
 
+    const [imageToDisplay, setImageToDisplay] = useState(localStorage.getItem("currentUserImage")!= "undefined" ? localStorage.getItem("currentUserImage") : placeholder)
 
+    const [imageToBeUploaded, setImageToBeUploaded] = useState();
 
     if (meResponse.loading) {
         return <LoadingScreen />
     }
 
     let currentUser = meResponse.data.me;
-    console.log(currentUser)
-
-
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
@@ -46,21 +44,13 @@ export default function UserProfileScreen() {
 
     // if the user has an image store it to local storage
     if(currentUser.image) {
-        localStorage.setItem("currentUserImage", currentUser.image);
+        localStorage.setItem("currentUserImage", URI + currentUser.image);
     }
 
-
-
-    let imageToBeUploaded;
     function DropZone() {
         const onDrop = useCallback((acceptedFiles) => {
-            imageToBeUploaded = acceptedFiles[0];
-            setImageToDisplay(URL.createObjectURL(acceptedFiles[0]))
-            //console.log(acceptedFiles[0]);
-            //console.log(URL.createObjectURL(acceptedFiles[0]))
+            setImageToBeUploaded(acceptedFiles[0]);
         });
-
-        //setImageToDisplay(imageToBeUploaded); //Change image being displayed
 
         const { getRootProps, getInputProps, isDragActive } = useDropzone({
             onDrop,
@@ -72,12 +62,6 @@ export default function UserProfileScreen() {
                 <IconButton id="icon_outline" >
                             <EditIcon id="edit_icon" />
                         </IconButton>
-
-                {/*isDragActive ? (
-        <p>Upload Image</p>
-      ) : (
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      )*/}
             </div>
         );
     }
@@ -88,18 +72,16 @@ export default function UserProfileScreen() {
                     file: imageToBeUploaded
                 }
             })
+            //localStorage.setItem("currentUserImage", URL.createObjectURL(imageToBeUploaded))
             window.location.reload();
     }
-
-
-
 
     return (<div id="user_profile_screen">
         <Navbar />
         <Container id="main_container">
             <div id="user_image_and_name">
                 <div id="user_image_container">
-                    <img id="user_image" src={`${imageToDisplay}`} alt="image of user" />
+                    <img id="user_image" src={`${imageToBeUploaded ? URL.createObjectURL(imageToBeUploaded) : imageToDisplay}`} alt="image of user" />
                     <div id="edit_user_image_button">
                         <DropZone />
                     </div>

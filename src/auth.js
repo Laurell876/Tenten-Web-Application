@@ -10,6 +10,7 @@ class Auth {
 
     logout(cb) {
         this.authenticated = false;
+        localStorage.setItem("currentUserImage", "undefined");
         cb()
     }
 

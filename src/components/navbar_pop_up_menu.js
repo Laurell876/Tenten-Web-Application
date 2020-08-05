@@ -6,6 +6,7 @@ import history from "./history";
 import { useMutation } from "@apollo/react-hooks";
 import {LOGOUT} from "../graphql/mutations";
 import {setAccessToken} from "../accessToken";
+import auth from "../auth";
 
 
 export default function SimpleMenu({ Component }) {
@@ -43,12 +44,17 @@ export default function SimpleMenu({ Component }) {
         }
         }>Profile</MenuItem>
         <MenuItem onClick={() => {
-          logout();
-          handleClose();
-          history.push("/")
-          setAccessToken("")
+          logoutCallbacks(); // remove user image from local storage
         }}>Logout</MenuItem>
       </Menu>
     </div>
   );
+
+  function logoutCallbacks() {
+    logout(); //call logout mutation
+    handleClose(); // close menu
+    history.push("/"); // redirect user
+    setAccessToken(""); // remove access token
+    localStorage.setItem("currentUserImage", "undefined");
+  }
 }
