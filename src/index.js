@@ -31,7 +31,11 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import RootReducer from "./reducers/rootReducer.js";
 
+import {createUploadLink} from "apollo-upload-client";
+
 const cache = new InMemoryCache({});
+
+const link = createUploadLink({uri: "http://localhost:4000/graphql", credentials:"include"})
 
 
 const requestLink = new ApolloLink((operation, forward) =>
@@ -124,10 +128,7 @@ const client = new ApolloClient({
       console.log(networkError);
     }),
     requestLink,
-    new HttpLink({
-      uri: 'http://localhost:4000/graphql',
-      credentials: 'include'
-    })
+    link
   ]),
   cache
 });
