@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 import Navbar from "../components/navbar";
 import { Container, Row, Col } from "react-bootstrap";
 import housesImage from "../images/urban_houses.jpg";
@@ -10,6 +10,8 @@ import { useMutation } from "@apollo/react-hooks";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import history from "../components/history";
 import AlertDropdown from "../components/alert_dropdown";
+import { useDropzone } from "react-dropzone";
+import PublishOutlinedIcon from "@material-ui/icons/PublishOutlined";
 
 
 export default function EditListingScreen({location}) {
@@ -38,6 +40,33 @@ export default function EditListingScreen({location}) {
     const [openAlert, setOpenAlert] = useState(false);
 
 
+    let imageToBeUploaded;
+    function DropZone() {
+        const onDrop = useCallback((acceptedFiles) => {
+            imageToBeUploaded = acceptedFiles[0];
+            //console.log(acceptedFiles[0]);
+        });
+
+        const { getRootProps, getInputProps, isDragActive } = useDropzone({
+            onDrop,
+        });
+
+        return (
+            <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <IconButton color="inherit" id="upload_image_container">
+                    <PublishOutlinedIcon />
+                </IconButton>
+
+                {/*isDragActive ? (
+        <p>Upload Image</p>
+      ) : (
+        <p>Drag 'n' drop some files here, or click to select files</p>
+      )*/}
+            </div>
+        );
+    }
+
     const updateListingCallback = async () => {
         try {
             const response = await updateListing({
@@ -53,7 +82,8 @@ export default function EditListingScreen({location}) {
                         parish: parish.toLowerCase(),
                         size: parseInt(size),
                         rent: parseInt(rent)
-                    }
+                    },
+                    file: imageToBeUploaded
                 }
             })
             history.push("/my-listings");
@@ -115,9 +145,7 @@ export default function EditListingScreen({location}) {
                             }} />
                             <div id="upload_image">
                                 Upload Image
-                                <IconButton id="upload_image_container" color="inherit">
-                                    <PublishIcon />
-                                </IconButton>
+                                <DropZone />
                             </div>
                         </Col>
 
@@ -131,7 +159,11 @@ export default function EditListingScreen({location}) {
                                 {updateListingObject.loading ? <CircularProgress color="secondary" size={30} /> : "Save"}
                             </Button>
 
-                            <Button id="cancel_button" color="default">
+                            <Button id="cancel_button" color="default" onClick={
+                                ()=>{
+                                    history.push("/my-listings")
+                                }
+                            }>
                                 Cancel
                             </Button>
 

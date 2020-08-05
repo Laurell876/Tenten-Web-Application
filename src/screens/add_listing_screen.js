@@ -150,7 +150,11 @@ export default function AddListingScreen() {
                                 {createListingObject.loading ? <CircularProgress color="secondary" size={30} /> : "Save"}
                             </Button>
 
-                            <Button id="cancel_button" color="default">
+                            <Button id="cancel_button" color="default" onClick={
+                                ()=>{
+                                    history.push("/my-listings")
+                                }
+                            }>
                                 Cancel
                             </Button>
 
