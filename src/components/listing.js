@@ -17,7 +17,7 @@ import AlertDialog from "./alert_dialog";
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "../graphql/mutations";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import {REMOVE_LISTING } from "../graphql/mutations";
-
+import {URI} from "../constants";
 
 
 export default function Listing({ key, favorited, owned_by_current_user, listing }) {
@@ -81,13 +81,13 @@ export default function Listing({ key, favorited, owned_by_current_user, listing
   }
 
 
-
+  console.log(URI + listing.image)
   return (
     <Grid item xs={12} sm={6} md={4}>
       <div id="listing_card">
         <div
           id="listing_card_image"
-          style={{ backgroundImage: `url(${house})` }}
+          style={{ backgroundImage: `url(${URI}${listing.image})` }}
         >
           {/* Displays favorite icon or edit/delete icons depending on if the user owns the listing */}
           {owned_by_current_user

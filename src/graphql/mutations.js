@@ -100,15 +100,16 @@ const ListingUpdateInput = new GraphQLObjectType({
 
 
 export const CREATE_LISTING = gql`
-mutation createListing ($data: ListingInput!) {
-  createListing(data: $data){
+mutation createListing ($data: ListingInput!, $file: Upload) {
+  createListing(data: $data, file: $file){
     _id
+    image
   }
 }`
 
 export const UPDATE_LISTING = gql`
-mutation updateListing ($data: ListingUpdateInput!) {
-  updateListing(data: $data){
+mutation updateListing ($data: ListingUpdateInput!, $file: Upload) {
+  updateListing(data: $data, file: $file){
     _id
   }
 }`
