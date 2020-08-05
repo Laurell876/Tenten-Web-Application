@@ -20,6 +20,7 @@ import NotFound from "../screens/not_found";
 
 import { ProtectedRoute } from "../protected.route";
 
+import UploadTest from "../fileUploadTest";
 
 export default function Routes() {
   return (<Router history={history}>
@@ -50,6 +51,7 @@ export default function Routes() {
       <ProtectedRoute path="/add-listing" exact component={AddListingScreen} />
       <ProtectedRoute path="/edit-listing" exact component={EditListingScreen} />
       <ProtectedRoute path="/loading" exact component={LoadingScreen} />
+      <Route path="/upload-test" exact component={UploadTest} />
       <Route path="*" component={() => "404 NOT FOUND"} />
     </Switch>
   </Router>)
