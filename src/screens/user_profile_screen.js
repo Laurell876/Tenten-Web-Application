@@ -16,6 +16,7 @@ import LoadingScreen from "./loading_screen";
 import { UPDATE_USER } from "../graphql/mutations"
 import history from "../components/history";
 import {URI} from "../constants";
+import placeholder from "../images/placeholder.png"
 
 
 
@@ -26,6 +27,8 @@ export default function UserProfileScreen() {
         fetchPolicy: "network-only"
     });
     const [selectedValue, setSelectedValue] = React.useState('m');
+    const [imageToDisplay, setImageToDisplay] = useState(localStorage.getItem("currentUserImage") ? URI + localStorage.getItem("currentUserImage") : placeholder)
+
 
 
     if (meResponse.loading) {
@@ -41,6 +44,11 @@ export default function UserProfileScreen() {
         setSelectedValue(event.target.value);
     };
 
+    // if the user has an image store it to local storage
+    if(currentUser.image) {
+        localStorage.setItem("currentUserImage", currentUser.image);
+    }
+
 
 
     let imageToBeUploaded;
@@ -50,6 +58,8 @@ export default function UserProfileScreen() {
             //console.log(acceptedFiles[0]);
         });
 
+        //setImageToDisplay(imageToBeUploaded); //Change image being displayed
+
         const { getRootProps, getInputProps, isDragActive } = useDropzone({
             onDrop,
         });
@@ -57,7 +67,7 @@ export default function UserProfileScreen() {
         return (
             <div {...getRootProps()}>
                 <input {...getInputProps()} />
-                <IconButton id="icon_outline">
+                <IconButton id="icon_outline" >
                             <EditIcon id="edit_icon" />
                         </IconButton>
 
@@ -87,7 +97,7 @@ export default function UserProfileScreen() {
         <Container id="main_container">
             <div id="user_image_and_name">
                 <div id="user_image_container">
-                    <img id="user_image" src={`${URI}${currentUser.image}`} alt="image of user" />
+                    <img id="user_image" src={`${imageToDisplay }`} alt="image of user" />
                     <div id="edit_user_image_button">
                         <DropZone />
                     </div>
@@ -145,7 +155,7 @@ export default function UserProfileScreen() {
 
                 <div id="buttons">
                 <Button variant="contained" color="primary" onClick={()=>{
-                    updateUserCallback()
+                    updateUserCallback();
                 }}>
                    Save Changes
                 </Button>
