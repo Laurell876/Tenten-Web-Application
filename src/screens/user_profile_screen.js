@@ -55,7 +55,9 @@ export default function UserProfileScreen() {
     function DropZone() {
         const onDrop = useCallback((acceptedFiles) => {
             imageToBeUploaded = acceptedFiles[0];
+            setImageToDisplay(URL.createObjectURL(acceptedFiles[0]))
             //console.log(acceptedFiles[0]);
+            //console.log(URL.createObjectURL(acceptedFiles[0]))
         });
 
         //setImageToDisplay(imageToBeUploaded); //Change image being displayed
@@ -97,7 +99,7 @@ export default function UserProfileScreen() {
         <Container id="main_container">
             <div id="user_image_and_name">
                 <div id="user_image_container">
-                    <img id="user_image" src={`${imageToDisplay }`} alt="image of user" />
+                    <img id="user_image" src={`${imageToDisplay}`} alt="image of user" />
                     <div id="edit_user_image_button">
                         <DropZone />
                     </div>
