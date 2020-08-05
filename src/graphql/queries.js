@@ -8,6 +8,7 @@ export const ALL_USERS = gql`
     email
     password
     tokenVersion
+    image
   }
 }`
 
@@ -19,6 +20,7 @@ export const ME = gql`
     firstName
     lastName
     email
+    image
     createdListings {
       _id
       title
@@ -101,6 +103,7 @@ export const ALL_LISTINGS_AND_ME_QUERY = gql`
   firstName
   lastName
   email
+  image
   createdListings {
     _id
     title

@@ -148,3 +148,26 @@ mutation removeListing($id: ID!) {
 }
 `
 
+const UpdateUserInput = new GraphQLObjectType({
+  name: "User",
+  description: "User type definition",
+  fields: () => ({
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
+    tokenVersion: { type: GraphQLInt }
+  }),
+});
+
+export const UPDATE_USER = gql`
+mutation updateUser($data: UpdateUserInput, $file: Upload){
+  updateUser(data:$data, file: $file){
+    _id
+    firstName
+    lastName
+    email
+    image
+  }
+}
+`

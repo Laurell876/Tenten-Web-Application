@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Navbar from "../components/navbar";
 import { Container} from "react-bootstrap";
 import modelImage from "../images/model.jpg";
@@ -8,23 +8,88 @@ import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import { useDropzone } from "react-dropzone";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import PublishOutlinedIcon from "@material-ui/icons/PublishOutlined";
+import { ME } from "../graphql/queries";
+import LoadingScreen from "./loading_screen";
+import { UPDATE_USER } from "../graphql/mutations"
+import history from "../components/history";
+import {URI} from "../constants";
+
+
+
 
 export default function UserProfileScreen() {
+    const [updateUser, updateUserObject] = useMutation(UPDATE_USER);
+    const meResponse = useQuery(ME, {
+        fetchPolicy: "network-only"
+    });
     const [selectedValue, setSelectedValue] = React.useState('m');
+
+
+    if (meResponse.loading) {
+        return <LoadingScreen />
+    }
+
+    let currentUser = meResponse.data.me;
+    console.log(currentUser)
+
+
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
     };
+
+
+
+    let imageToBeUploaded;
+    function DropZone() {
+        const onDrop = useCallback((acceptedFiles) => {
+            imageToBeUploaded = acceptedFiles[0];
+            //console.log(acceptedFiles[0]);
+        });
+
+        const { getRootProps, getInputProps, isDragActive } = useDropzone({
+            onDrop,
+        });
+
+        return (
+            <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <IconButton id="icon_outline">
+                            <EditIcon id="edit_icon" />
+                        </IconButton>
+
+                {/*isDragActive ? (
+        <p>Upload Image</p>
+      ) : (
+        <p>Drag 'n' drop some files here, or click to select files</p>
+      )*/}
+            </div>
+        );
+    }
+
+    const updateUserCallback = async () => {
+            await updateUser({
+                variables: {
+                    file: imageToBeUploaded
+                }
+            })
+            window.location.reload();
+    }
+
+
+
+
     return (<div id="user_profile_screen">
         <Navbar />
         <Container id="main_container">
             <div id="user_image_and_name">
                 <div id="user_image_container">
-                    <img id="user_image" src={modelImage} alt="image of user" />
+                    <img id="user_image" src={`${URI}${currentUser.image}`} alt="image of user" />
                     <div id="edit_user_image_button">
-                        <IconButton id="icon_outline">
-                            <EditIcon id="edit_icon" />
-                        </IconButton>
+                        <DropZone />
                     </div>
                 </div>
             </div>
@@ -79,7 +144,9 @@ export default function UserProfileScreen() {
                 </div>
 
                 <div id="buttons">
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={()=>{
+                    updateUserCallback()
+                }}>
                    Save Changes
                 </Button>
                 <Button id="cancel_button">
