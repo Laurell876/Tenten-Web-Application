@@ -120,7 +120,7 @@ export default function Listing({ key, favorited, owned_by_current_user, listing
         </div>
 
         <div id="navigation" onClick={() => {
-          history.push({pathname: "/single-listing-screen", state: {listing: listing}})
+          history.push({pathname: "/single-listing-screen", state: {listingId: listing._id}})
         }}>
           <IconButton id="icon_button">
             <NavigationIcon id="navigation_icon" />

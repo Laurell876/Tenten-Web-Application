@@ -11,37 +11,86 @@ import SingleComment from "../components/single_comment";
 import AlertDialog from "../components/alert_dialog";
 import { URI } from "../constants";
 import placeholder from "../images/placeholder.png"
-
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import {
+    fiveStarRatingAlert,
+    fourStarRatingAlert,
+    threeStarRatingAlert,
+    twoStarRatingAlert,
+    oneStarRatingAlert
+} from "../helperFunctions/rate_listing_alert_functions";
+import { RATE_LISTING } from "../graphql/mutations";
+import { GET_LISTING_BY_ID } from "../graphql/queries";
+import StarsIcon from '@material-ui/icons/Stars';
+import LoadingScreen from "./loading_screen";
 
 export default function SingleListingScreen({ location }) {
-    let listing;
+    let listingId;
 
-    if (location.state && location.state.listing) {
-        listing = location.state.listing
-        localStorage.setItem("single-listing-being-displayed", JSON.stringify(listing))
+    if (location.state && location.state.listingId) {
+        listingId = location.state.listingId
+        localStorage.setItem("single-listing-Id", listingId)
     } else {
-        listing = JSON.parse(localStorage.getItem("single-listing-being-displayed"))
+        listingId = localStorage.getItem("single-listing-Id")
     }
-    console.log(listing)
+    const [rateListing, rateListingObject] = useMutation(RATE_LISTING);
+
+    const singleListingResponse = useQuery(GET_LISTING_BY_ID, {
+        variables: {
+            id: listingId
+        }
+    }, {
+        fetchPolicy: "network-only"
+    });
+
+    if (singleListingResponse.loading) {
+        return <LoadingScreen />
+    }
+
+    let listing;
+    if(singleListingResponse.data && singleListingResponse.data.listings){
+        listing = singleListingResponse.data.listings[0];
+    }
+
+
+
 
     function contactOwnerAlert({ functionToRunOnClick }) {
         return (
             <IconButton color="inherit" id="icon_button" onClick={functionToRunOnClick}>
                 <ChatBubbleOutlineIcon id="chat_button" />
             </IconButton>
-
         )
     }
 
+    let ratingAlerts = [fiveStarRatingAlert, fourStarRatingAlert, threeStarRatingAlert, twoStarRatingAlert, oneStarRatingAlert]
+
+    async function rateListingCallback(listingId, value) {
+        const response = await rateListing({
+            variables: {
+                id: listingId,
+                value: value
+            }
+        })
+    }
+
+    let ratingStars = [];
+    console.log("listing rating", listing.rating)
+    for (let i = 0; i < listing.rating; i++) {
+        ratingStars.push(<StarsIcon />)
+    }
 
     return (<div>
         <Navbar />
         <Container>
             <div id="single_listing_screen">
-                <div id="listing_display_image" style={{ backgroundImage:  `url(${listing.image ?URI + listing.image : placeholder })`, backgroundSize: "cover", backgroundPosition: "center" }}></div>
+                <div id="listing_display_image" style={{ backgroundImage: `url(${listing.image ? URI + listing.image : placeholder})`, backgroundSize: "cover", backgroundPosition: "center" }}></div>
 
                 <div id="details_and_description">
-                    <div id="listing_title">{listing.title}</div>
+                    <div id="listing_title">
+                        {listing.title}
+                        <div>{ratingStars}</div>
+                    </div>
                     <Row>
                         <Col lg={6} md={12} id="listing_details">
                             <Row>
@@ -83,11 +132,19 @@ export default function SingleListingScreen({ location }) {
                         <Col lg={6} md={12} id="rating">
                             <div id="rating_heading">Rate Listing</div>
                             <div id="stars">
-                                <div id="star_icons">{generateStars(5)}</div>
-                                <div id="star_icons">{generateStars(4)}</div>
-                                <div id="star_icons">{generateStars(3)}</div>
-                                <div id="star_icons">{generateStars(2)}</div>
-                                <div id="star_icons">{generateStars(1)}</div>
+                                {
+                                    ratingAlerts.map((ratingAlert, index) => {
+                                        return <AlertDialog
+                                            listingId={listing._id}
+                                            functionToRunOnConfirm={() => {
+                                                return rateListingCallback(listing._id, 5 - index)
+                                            }}
+                                            Component={ratingAlert}
+                                            title="Rate Listing"
+                                            question={`Are you sure you want to rate this listing?`}
+                                        />
+                                    })
+                                }
                             </div>
                         </Col>
                         <div id="divider"></div>
@@ -114,7 +171,7 @@ export default function SingleListingScreen({ location }) {
     </div>)
 }
 
-const generateStars = (numOfStars) => {
+export const generateStars = (numOfStars) => {
     let stars = [];
     for (let i = 0; i < numOfStars; i++) {
         stars.push(<StarBorderIcon />)

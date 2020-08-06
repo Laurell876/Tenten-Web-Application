@@ -171,3 +171,12 @@ mutation updateUser($data: UpdateUserInput, $file: Upload){
   }
 }
 `
+
+export const RATE_LISTING = gql`
+mutation rateListing($id:ID!, $value: Int!){
+  rateListing(id:$id, value: $value){
+    userId
+    userRating
+  }
+}
+`

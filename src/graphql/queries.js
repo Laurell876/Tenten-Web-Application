@@ -82,8 +82,8 @@ export const ALL_LISTINGS_HOMESCREEN = gql`
     bedrooms
     bathrooms
     description
-    rating
     image
+    rating
     size
     parish
     owner{
@@ -166,6 +166,29 @@ export const ALL_LISTINGS_AND_ME_QUERY = gql`
       _id
       email
     }
+  }
+}
+`
+
+export const GET_LISTING_BY_ID = gql`
+query listings($id: ID!){
+  listings(id: $id){
+			_id
+      title
+      description
+      city
+      rent
+      address
+      bedrooms
+      bathrooms
+      rating
+      image
+      size
+      parish
+      owner{
+        _id
+        email
+      }
   }
 }
 `
