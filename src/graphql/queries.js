@@ -37,6 +37,16 @@ export const ME = gql`
       owner{
         _id
         email
+        image
+      }
+      reviews{
+        review
+        user{
+          _id
+          firstName
+          lastName
+          email
+        }
       }
     }
     favoriteListings {
@@ -54,6 +64,16 @@ export const ME = gql`
       owner{
         _id
         email
+        image
+      }
+      reviews{
+        review
+        user{
+          _id
+          firstName
+          lastName
+          email
+        }
       }
     }
     reviews {
@@ -89,6 +109,16 @@ export const ALL_LISTINGS_HOMESCREEN = gql`
     owner{
       _id
       email
+      image
+    }
+    reviews{
+      review
+      user{
+        _id
+        firstName
+        lastName
+        email
+      }
     }
   }
 }
@@ -119,7 +149,17 @@ export const ALL_LISTINGS_AND_ME_QUERY = gql`
     city
     owner{
       _id
+      image
       email
+    }
+    reviews{
+      review
+      user{
+        _id
+        firstName
+        lastName
+        email
+      }
     }
   }
   favoriteListings {
@@ -136,6 +176,16 @@ export const ALL_LISTINGS_AND_ME_QUERY = gql`
     owner{
       _id
       email
+      image
+    }
+    reviews{
+      review
+      user{
+        _id
+        firstName
+        lastName
+        email
+      }
     }
   }
   reviews {
@@ -165,6 +215,16 @@ export const ALL_LISTINGS_AND_ME_QUERY = gql`
     owner{
       _id
       email
+      image
+    }
+    reviews{
+      review
+      user{
+        _id
+        firstName
+        lastName
+        email
+      }
     }
   }
 }
@@ -188,6 +248,16 @@ query listings($id: ID!){
       owner{
         _id
         email
+        image
+      }
+      reviews{
+        review
+        user{
+          _id
+          firstName
+          lastName
+          email
+        }
       }
   }
 }

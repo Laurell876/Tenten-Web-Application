@@ -180,3 +180,17 @@ mutation rateListing($id:ID!, $value: Int!){
   }
 }
 `
+
+
+export const REVIEW_LISTING = gql`
+mutation addReview($listingId: ID!, $review: String!){
+  addReview(listingId: $listingId, review: $review){
+    _id
+    review
+    user{
+      _id
+      email
+    }
+  }
+}
+`

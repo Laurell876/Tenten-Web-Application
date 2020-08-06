@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from "../components/navbar";
 import modernMansionImage from "../images/modern-mansion.jpg";
 import { Container, Row, Col } from "react-bootstrap";
@@ -19,8 +19,8 @@ import {
     twoStarRatingAlert,
     oneStarRatingAlert
 } from "../helperFunctions/rate_listing_alert_functions";
-import { RATE_LISTING } from "../graphql/mutations";
-import { GET_LISTING_BY_ID } from "../graphql/queries";
+import { RATE_LISTING, REVIEW_LISTING } from "../graphql/mutations";
+import { GET_LISTING_BY_ID, ME } from "../graphql/queries";
 import StarsIcon from '@material-ui/icons/Stars';
 import LoadingScreen from "./loading_screen";
 
@@ -33,6 +33,13 @@ export default function SingleListingScreen({ location }) {
     } else {
         listingId = localStorage.getItem("single-listing-Id")
     }
+
+    const [reviews, setReviews] = useState();
+
+    const [reviewBeingTyped, setReviewBeingTyped] = useState("");
+    
+    const [reviewListing, reviewListingObject] = useMutation(REVIEW_LISTING);
+
     const [rateListing, rateListingObject] = useMutation(RATE_LISTING);
 
     const singleListingResponse = useQuery(GET_LISTING_BY_ID, {
@@ -42,17 +49,27 @@ export default function SingleListingScreen({ location }) {
     }, {
         fetchPolicy: "network-only"
     });
+    const meResponse = useQuery(ME, {
+        fetchPolicy: "network-only"
+    });
 
-    if (singleListingResponse.loading) {
+    const [newReview, setNewReview] = useState();
+
+
+    if (singleListingResponse.loading || meResponse.loading) {
         return <LoadingScreen />
     }
 
     let listing;
-    if(singleListingResponse.data && singleListingResponse.data.listings){
+    if (singleListingResponse.data && singleListingResponse.data.listings) {
         listing = singleListingResponse.data.listings[0];
+        //setReviews(listing.reviews);
     }
 
-
+    let currentUser;
+    if (meResponse.data && meResponse.data.me) {
+        currentUser = meResponse.data.me;
+    }
 
 
     function contactOwnerAlert({ functionToRunOnClick }) {
@@ -75,10 +92,23 @@ export default function SingleListingScreen({ location }) {
     }
 
     let ratingStars = [];
-    console.log("listing rating", listing.rating)
     for (let i = 0; i < listing.rating; i++) {
         ratingStars.push(<StarsIcon />)
     }
+
+
+    const _handleKeyDown = async (e) => {
+        if (e.key === 'Enter') {
+            const response = await reviewListing({
+                variables: {
+                    listingId: listingId,
+                    review: reviewBeingTyped
+                }
+            })
+            setReviews([...listing.reviews, response.data.addReview])
+        }
+    }
+
 
     return (<div>
         <Navbar />
@@ -121,7 +151,7 @@ export default function SingleListingScreen({ location }) {
                         <Col lg={6} md={12} id="owner">
                             <div id="owner_heading">Contact Owner</div>
                             <div id="owner_image_and_name">
-                                <img id="owner_image" src={asianModelImage} />
+                                <img id="owner_image" src={`${listing.owner.image ? URI + listing.owner.image : placeholder}`} />
                                 <div id="name_and_contact">
                                     <p id="owner_name">Ashley Brown</p>
                                     <AlertDialog Component={contactOwnerAlert} title="Contact Owner" question={"Are you sure you want to contact the owner of this listing?"} />
@@ -154,13 +184,29 @@ export default function SingleListingScreen({ location }) {
                 <div id="comment_section">
                     <div id="comment_section_heading">3 Comments</div>
                     <div id="user_image_and_input">
-                        <img id="user_picture" src={modelImage} />
-                        <input id="comment_input" type="text" placeholder="Add a public comment" />
+                        <img id="user_picture" src={`${URI + currentUser.image}`} />
+                        <input id="comment_input" type="text" placeholder="Add a public comment" onKeyDown={_handleKeyDown} onChange={
+                            (e)=>{
+                                setReviewBeingTyped(e.target.value)
+                            }
+                        }/>
                     </div>
                     <div id="all_comments">
-                        <SingleComment />
-                        <SingleComment />
-                        <SingleComment />
+                        {reviews ? reviews.map(review => {
+                            return (
+                                <SingleComment
+                                    user={review.user}
+                                    review={review.review}
+                                />
+                            )
+                        }) : listing.reviews.map(review => {
+                            return (
+                                <SingleComment
+                                    user={review.user}
+                                    review={review.review}
+                                />
+                            )
+                        })}
                     </div>
                 </div>
 
