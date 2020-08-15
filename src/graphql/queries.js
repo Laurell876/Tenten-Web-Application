@@ -86,10 +86,52 @@ export const ME = gql`
       _id
     }
     chats{
-    	_id
+      _id
+      lastMessage{
+        _id
+        text
+        createdAt
+        sender{
+          _id
+        }
+        receiver{
+          _id
+        }
+      }
+      userOne{
+        _id
+        firstName
+        lastName
+        email
+      }
+      userTwo{
+        _id
+        firstName
+        lastName
+        email
+      }
+      messages{
+        text
+        chat{
+          _id
+          userOne{
+            _id
+            
+          }
+          userTwo{
+            _id
+          }
+        }
+        sender{
+          _id
+        }
+        receiver{
+          _id
+        }
+      }
     }
   }
-}
+  }
 `
 
 export const ALL_LISTINGS_HOMESCREEN = gql`

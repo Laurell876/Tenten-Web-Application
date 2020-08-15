@@ -2,9 +2,11 @@ import React from 'react';
 import modelImage from "../../images/model.jpg";
 
 
-export default function SingleChat({active}) {
+export default function SingleChat({active, functionToRunOnClick, chat}) {
     return (
-    <div id="single_chat_container">
+    <div id="single_chat_container" onClick={
+        ()=>functionToRunOnClick(chat)
+    }>
         <div id="single_chat">
             <img
                 src={modelImage}

@@ -25,7 +25,7 @@
                     #received_bubble,
                     #sent_bubble{
                         padding:15px;
-                        width:50%;
+                        width:35%;
                     }
 
                     #message_received_bubble_section{
@@ -117,6 +117,7 @@
                 overflow-y:auto;
 
                 #single_chat_container{
+                    cursor: pointer;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;

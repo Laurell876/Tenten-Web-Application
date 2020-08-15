@@ -87,7 +87,7 @@ export default function UserProfileScreen() {
                     </div>
                 </div>
             </div>
-            <div id="user_name">Grace Campbell</div>
+            <div id="user_name">{currentUser.firstName} {currentUser.lastName}</div>
             <div id="data_fields">
                 <input id="first_name" class="input" placeholder="First Name" /><br />
                 <input id="last_name" class="input" placeholder="Last Name" />
