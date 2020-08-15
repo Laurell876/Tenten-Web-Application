@@ -194,3 +194,31 @@ mutation addReview($listingId: ID!, $review: String!){
   }
 }
 `
+
+
+const CreateMessageInput = new GraphQLObjectType({
+  name: "CreateMessageInput",
+  description: "Input type used when creating messages",
+  fields: () => ({
+    chat: {type: new GraphQLNonNull(GraphQLID)},
+    text: { type: new GraphQLNonNull(GraphQLString) }
+  })
+})
+
+
+export const CREATE_MESSAGE = gql`
+mutation createMessage($data: CreateMessageInput!){
+  createMessage(data: $data){
+    _id
+    createdAt
+    text
+    chat{
+      _id
+    }
+    receiver{
+      _id
+      email
+    }
+  }
+}
+`

@@ -5,13 +5,32 @@ import { Container, Row, Col } from "react-bootstrap";
 import SearchIcon from '@material-ui/icons/Search';
 import SingleChatWeb from "../components/chat_screen_components/single_chat_web";
 import ChatBubbleSectionWeb from "../components/chat_screen_components/chat_bubble_section_web";
-import { useSubscription, useQuery } from "@apollo/react-hooks";
+import { useSubscription, useQuery, useMutation } from "@apollo/react-hooks";
 import { NEW_MESSAGE } from "../graphql/subscriptions";
 import LoadingScreen from "./loading_screen";
 import { ME } from "../graphql/queries";
+import { CREATE_MESSAGE } from "../graphql/mutations"
+
+
 
 export default function ChatsScreen() {
+    const [createMessage, createMessageObject] = useMutation(CREATE_MESSAGE);
     const [currentChat, setCurrentChat] = useState();
+
+    const sendMessage = async (text) => {
+        const messageCreated = await createMessage({
+            variables: {
+                data: {
+                    chat: currentChat._id,
+                    text: text
+                }
+            }
+        })
+        setCurrentChat({
+            ...currentChat,
+            messages: [...currentChat.messages, messageCreated.data.createMessage]
+        })
+    }
 
     const newMessageObj = useSubscription(
         NEW_MESSAGE,
@@ -19,7 +38,6 @@ export default function ChatsScreen() {
             shouldResubscribe: true,
             fetchPolicy: "network-only",
             onSubscriptionData: (options) => {
-                console.log(options)
                 if (currentChat) {
                     let newMessage = options.subscriptionData.data.newMessage;
                     if (options.subscriptionData.data.newMessage.chat._id == currentChat._id) {
@@ -28,7 +46,6 @@ export default function ChatsScreen() {
                             messages: [...currentChat.messages, newMessage]
                         })
                     }
-                    console.log("data received for")
                 }
             }
         }
@@ -37,17 +54,6 @@ export default function ChatsScreen() {
     const meResponse = useQuery(ME, {
         fetchPolicy: "network-only"
     });
-
-    // if(newMessageObj.data) {
-    //     let newMessage = newMessageObj.data.newMessage;
-    //     if(newMessage.chat._id == currentChat._id) {
-    //         console.log("new message belongs to currentChat")
-    //         // setCurrentChat({
-    //         //     ...currentChat,
-    //         //     messages: [...currentChat.messages, newMessage]
-    //         // })
-    //     }
-    // }
 
     if (meResponse.loading) return <LoadingScreen />
 
@@ -87,17 +93,15 @@ export default function ChatsScreen() {
                                             />
                                         })
                                     }
-
-                                    {/* <SingleChatWeb active={true} />
-                                    <SingleChatWeb active={false} />
-                                    <SingleChatWeb active={false} />
-                                    <SingleChatWeb active={false} />
-                                    <SingleChatWeb active={false} /> */}
                                 </div>
                             </Col>
 
                             <Col lg={9} md={10} id="bubble_section" >
-                                <ChatBubbleSectionWeb me={me} currentChat={currentChat ? currentChat : null} />
+                                <ChatBubbleSectionWeb
+                                    me={me}
+                                    currentChat={currentChat ? currentChat : null}
+                                    sendMessage={sendMessage}
+                                />
                             </Col>
 
                         </Row>
