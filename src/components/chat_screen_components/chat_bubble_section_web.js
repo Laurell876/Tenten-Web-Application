@@ -7,16 +7,11 @@ export default function ChatBubbleSectionWeb({ currentChat, me, sendMessage }) {
 
     const [text, setText] = useState("");
     
-
     let scrollRef = React.createRef();
 
     useEffect(()=>{
-        console.log(scrollRef)
-        scrollRef.current.scrollTop = scrollRef.current.scrollTopMax
+        scrollRef.current.scrollTop = scrollRef.current.scrollTopMax //automatically scroll to bottom of chat bubbles div
     })
-
-
-
 
     const _handleKeyDown = (e) => {
         if (currentChat) { //Messages can only be sent if a current chat is selected
@@ -25,7 +20,6 @@ export default function ChatBubbleSectionWeb({ currentChat, me, sendMessage }) {
             }
         }
     }
-
 
     return (<div id="chat_bubble_section_web">
         <div id="bubble_section_heading">

@@ -87,6 +87,7 @@ export default function ChatsScreen() {
                                     {
                                         me.chats.map(chat => {
                                             return <SingleChatWeb
+                                                otherUser={chat.userOne._id != me._id ? chat.userOne : chat.userTwo }
                                                 active={currentChat ? chat._id == currentChat._id : false}
                                                 chat={chat}
                                                 functionToRunOnClick={switchCurrentChat}
