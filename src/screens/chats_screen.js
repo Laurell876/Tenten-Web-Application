@@ -120,20 +120,19 @@ export default function ChatsScreen() {
     </div>)
 
     function addMessageToCurrentChat(options) {
-        // if (currentChat) { // if a current chat is selected
-        //     let newMessage = options.subscriptionData.data.newMessage;
-        //     if (options.subscriptionData.data.newMessage.chat._id == currentChat._id) {
-        //         setCurrentChat({
-        //             ...currentChat,
-        //             messages: [...currentChat.messages, newMessage]
-        //         });
-        //     } else {
-        //         let chatMessageBelongsTo = me.chats.filter(chat => chat._id == options.subscriptionData.data.newMessage.chat._id);
-        //         setChatsWithNewMessages([...chatsWithNewMessages, chatMessageBelongsTo]);
-        //     }
-        // }
-
-
+        if (currentChat) { // if a current chat is selected
+            let newMessage = options.subscriptionData.data.newMessage;
+            if (options.subscriptionData.data.newMessage.chat._id == currentChat._id) {
+                setCurrentChat({
+                    ...currentChat,
+                    messages: [...currentChat.messages, newMessage]
+                });
+            } else {
+                let chatMessageBelongsTo = me.chats.filter(chat => chat._id == options.subscriptionData.data.newMessage.chat._id);
+                setChatsWithNewMessages([...chatsWithNewMessages, chatMessageBelongsTo]);
+            }
+        }
+        //TODO add notification to icon with other chats that have messages
     }
 
 
