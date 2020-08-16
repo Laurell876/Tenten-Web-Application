@@ -112,6 +112,7 @@ export const ME = gql`
       }
       messages{
         text
+        createdAt
         chat{
           _id
           userOne{
@@ -302,5 +303,58 @@ query listings($id: ID!){
         }
       }
   }
+}
+`
+
+export const GET_SINGLE_CHAT = gql `
+query chats($chatId: ID){
+  chats(chatId:$chatId){
+    _id
+    lastMessage{
+      _id
+      text
+      createdAt
+      sender{
+        _id
+      }
+      receiver{
+        _id
+      }
+    }
+    userOne{
+      _id
+      firstName
+      lastName
+      email
+    }
+    userTwo{
+      _id
+      firstName
+      lastName
+      email
+    }
+    messages{
+      _id
+      text
+      createdAt
+      chat{
+        _id
+        userOne{
+          _id
+          
+        }
+        userTwo{
+          _id
+        }
+      }
+      sender{
+        _id
+      }
+      receiver{
+        _id
+      }
+    }
+  }
+
 }
 `

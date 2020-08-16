@@ -1,20 +1,14 @@
 import React from 'react';
 import modelImage from "../../images/model.jpg";
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 
+export default function SingleChat({ active, functionToRunOnClick, chat, otherUser, newMessage }) {
 
-export default function SingleChat({ active, functionToRunOnClick, chat, otherUser }) {
-
+    //console.log(newMessage)
 
     let timeFormatted;
     if (chat.lastMessage) {
-        let dateFromMongo = Date.parse(chat.lastMessage.createdAt)
-        let d = new Date(dateFromMongo);
-        var minutes = d.getMinutes();
-        var hour = d.getHours();
-
-        minutes = minutes>10 ? minutes.toString() : "0" + minutes.toString(); //add 0 to minutes if its less than 10
-
-        timeFormatted = hour.toString() + ":" + minutes;
+        getTimeFromDate(chat.lastMessage.createdAt);
     }
 
 
@@ -42,12 +36,35 @@ export default function SingleChat({ active, functionToRunOnClick, chat, otherUs
                 </div>
 
             </div>
-            {active ?
+            {
+                newMessage
+                    ?
+                    <div id="new_message_icon">
+                        <NotificationsActiveIcon fontSize='small' />
+                    </div>
+                    :
+                    null
+            }
 
-                <div id="active_chat_icon"></div>
-
-                : null}
+            {
+                active
+                    ?
+                    <div id="active_chat_icon"></div>
+                    :
+                    null
+            }
 
         </div>
     );
+
+    function getTimeFromDate(date) {
+        let dateFromMongo = Date.parse(date);
+        let d = new Date(dateFromMongo);
+        var minutes = d.getMinutes();
+        var hour = d.getHours();
+
+        minutes = minutes >= 10 ? minutes.toString() : "0" + minutes.toString(); //add 0 to minutes if its less than 10
+
+        timeFormatted = hour.toString() + ":" + minutes;
+    }
 }

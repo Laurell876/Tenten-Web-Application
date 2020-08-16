@@ -41,6 +41,10 @@ function HomeScreen({
 
   let listings = allListingsResponse.data.listings;
   let currentUser = meResponse.data.me;
+
+  // // store current user in local storage
+  // localStorage.setItem("me", JSON.stringify(currentUser));
+
   console.log(currentUser.favoriteListings)
 
   //Generate All Listings

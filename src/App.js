@@ -22,9 +22,6 @@ const theme = createMuiTheme({
 
 
 function App() {
-  // const [getMe, meObject] = useLazyQuery(ME, {
-  //   fetchPolicy:"network-only"
-  // })
 
   const [loading, setLoading] = useState(true);
 
@@ -45,24 +42,12 @@ function App() {
       setLoading(false);
     }
     )
-    // .then(()=>{
-    //   getMe();
-    // });
   
   }, [])
 
   if(loading) {
     return <LoadingScreen />
   }
-  
-
-  // if(meObject.error){
-  //   console.log(meObject.error)
-  // }
-
-  // if(!meObject.loading && !meObject.error && meObject.data && meObject.data.data) {
-  //   console.log(meObject.data.data.me);
-  // }
 
   return (
     <ThemeProvider theme={theme}>

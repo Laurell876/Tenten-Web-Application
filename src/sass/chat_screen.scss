@@ -28,6 +28,9 @@
                         padding:15px;
                         width:35%;
                     }
+                    #message_date{
+                        font-size:12px;
+                    }
 
                     #message_received_bubble_section{
                         margin-left:10px;
@@ -123,6 +126,13 @@
                     justify-content: space-between;
                     align-items: center;
                     border-bottom: $chatScreenBorder;
+
+                    #new_message_icon{
+                        background-color: $primaryColor;
+                        padding:8px;
+                        border-radius: 50%;
+                        margin-right:10px;
+                    }
 
                     #single_chat{
                         
