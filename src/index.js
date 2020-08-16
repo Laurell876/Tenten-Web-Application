@@ -36,16 +36,18 @@ import { split } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
 
+import {URI, SUBURI} from "./constants";
+
 
 
 const cache = new InMemoryCache({});
 
-const link = createUploadLink({ uri: "http://localhost:4000/graphql", credentials: "include" })
+const link = createUploadLink({ uri: `${URI}graphql`, credentials: "include" })
 
 
 const subToken = getAccessToken();
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
+  uri: `${SUBURI}graphql`,
   options: {
     reconnect: true,
     connectionParams: { 
@@ -126,7 +128,7 @@ const client = new ApolloClient({
         }
       },
       fetchAccessToken: async () => { //refresh token route is being called
-        return fetch('http://localhost:4000/refresh_token', {
+        return fetch(`${URI}refresh_token`, {
           method: "POST",
           credentials: "include"
         });

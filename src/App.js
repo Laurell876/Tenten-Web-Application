@@ -7,6 +7,7 @@ import { setAccessToken } from "./accessToken";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/react-hooks";
 import {ME} from "./graphql/queries";
 import LoadingScreen from "./screens/loading_screen";
+import {URI, SUBURI} from "./constants";
 
 
 const theme = createMuiTheme({
@@ -29,7 +30,7 @@ function App() {
   // before an app renders show loading, while its displaying that try to refresh the token, after its done that set loading to false
   // after this load the entire application
   useEffect(()=>{
-    fetch('http://localhost:4000/refresh_token', {
+    fetch(`${URI}refresh_token`, {
       method:"POST",
       credentials: "include",
     })

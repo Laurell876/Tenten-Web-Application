@@ -188,6 +188,9 @@ mutation addReview($listingId: ID!, $review: String!){
     _id
     review
     user{
+      firstName
+      lastName
+      image
       _id
       email
     }
@@ -218,6 +221,38 @@ mutation createMessage($data: CreateMessageInput!){
     receiver{
       _id
       email
+    }
+  }
+}
+`
+
+export const START_CHAT = gql`
+mutation startChat($userTwoId: ID!){
+  startChat(userTwo: $userTwoId){
+    _id
+    messages{
+      _id
+      text
+      createdAt
+    }
+    lastMessage{
+      _id
+      text
+      createdAt
+    }
+    userOne{
+      email
+      firstName
+      lastName
+      image
+      _id
+    }
+    userTwo{
+      _id
+      email
+      firstName
+      lastName
+      image
     }
   }
 }

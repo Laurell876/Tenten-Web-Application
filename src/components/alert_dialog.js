@@ -15,7 +15,8 @@ export default function AlertDialogSlide({Component,
   question, 
   title, 
   functionToRunOnConfirm,
-  listingId
+  listingId,
+  preventPageReload
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -30,7 +31,7 @@ export default function AlertDialogSlide({Component,
   const confirm = () => {
     functionToRunOnConfirm(listingId)
     handleClose()
-    window.location.reload(false);
+    if(!preventPageReload) window.location.reload(false);
   }
 
   return (

@@ -19,10 +19,14 @@ import {
     twoStarRatingAlert,
     oneStarRatingAlert
 } from "../helperFunctions/rate_listing_alert_functions";
-import { RATE_LISTING, REVIEW_LISTING } from "../graphql/mutations";
+import { RATE_LISTING, REVIEW_LISTING, START_CHAT } from "../graphql/mutations";
 import { GET_LISTING_BY_ID, ME } from "../graphql/queries";
 import StarsIcon from '@material-ui/icons/Stars';
 import LoadingScreen from "./loading_screen";
+import history from "../components/history";
+
+
+
 
 export default function SingleListingScreen({ location }) {
     let listingId;
@@ -37,10 +41,13 @@ export default function SingleListingScreen({ location }) {
     const [reviews, setReviews] = useState();
 
     const [reviewBeingTyped, setReviewBeingTyped] = useState("");
-    
+
     const [reviewListing, reviewListingObject] = useMutation(REVIEW_LISTING);
 
     const [rateListing, rateListingObject] = useMutation(RATE_LISTING);
+
+    const [startChat, startChatObject] = useMutation(START_CHAT);
+
 
     const singleListingResponse = useQuery(GET_LISTING_BY_ID, {
         variables: {
@@ -49,6 +56,7 @@ export default function SingleListingScreen({ location }) {
     }, {
         fetchPolicy: "network-only"
     });
+
     const meResponse = useQuery(ME, {
         fetchPolicy: "network-only"
     });
@@ -106,6 +114,7 @@ export default function SingleListingScreen({ location }) {
                 }
             })
             setReviews([...listing.reviews, response.data.addReview])
+            setReviewBeingTyped("")
         }
     }
 
@@ -153,8 +162,27 @@ export default function SingleListingScreen({ location }) {
                             <div id="owner_image_and_name">
                                 <img id="owner_image" src={`${listing.owner.image ? URI + listing.owner.image : placeholder}`} />
                                 <div id="name_and_contact">
-                                    <p id="owner_name">Ashley Brown</p>
-                                    <AlertDialog Component={contactOwnerAlert} title="Contact Owner" question={"Are you sure you want to contact the owner of this listing?"} />
+                                    <p id="owner_name">{listing.owner.firstName} {listing.owner.lastName}</p>
+
+                                    {listing.owner._id != currentUser._id ? <AlertDialog
+                                        Component={contactOwnerAlert}
+                                        title="Contact Owner" question={"Are you sure you want to contact the owner of this listing?"}
+                                        functionToRunOnConfirm={async () => {
+                                            console.log("chat started with owner")
+
+                                            try {
+                                                await startChat({
+                                                    variables: {
+                                                        userTwoId: listing.owner._id
+                                                    }
+                                                })
+                                            } catch (e) {
+                                                console.log(e)
+                                            }
+                                            history.push({ pathname: "/chats" })
+                                        }}
+                                        preventPageReload={true}
+                                    /> : null}
 
                                 </div>
                             </div>
@@ -182,14 +210,20 @@ export default function SingleListingScreen({ location }) {
                 </div>
 
                 <div id="comment_section">
-                    <div id="comment_section_heading">3 Comments</div>
                     <div id="user_image_and_input">
-                        <img id="user_picture" src={`${URI + currentUser.image}`} />
-                        <input id="comment_input" type="text" placeholder="Add a public comment" onKeyDown={_handleKeyDown} onChange={
-                            (e)=>{
-                                setReviewBeingTyped(e.target.value)
-                            }
-                        }/>
+                        <img id="user_picture"
+                            src={`${currentUser.image ? URI + currentUser.image : placeholder}`} />
+                        <input
+                            id="comment_input"
+                            type="text"
+                            placeholder="Add a public comment"
+                            value={reviewBeingTyped}
+                            onKeyDown={_handleKeyDown}
+                            onChange={
+                                (e) => {
+                                    setReviewBeingTyped(e.target.value)
+                                }
+                            } />
                     </div>
                     <div id="all_comments">
                         {reviews ? reviews.map(review => {

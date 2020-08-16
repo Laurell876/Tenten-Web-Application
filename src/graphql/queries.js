@@ -292,10 +292,13 @@ query listings($id: ID!){
         _id
         email
         image
+        firstName
+        lastName
       }
       reviews{
         review
         user{
+          image
           _id
           firstName
           lastName
