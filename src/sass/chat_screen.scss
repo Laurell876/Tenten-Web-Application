@@ -11,6 +11,12 @@
             padding:0;
             #chat_bubble_section_web{
 
+                #loading_section{
+                    width:100%;
+                    height:calc(100vh - 71px);
+                    @include flexCenter;
+                }
+
                 #bubbles{
                     border-right: $chatScreenBorder;
                     height: calc(100vh - 171px);

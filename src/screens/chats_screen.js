@@ -6,7 +6,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import SingleChatWeb from "../components/chat_screen_components/single_chat_web";
 import ChatBubbleSectionWeb from "../components/chat_screen_components/chat_bubble_section_web";
 import { useSubscription, useQuery, useMutation } from "@apollo/react-hooks";
-import { useLazyQuery } from "../custom_hooks/useLazyQuery"
 import { NEW_MESSAGE } from "../graphql/subscriptions";
 import LoadingScreen from "./loading_screen";
 import { ME, GET_SINGLE_CHAT } from "../graphql/queries";
@@ -18,9 +17,7 @@ export default function ChatsScreen() {
     const [createMessage, createMessageObject] = useMutation(CREATE_MESSAGE);
     const [currentChat, setCurrentChat] = useState();
     const [chatsWithNewMessages, setChatsWithNewMessages] = useState([]);
-    const [chatQueried, setChatQueried] = useState(null);
     const [currentChatLoading, setCurrentChatLoading] = useState(false);
-    const [chatToSwitchTo, setChatToSwitchTo] = useState();
 
     const sendMessage = async (text) => {
         const messageCreated = await createMessage({
@@ -53,18 +50,6 @@ export default function ChatsScreen() {
         fetchPolicy: "network-only"
     });
 
-    // const [getChat, { loading, data }] = useLazyQuery(GET_SINGLE_CHAT, {
-    //     onCompleted: () => {
-    //         console.log(data)
-    //             setChatQueried(data.chats[0])
-    //             setCurrentChat(chatQueried)
-    //             setCurrentChatLoading(false)
-    //             console.log(currentChatLoading)
-            
-    //     }
-    // }, {
-    //     chatId: chatToSwitchTo ? chatToSwitchTo._id : null
-    // });
 
 
 
@@ -75,25 +60,15 @@ export default function ChatsScreen() {
     }
 
     const switchCurrentChat = async (chat) => {
-        setChatToSwitchTo(chat);
+        setCurrentChatLoading(true)
+        let updatedUserRes = await meResponse.refetch(); // refetch chats for current user
+        setCurrentChatLoading(false)
+        let updatedUser = updatedUserRes.data.me
 
-        getChat({
-            variables: {
-                chatId: chat._id
-            }
-        })
+        // Get chat from updated user using Id
+        setCurrentChat(updatedUser.chats.filter(updatedChat => updatedChat._id == chat._id)[0])
 
-        // if(!data) {
-        //     setCurrentChatLoading(true)
-        // }
         
-        // if(data && data.chats){
-        //     setChatQueried(data.chats[0])
-        //     setCurrentChat(chatQueried)
-        //     setCurrentChatLoading(false)
-        //     console.log(currentChatLoading)
-        // }
-        //setCurrentChat(chat); // it switches fast then updates the messages after
     }
 
     return (<div id="chats_screen">

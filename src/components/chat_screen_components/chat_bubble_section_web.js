@@ -32,7 +32,7 @@ export default function ChatBubbleSectionWeb({ currentChat, me, sendMessage, cur
                 ?
                 <div>
                     <div id="bubble_section_heading">
-                        Elizabeth Williams
+                        {currentChat ? me._id != currentChat.userOne._id ? `${currentChat.userOne.firstName} ${currentChat.userOne.firstName}` : `${currentChat.userTwo.firstName} ${currentChat.userTwo.lastName}` : null}
                     </div>
                     <div id="bubbles" ref={scrollRef}>
 
@@ -79,7 +79,7 @@ export default function ChatBubbleSectionWeb({ currentChat, me, sendMessage, cur
                         </IconButton>
                     </div>
                 </div>
-                : <div ref={scrollRef}>            <Spinner animation="border" role="status">
+                : <div id="loading_section" ref={scrollRef}>            <Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
                 </Spinner></div>
 
