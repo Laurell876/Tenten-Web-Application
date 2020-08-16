@@ -79,7 +79,7 @@ export default function ChatsScreen() {
                 <Col lg={12} id="chat_screen_web">
                     <div>
                         <Row>
-                            <Col id="all_chats" >
+                            <Col xs={3} id="all_chats" >
                                 <div id="all_chats_heading">
                                     Chats
                                     <span id="number_of_chats">{me.chats.length}</span>
@@ -103,7 +103,7 @@ export default function ChatsScreen() {
                                 </div>
                             </Col>
 
-                            <Col id="bubble_section" >
+                            <Col xs={9} id="bubble_section" >
                                 <ChatBubbleSectionWeb
                                     me={me}
                                     currentChat={currentChat ? currentChat : null}
