@@ -1,7 +1,7 @@
 {
   "name": "tenten-web-rework",
   "version": "0.1.0",
-  "homepage":"https://tenten-react-site.herokuapp.com",
+  "homepage": "https://tenten-react-site.herokuapp.com",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.1.3",
