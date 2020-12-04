@@ -5,6 +5,6 @@
 
 
 
-export const URI = 'https://tenten-react-site.herokuapp.com';
+export const URI = 'https://tenten-react-site.herokuapp.com/';
 
 export const SUBURI ='wss://tenten-react-site.herokuapp.com/';
