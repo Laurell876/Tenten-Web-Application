@@ -80,7 +80,7 @@ function LoginScreen() {
           <TextField id="standard-basic" label="Email Address" onChange={(e) => {
             setEmailAddress(e.target.value);
           }} />
-          <TextField id="standard-basic" label="Password" onChange={(e) => {
+          <TextField id="standard-basic" type="password" label="Password" onChange={(e) => {
             setPassword(e.target.value);
           }} />
         </div>
